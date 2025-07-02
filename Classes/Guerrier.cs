@@ -24,7 +24,7 @@ namespace DuelDeGuerrier.Classes
 
         //Methode 
 
-        public string GetNom(int pointsDeVie)
+        public string GetNom()
         {
             return _nom;
         }
@@ -42,6 +42,21 @@ namespace DuelDeGuerrier.Classes
             return _nbDesAttaque;
         }
 
+        public void AfficherInfos()
+        {
+            Console.WriteLine(_nom + "{PV=" + _pointsDeVie + "}");
+        }
+
+        public int Attaquer()
+        {
+            Random random = new Random();
+            return random.Next(1, 6);
+        }
+
+        public void SubirDegats(int degats)
+        {
+            _pointsDeVie -= degats;
+        }
     }
 }
 
