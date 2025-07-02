@@ -6,11 +6,20 @@ namespace DuelDeGuerrier
     {
         static void Main(string[] args)
         {
-            Guerrier fourmi = new Guerrier("titi", 150, 10);
-            fourmi.AfficherInfos();
-            fourmi.SubirDegats(fourmi.Attaquer());
-            fourmi.AfficherInfos();
+            Guerrier lancelot = new Guerrier("Lancelot", 35, 3);
+            Guerrier galahad = new Guerrier("Galahad", 30, 4);
 
+            lancelot.AfficherInfos();
+            galahad.AfficherInfos();
+
+            int degats = lancelot.Attaquer();
+            Console.WriteLine("Lancelot attaque Galahad avec des dégâts de " + degats);
+            galahad.SubirDegats(degats);
+            galahad.AfficherInfos();
+            degats = galahad.Attaquer();
+            Console.WriteLine("Galahad attaque Lancelot avec des dégâts de "+ degats);
+            lancelot.SubirDegats(degats);
+            lancelot.AfficherInfos();
         }
     }
 }
