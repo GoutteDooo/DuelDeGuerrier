@@ -20,11 +20,11 @@ namespace DuelDeGuerrier.Classes
          * Si le dés roule sur 1 ou 2, elle infligera 2
          * Si le dés roule sur 3 ou +, elle infligera le dégât indiqué sur le dés
          */
-        public static new int Attaquer()
+        public int Attaquer()
         {
             Random random = new Random();
             int rng = random.Next(1, 6);
-            if (rng <= 2)
+            if (rng <= 2) 
             {
                 return 2;
             }

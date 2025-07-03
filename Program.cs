@@ -6,20 +6,20 @@ namespace DuelDeGuerrier
     {
         static void Main(string[] args)
         {
-            FourmiNoire lancelot = new FourmiNoire("Lancelot", 35, 3, true);
-            FourmiRousse galahad = new FourmiRousse("Galahad", 30, 4, );
+            FourmiNoire bulbizarre = new FourmiNoire("bulbizarre", 35, 3, false);
+            FourmiRousse dracofeu = new FourmiRousse("dracofeu", 30, 4);
 
-            lancelot.AfficherInfos();
-            galahad.AfficherInfos();
+            bulbizarre.AfficherInfos();
+            dracofeu.AfficherInfos();
 
-            int degats = lancelot.Attaquer();
-            Console.WriteLine("Lancelot attaque Galahad avec des dégâts de " + degats);
-            galahad.SubirDegats(degats);
-            galahad.AfficherInfos();
-            degats = galahad.Attaquer();
-            Console.WriteLine("Galahad attaque Lancelot avec des dégâts de "+ degats);
-            lancelot.SubirDegats(degats);
-            lancelot.AfficherInfos();
+            int degats = bulbizarre.Attaquer();
+            Console.WriteLine("bulbizarre attaque dracofeu avec des dégâts de " + degats);
+            dracofeu.SubirDegats(degats);
+            dracofeu.AfficherInfos();
+            degats = dracofeu.Attaquer();
+            Console.WriteLine("dracofeu attaque bulbizarre avec des dégâts de "+ degats);
+            bulbizarre.SubirDegats(degats);
+            bulbizarre.AfficherInfos();
         }
     }
 }
