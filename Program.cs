@@ -17,9 +17,23 @@ namespace DuelDeGuerrier
             dracofeu.SubirDegats(degats);
             dracofeu.AfficherInfos();
             degats = dracofeu.Attaquer();
-            Console.WriteLine("dracofeu attaque bulbizarre avec des dégâts de "+ degats);
+            Console.WriteLine("dracofeu attaque bulbizarre avec des dégâts de " + degats);
             bulbizarre.SubirDegats(degats);
             bulbizarre.AfficherInfos();
+            AfficherMenuPrincipal();
         }
+
+        public static void AfficherMenuPrincipal()
+        {
+            Console.WriteLine("1.Menu principal");
+            Console.WriteLine("2.Créer un guerrier");
+            Console.WriteLine("3.Afficher un guerrier");
+            Console.WriteLine("Entrée invalide. Veuillez entrer un nombre");
+            Console.WriteLine("0. Quitter");
+            Console.WriteLine("Veuillez entrée un nombre");
+            string saisie = Console.ReadLine();
+
+        }
+        
     }
 }
