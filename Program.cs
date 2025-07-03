@@ -4,11 +4,11 @@ namespace DuelDeGuerrier
 {
     internal class Program
     {
+        static List<Guerrier> fourmisGuerrieres = new List<Guerrier>(); // Liste contenant les fourmis guerrières instanciées
         static void Main(string[] args)
         {
             AfficherMenuPrincipal();
         }
-
         public static void AfficherMenuPrincipal()
         {
             Console.WriteLine("--- Menu principal ---");
@@ -53,15 +53,17 @@ namespace DuelDeGuerrier
                 switch (saisie)
                 {
                     case "1": // Si utilisateur veut créer une fourmi noire
-                        FourmiNoire fourmiTest = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
+                        FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
                         Console.WriteLine("Une fourmi noire a été créée !");
-                        fourmiTest.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
+                        fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
+                        fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
                         break;
 
                     case "2": // Si utilisateur veut créer une fourmi rousse
                         FourmiRousse fourmiRousse = CreerFourmiRousse();
                         Console.WriteLine("Une fourmi rousse a été créée !");
                         fourmiRousse.AfficherInfos();
+                        fourmisGuerrieres.Add(fourmiRousse);
                         break;
 
                     case "0": // Si utilisateur veut quitter le sous-menu
@@ -92,6 +94,12 @@ namespace DuelDeGuerrier
             return new FourmiRousse("dracofeu", 50, 5);
         }
 
-
+        /**
+         * Affiche la liste des fourmis guerrières qui ont été instanciées par le joueur.
+         */
+        public static void AfficherListeGuerriers()
+        {
+            Console.WriteLine("Les fourmis guerrières sont : ???");
+        }
     }
 }
