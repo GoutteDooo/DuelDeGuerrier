@@ -9,18 +9,19 @@ namespace DuelDeGuerrier.Classes
 {
     internal class FourmiNoire : Guerrier
     {
-        //Attribut 
-
+        // Attributs
         private bool _armureLourde; //Détermine si le FourmiNoire porte une armure lourde 
+        // Propriétés
+        public bool ArmureLourde { get; set; }
+        // Constructeur
         public FourmiNoire(string nom, int pointsDeVie, int nbDesAttaque, bool armureLourde) : base(nom, pointsDeVie, nbDesAttaque){ 
             _armureLourde = armureLourde;
         }
         public void SubirDegats(int degats) {
-            if (_armureLourde == true)
+            if ( _armureLourde )
             {
-                degats=degats/2;
+                PointsDeVie -= degats / 2;
             }
-            _pointsDeVie -= degats;
         }
 
     }

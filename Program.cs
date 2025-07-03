@@ -6,8 +6,8 @@ namespace DuelDeGuerrier
     {
         static void Main(string[] args)
         {
-            Guerrier lancelot = new Guerrier("Lancelot", 35, 3);
-            Guerrier galahad = new Guerrier("Galahad", 30, 4);
+            FourmiNoire lancelot = new FourmiNoire("Lancelot", 35, 3, true);
+            FourmiRousse galahad = new FourmiRousse("Galahad", 30, 4, );
 
             lancelot.AfficherInfos();
             galahad.AfficherInfos();

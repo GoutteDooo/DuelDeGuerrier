@@ -7,22 +7,27 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    internal abstract class Guerrier
+    internal class Guerrier
     {
         //Attributs
-
         private string _nom; //Nom du guerrier
-        private int _pointsDeVie; //Pv
-        private int _nbDesAttaque; //Nombre de des attaques
+        private int _pointsDeVie; // Points de vie du guerrier
+        private int _nbDesAttaque; // Nombre de dés attaque du guerrier
 
+        // Propriétés
+        public string Nom { get { return _nom; } }
+        public int PointsDeVie { get; set; }
+        public int NbDesAttaques { get; set; }
+
+        // Constructeur
         public Guerrier(string nom, int pointsDeVie, int nbDesAttaque)
-        { //Constructeur
+        {
             _nom = nom;
             _pointsDeVie = pointsDeVie;
             _nbDesAttaque = nbDesAttaque;
         }
 
-        //Methode 
+        // Méthodes
 
         public string GetNom()
         {

@@ -8,5 +8,30 @@ namespace DuelDeGuerrier.Classes
 {
     internal class FourmiRousse : Guerrier
     {
+        // Attributs
+        // Propriétés
+        // Constructeur
+        public FourmiRousse(string nom, int pointsDeVie, int nbDesAttaque) : base(nom, pointsDeVie, nbDesAttaque)
+        { }
+
+        // Méthodes
+        /**
+         * Une Fourmi Rousse infligera toujours au minimum 2 points de dés
+         * Si le dés roule sur 1 ou 2, elle infligera 2
+         * Si le dés roule sur 3 ou +, elle infligera le dégât indiqué sur le dés
+         */
+        public static new int Attaquer()
+        {
+            Random random = new Random();
+            int rng = random.Next(1, 6);
+            if (rng <= 2)
+            {
+                return 2;
+            }
+            else
+            {
+                return rng;
+            }
+        }
     }
 }
