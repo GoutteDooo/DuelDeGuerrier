@@ -6,33 +6,40 @@ namespace DuelDeGuerrier
     {
         static void Main(string[] args)
         {
-            FourmiNoire bulbizarre = new FourmiNoire("bulbizarre", 35, 3, false);
-            FourmiRousse dracofeu = new FourmiRousse("dracofeu", 30, 4);
-
-            bulbizarre.AfficherInfos();
-            dracofeu.AfficherInfos();
-
-            int degats = bulbizarre.Attaquer();
-            Console.WriteLine("bulbizarre attaque dracofeu avec des dégâts de " + degats);
-            dracofeu.SubirDegats(degats);
-            dracofeu.AfficherInfos();
-            degats = dracofeu.Attaquer();
-            Console.WriteLine("dracofeu attaque bulbizarre avec des dégâts de " + degats);
-            bulbizarre.SubirDegats(degats);
-            bulbizarre.AfficherInfos();
             AfficherMenuPrincipal();
         }
 
         public static void AfficherMenuPrincipal()
         {
-            Console.WriteLine("1.Menu principal");
-            Console.WriteLine("2.Créer un guerrier");
-            Console.WriteLine("3.Afficher un guerrier");
-            Console.WriteLine("Entrée invalide. Veuillez entrer un nombre");
+            Console.WriteLine("--- Menu principal ---");
+            Console.WriteLine("1. Créer un guerrier");
+            Console.WriteLine("2. Afficher un guerrier\n");
             Console.WriteLine("0. Quitter");
             Console.WriteLine("Veuillez entrée un nombre");
             string saisie = Console.ReadLine();
 
+            if (saisie == "1") // Si le joueur veut créer un guerrier
+            {
+                AjouterGuerrier();
+            }
+        }
+
+        /**
+         * Permet de créer une fourmi guerrière (Guerrier) personnalisé
+         */
+        public static void AjouterGuerrier()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"---- Créer un Guerrier ----\n" +
+                    $"Quel type de fourmi souhaitez-vous créer ?\n" +
+                    $"1. Fourmi Noire (Défense élevée)\n" +
+                    $"2. Fourmi Rousse (Attaque élevée)\n\n" +
+                    $"0. Quitter le sous-menu");
+                Console.Write("> ");
+                string saisie = Console.ReadLine();
+            }
         }
         
     }
