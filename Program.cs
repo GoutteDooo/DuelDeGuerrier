@@ -12,8 +12,8 @@ namespace DuelDeGuerrier
         public static void AfficherMenuPrincipal()
         {
             Console.WriteLine("--- Menu principal ---");
-            Console.WriteLine("1. Créer un guerrier");
-            Console.WriteLine("2. Afficher un guerrier");
+            Console.WriteLine("1. Créer une fourmi guerrière");
+            Console.WriteLine("2. Afficher les fourmis guerrières");
             Console.WriteLine("3. Lancer un tournoi\n");
             Console.WriteLine("0. Quitter\n");
             Console.WriteLine("Veuillez entrer un nombre");
@@ -22,6 +22,11 @@ namespace DuelDeGuerrier
             if (saisie == "1") // Si le joueur veut créer un guerrier
             {
                 AjouterGuerrier();
+            }
+
+            if (saisie == "2") // Si l'utilisateur veut voir la liste des fourmis guerrières
+            {
+                AfficherFourmisGuerrieres();
             }
         }
 
@@ -97,9 +102,15 @@ namespace DuelDeGuerrier
         /**
          * Affiche la liste des fourmis guerrières qui ont été instanciées par le joueur.
          */
-        public static void AfficherListeGuerriers()
+        public static void AfficherFourmisGuerrieres()
         {
-            Console.WriteLine("Les fourmis guerrières sont : ???");
+            Console.WriteLine("Les fourmis guerrières sont :");
+            // Pour chaque fourmiGuerriere dans la liste fourmisGuerrieres
+            foreach(Guerrier fourmiGuerriere in fourmisGuerrieres)
+            {
+                // On affiche les infos de la fourmiGuerriere actuelle
+                fourmiGuerriere.AfficherInfos();
+            }
         }
     }
 }
