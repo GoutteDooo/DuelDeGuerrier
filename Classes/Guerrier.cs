@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    internal class Guerrier
+    internal abstract class Guerrier
     {
         //Attributs
 
