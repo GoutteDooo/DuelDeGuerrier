@@ -45,8 +45,18 @@ namespace DuelDeGuerrier
                     FourmiNoire fourmiTest = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
                     Console.WriteLine("Une fourmi a été créée !");
                     fourmiTest.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
+
+                }
+                if (saisie == "2")
+                {
+                    FourmiRousse fourmiRousse = CreerFourmiRousse();
+                    Console.WriteLine("Une fourmi rousse a été !");
+                    fourmiRousse.AfficherInfos();
                 }
                 break;
+            
+         
+                
             }
         }
         /**
@@ -56,5 +66,12 @@ namespace DuelDeGuerrier
         {
             return new FourmiNoire("pikachu",30,3,true);
         }
+
+        public static FourmiRousse CreerFourmiRousse()
+        {
+            return new FourmiRousse("dracofeu", 50, 5);
+        }
+
+
     }
 }
