@@ -63,7 +63,7 @@ namespace DuelDeGuerrier.Classes
          */
         public void AfficherInfos()
         {
-            Console.WriteLine(_nom + "{PV=" + _pointsDeVie + "}");
+            Console.WriteLine(_nom + " {PV=" + _pointsDeVie + "}");
         }
         /**
          * Renvoie un entier entre 1 et 6
