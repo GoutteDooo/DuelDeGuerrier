@@ -6,7 +6,7 @@ namespace DuelDeGuerrier
     internal class Program
     {
         static List<Guerrier> fourmisGuerrieres = new List<Guerrier>(); // Liste contenant les fourmis guerrières instanciées
-        static List<Tournoi> historique = new List<Tournoi>();
+        static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
         static void Main(string[] args)
         {
             AfficherMenuPrincipal();
@@ -142,6 +142,7 @@ namespace DuelDeGuerrier
                 // On affiche les infos de la fourmiGuerriere actuelle
                 fourmiGuerriere.AfficherInfos();
             }
+            EntreeUtilisateurMenuPrincipal();
         }
 
         /**
@@ -150,19 +151,37 @@ namespace DuelDeGuerrier
          */
         public static void LancerTournoi()
         {
-            int round = 1;
+            /* -- Déclarations des données du tournoi -- */
+            /* ----------------------------------------- */
+            int numeroDeTournoi = historique.Count + 1;
+            int nbParticipants = fourmisGuerrieres.Count;
+            string dateDuTournoi = "04/07/2025,14:53";
 
+
+            int round = 1; // Affichage sympa pour les rounds pendant le tournoi
             while (fourmisGuerrieres.Count > 1)
             {
                 Console.WriteLine($"--- ROUND n°{round} ---");
                 Combattre(); // Fait se combattre les deux premières fourmis de la liste
-                // S'il ne reste plus qu'une seule fourmi guerrière dans la liste
-                if (fourmisGuerrieres.Count == 1)
-                {
-                    Console.WriteLine($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!");
-                    break;
-                }
                 round++;
+            }
+            // S'il ne reste plus qu'une seule fourmi guerrière dans la liste
+            if (fourmisGuerrieres.Count == 1)
+            {
+                Console.WriteLine($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!");
+
+                /* Crée une nouvelle instance de Tournoi et l'insérer dans l'historique */
+                Guerrier vainqueur = fourmisGuerrieres[0];
+                historique.Insert(0,new Tournoi(numeroDeTournoi, vainqueur, nbParticipants, dateDuTournoi));
+                //TEST
+                Console.WriteLine("Un tournoi a été ajouté dans l'historique.");
+
+                //Entrée utilisateur pour revenir au menu principal
+                EntreeUtilisateurMenuPrincipal();
+            }
+            else
+            {
+                throw new Exception($"Erreur lors de la fin du tournoi. Il reste {fourmisGuerrieres.Count} dans la liste.");
             }
         }
 
@@ -283,6 +302,22 @@ namespace DuelDeGuerrier
                     $"\t\tParticipants : {tournoi.NombreParticipants}\n" +
                     $"\t\tDate de lancement : {tournoi.Date}\n");
             }
+
+            // Entrée utilisateur pour revenir au menu principal
+            EntreeUtilisateurMenuPrincipal();
         }
+
+        /* HELPERS */
+        /**
+         * Demande une entrée utilisateur pour revenir au menu principal
+         */
+        static void EntreeUtilisateurMenuPrincipal()
+        {
+            Console.WriteLine("Appuyez sur une touche pour revenir au menu principal");
+            ConsoleKeyInfo input = Console.ReadKey();
+            Console.Clear();
+            AfficherMenuPrincipal();
+        }
+
     }
 }
