@@ -28,6 +28,10 @@ namespace DuelDeGuerrier
             {
                 AfficherFourmisGuerrieres();
             }
+            if (saisie == "3") // Si le joueur veut lancer le tournoi
+            {
+                LancerTournoi();
+            }
         }
 
         /**
@@ -88,7 +92,7 @@ namespace DuelDeGuerrier
          */
         public static FourmiNoire CreerFourmiNoire()
         {
-            return new FourmiNoire("pikachu",30,3,true);
+            return new FourmiNoire("pikachu", 30, 3, true);
         }
 
         /**
@@ -106,11 +110,44 @@ namespace DuelDeGuerrier
         {
             Console.WriteLine("Les fourmis guerrières sont :");
             // Pour chaque fourmiGuerriere dans la liste fourmisGuerrieres
-            foreach(Guerrier fourmiGuerriere in fourmisGuerrieres)
+            foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
             {
                 // On affiche les infos de la fourmiGuerriere actuelle
                 fourmiGuerriere.AfficherInfos();
             }
         }
+        public static void LancerTournoi()
+        {
+            int round = 1;
+
+            while (round > 0)
+            {
+                Console.WriteLine("--- ROUND ---");
+                Combattre();
+                if (fourmisGuerrieres.Count == 1) ;
+
+                break;
+            }
+
+        }
+        public static void Combattre()
+        {
+            var fourmi1 = fourmisGuerrieres[0];
+            var fourmi2 = fourmisGuerrieres[1];
+
+            while (true)
+            {
+                Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
+                int degats = fourmi1.Attaquer();
+                fourmi2.SubirDegats(degats);
+                fourmi2.AfficherInfos();
+                Console.WriteLine("Le tournoi interrompu par le joueur.");
+
+                break;
+
+            }
+
+        }
+        
     }
 }
