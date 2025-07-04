@@ -27,7 +27,7 @@ namespace DuelDeGuerrier
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
             // Si le joueur saisie une autre option que celles disponibles
-            if (!LireChoixUtilisateur(0,5, saisie))
+            if (!LireChoixUtilisateur(0, 5, saisie))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Veuillez saisir une des options disponibles SVP.");
@@ -66,19 +66,9 @@ namespace DuelDeGuerrier
         {
             Console.Clear(); // Enlever tout le texte du menu principal
             bool estActif = true; // Tant qu'il est sur true, le sous-menu est actif
-            while (estActif == true)
+            while (estActif)
             {
-                Console.WriteLine(
-                    $"---- Créer un Guerrier ----\n" +
-                    $"\n" +
-                    $"\n" +
-                    $"Quel type de fourmi souhaitez-vous créer ?\n" +
-                    $"\n" +
-                    $"1. Fourmi Guerrière (Stats équilibrées)\n" +
-                    $"2. Fourmi Noire (Défense élevée)\n" +
-                    $"3. Fourmi Rousse (Attaque élevée)\n" +
-                    $"\n" +
-                    $"0. Quitter le sous-menu\n");
+                AfficherMenuAjouterGuerrier();
                 Console.Write("> ");
                 char saisie = Console.ReadKey().KeyChar;
 
@@ -88,23 +78,19 @@ namespace DuelDeGuerrier
                 switch (saisie)
                 {
                     case '1': // Si joueur veut créer une fourmi guerrière basique
-                        Guerrier fourmiGuerriere = CreerFourmiGuerriere();
-                        Console.WriteLine("Une fourmi guerrière a été créée!");
-                        fourmiGuerriere.AfficherInfos();
-                        fourmisGuerrieres.Add(fourmiGuerriere);
+                        InsererGuerriere("Guerrier");
                         break;
+
                     case '2': // Si utilisateur veut créer une fourmi noire
-                        FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
-                        Console.WriteLine("Une fourmi noire a été créée !");
-                        fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
-                        fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
+                        InsererGuerriere("FourmiNoire");
                         break;
 
                     case '3': // Si utilisateur veut créer une fourmi rousse
-                        FourmiRousse fourmiRousse = CreerFourmiRousse();
-                        Console.WriteLine("Une fourmi rousse a été créée !");
-                        fourmiRousse.AfficherInfos();
-                        fourmisGuerrieres.Add(fourmiRousse);
+                        InsererGuerriere("FourmiRousse");
+                        break;
+
+                    case '4': // Si utilisateur veut créer une fourmi balle de fusil
+                        InsererGuerriere("BalleDeFusil");
                         break;
 
                     case '0': // Si utilisateur veut quitter le sous-menu
@@ -116,8 +102,73 @@ namespace DuelDeGuerrier
                 }
                 Console.ResetColor();
             }
-            // Retourner au menu principal
+            // Retourner au menu principal lorsque joueur a appuyé sur '0'
             AfficherMenuPrincipal();
+        }
+
+        /**
+         * Affiche le sous-menu pour ajouter un guerrier à la liste fourmisGuerrieres
+         */
+        public static void AfficherMenuAjouterGuerrier()
+        {
+            Console.WriteLine(
+                $"---- Créer un Guerrier ----\n" +
+                $"\n" +
+                $"\n" +
+                $"Quel type de fourmi souhaitez-vous créer ?\n" +
+                $"\n" +
+                $"1. Fourmi Guerrière (Stats équilibrées)\n" +
+                $"2. Fourmi Noire (Défense élevée)\n" +
+                $"3. Fourmi Rousse (Attaque élevée)\n" +
+                $"4. Fourmi Balle De Fusil (Peut one shot mais PV faible)\n" +
+                $"\n" +
+                $"0. Quitter le sous-menu\n");
+        }
+
+        /**
+         * Crée une nouvelle instance de la classe passée en paramètre (si elle existe)
+         * Ensuite, insère celle-ci dans la liste fourmisGuerrieres
+         */
+        public static void InsererGuerriere(string classe)
+        {
+            // TODO: Générer un nom aléatoire dans le futur
+            /* -- Statistiques de la future instance -- */
+            /* ---------------------------------------- */
+            Console.Write("Quel nom souhaitez-vous lui donner ? (non vide, alphanumérique) ");
+            string nom = LireNomValide();
+            Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 10 et 100) ");
+            int pvs = Convert.ToInt32(Console.ReadLine());
+            Console.Write("\nCombien de dés d'attaque souhaitez-vous lui donner ? (entre 1 et 10) ");
+            int desAttaque = Convert.ToInt32(Console.ReadLine());
+
+            if (classe.Equals("Guerrier"))
+            {
+                Guerrier fourmiGuerriere = CreerFourmiGuerriere();
+                Console.WriteLine("Une fourmi guerrière a été créée!");
+                fourmiGuerriere.AfficherInfos();
+                fourmisGuerrieres.Add(fourmiGuerriere);
+            }
+            else if (classe.Equals("FourmiNoire"))
+            {
+                FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
+                Console.WriteLine("Une fourmi noire a été créée !");
+                fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
+                fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
+            }
+            else if (classe.Equals("FourmiRousse"))
+            {
+                FourmiRousse fourmiRousse = CreerFourmiRousse();
+                Console.WriteLine("Une fourmi rousse a été créée !");
+                fourmiRousse.AfficherInfos();
+                fourmisGuerrieres.Add(fourmiRousse);
+            }
+            else if (classe.Equals("BalleDeFusil"))
+            {
+                BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil();
+                Console.WriteLine("Une fourmi Balle De Fusil a été créée!");
+                balleDeFusil.AfficherInfos();
+                fourmisGuerrieres.Add(balleDeFusil);
+            }
         }
 
         /**
@@ -134,6 +185,19 @@ namespace DuelDeGuerrier
         public static FourmiRousse CreerFourmiRousse()
         {
             return new FourmiRousse("dracofeu", 50, 5);
+        }
+
+        /**
+         * Retourne une instance Guerrier avec stats aléatoires
+        */
+        public static Guerrier CreerFourmiGuerriere()
+        {
+            return new Guerrier("Dagda", 30, 10);
+        }
+
+        public static BalleDeFusil CreerFourmiBalleDeFusil()
+        {
+            return new BalleDeFusil("BimBim", 15, 6);
         }
 
         /**
@@ -178,7 +242,7 @@ namespace DuelDeGuerrier
 
                 /* Crée une nouvelle instance de Tournoi et l'insérer dans l'historique */
                 Guerrier vainqueur = fourmisGuerrieres[0];
-                historique.Insert(0,new Tournoi(numeroDeTournoi, vainqueur, nbParticipants, dateDuTournoi));
+                historique.Insert(0, new Tournoi(numeroDeTournoi, vainqueur, nbParticipants, dateDuTournoi));
                 //TEST
                 Console.WriteLine("Un tournoi a été ajouté dans l'historique.");
 
@@ -300,9 +364,9 @@ namespace DuelDeGuerrier
         {
             Console.WriteLine("\t\t--- HISTORIQUE DES TOURNOIS ---\n" +
                 "\n");
-            foreach(Tournoi tournoi in historique)
+            foreach (Tournoi tournoi in historique)
             {
-                Console.WriteLine("\n" + 
+                Console.WriteLine("\n" +
                     $"\tTournoi n°{tournoi.Numero} :\n" +
                     $"\t\tVainqueur : {tournoi.Vainqueur.GetNom()} - {tournoi.Vainqueur.GetType()}\n" +
                     $"\t\tParticipants : {tournoi.NombreParticipants}\n" +
@@ -313,7 +377,14 @@ namespace DuelDeGuerrier
             EntreeUtilisateurMenuPrincipal();
         }
 
-        /* HELPERS */
+        /* -- Lecture des Entrées -- */
+        /* ------------------------- */
+
+
+
+
+        /* -- HELPERS -- */
+        /* ------------- */
         /**
          * Demande une entrée utilisateur pour revenir au menu principal
          */
@@ -326,7 +397,7 @@ namespace DuelDeGuerrier
         }
 
         //Methode 
-        
+
         /**
          * Vérifie que l'entrée utilisateur soit un entier compris entre min et max
          * retourne :
@@ -340,7 +411,7 @@ namespace DuelDeGuerrier
             {
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }

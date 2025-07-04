@@ -1,0 +1,1 @@
+- Ajouter un générateur de nom aléatoire pour les guerrières
