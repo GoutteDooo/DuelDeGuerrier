@@ -1,10 +1,12 @@
 ﻿using DuelDeGuerrier.Classes;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DuelDeGuerrier
 {
     internal class Program
     {
         static List<Guerrier> fourmisGuerrieres = new List<Guerrier>(); // Liste contenant les fourmis guerrières instanciées
+        static List<Tournoi> historique = new List<Tournoi>();
         static void Main(string[] args)
         {
             AfficherMenuPrincipal();
@@ -53,7 +55,7 @@ namespace DuelDeGuerrier
 
             if (saisie.KeyChar == '5') // Si le joueur affiche l'historique
             {
-                //AfficherHistorique();
+                AfficherHistorique();
             }
 
         }
@@ -253,5 +255,19 @@ namespace DuelDeGuerrier
             Console.Clear();
             AfficherMenuPrincipal();
         }
+
+        public static void AfficherHistorique()
+        {
+            Console.WriteLine("Afficher l'historique:");
+
+            //Liste globale 
+
+         
+
+
+           
+        
+        }
+    
     }
 }
