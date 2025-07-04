@@ -16,19 +16,31 @@ namespace DuelDeGuerrier
             Console.WriteLine("2. Afficher les fourmis guerrières");
             Console.WriteLine("3. Lancer un tournoi\n");
             Console.WriteLine("0. Quitter\n");
-            Console.WriteLine("Veuillez entrer un nombre");
-            string saisie = Console.ReadLine();
+            Console.Write("Veuillez entrer un nombre: ");
 
-            if (saisie == "1") // Si le joueur veut créer un guerrier
+            ConsoleKeyInfo saisie = Console.ReadKey();
+
+            // Une fois que l'utilisateur a fait une saisie, on nettoie la console
+            Console.Clear();
+            string options = "1230";
+            // Si le joueur saisie une autre option que celles disponibles
+            if (!options.Contains(saisie.KeyChar))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Veuillez saisir une des options disponibles SVP.");
+                Console.ResetColor();
+                AfficherMenuPrincipal();
+            }
+            if (saisie.KeyChar == '1') // Si le joueur veut créer un guerrier
             {
                 AjouterGuerrier();
             }
 
-            if (saisie == "2") // Si l'utilisateur veut voir la liste des fourmis guerrières
+            if (saisie.KeyChar == '2') // Si l'utilisateur veut voir la liste des fourmis guerrières
             {
                 AfficherFourmisGuerrieres();
             }
-            if (saisie == "3") // Si le joueur veut lancer le tournoi
+            if (saisie.KeyChar == '3') // Si le joueur veut lancer le tournoi
             {
                 LancerTournoi();
             }
@@ -54,28 +66,28 @@ namespace DuelDeGuerrier
                     $"\n" +
                     $"0. Quitter le sous-menu\n");
                 Console.Write("> ");
-                string saisie = Console.ReadLine();
+                char saisie = Console.ReadKey().KeyChar;
 
                 Console.Clear(); // Afficher le texte en lien avec la saisie et réafficher le sous-menu
                 Console.ForegroundColor = ConsoleColor.Green;
 
                 switch (saisie)
                 {
-                    case "1": // Si utilisateur veut créer une fourmi noire
+                    case '1': // Si utilisateur veut créer une fourmi noire
                         FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
                         Console.WriteLine("Une fourmi noire a été créée !");
                         fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
                         fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
                         break;
 
-                    case "2": // Si utilisateur veut créer une fourmi rousse
+                    case '2': // Si utilisateur veut créer une fourmi rousse
                         FourmiRousse fourmiRousse = CreerFourmiRousse();
                         Console.WriteLine("Une fourmi rousse a été créée !");
                         fourmiRousse.AfficherInfos();
                         fourmisGuerrieres.Add(fourmiRousse);
                         break;
 
-                    case "0": // Si utilisateur veut quitter le sous-menu
+                    case '0': // Si utilisateur veut quitter le sous-menu
                         estActif = false;
                         break;
 
@@ -87,6 +99,7 @@ namespace DuelDeGuerrier
             // Retourner au menu principal
             AfficherMenuPrincipal();
         }
+
         /**
          * Retourne une instance de FourmiNoire
          */
@@ -116,20 +129,34 @@ namespace DuelDeGuerrier
                 fourmiGuerriere.AfficherInfos();
             }
         }
+
+        /**
+         * Fait se combattre toutes les fourmis de la liste fourmisGuerrieres jusqu'à ce qu'il n'en reste plus qu'une victorieuse
+         * Lorsqu'il n'en reste plus qu'une, affiche la fourmi victorieuse
+         */
         public static void LancerTournoi()
         {
             int round = 1;
 
-            while (round > 0)
+            while (fourmisGuerrieres.Count > 1)
             {
-                Console.WriteLine("--- ROUND ---");
-                Combattre();
-                if (fourmisGuerrieres.Count == 1) ;
-
-                break;
+                Console.WriteLine($"--- ROUND n°{round} ---");
+                Combattre(); // Fait se combattre les deux premières fourmis de la liste
+                // S'il ne reste plus qu'une seule fourmi guerrière dans la liste
+                if (fourmisGuerrieres.Count == 1)
+                {
+                    Console.WriteLine($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!");
+                    break;
+                }
+                round++;
             }
-
         }
+
+        /**
+         * Fait se combattre les deux premières fourmis de la liste fourmisGuerrieres
+         * Jusqu'à ce qu'une des deux gagne.
+         * Lorsqu'une fourmi remporte son duel, elle récupère tout ses PVs par défaut
+         */
         public static void Combattre()
         {
             var fourmi1 = fourmisGuerrieres[0];
@@ -139,15 +166,25 @@ namespace DuelDeGuerrier
             {
                 Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
                 int degats = fourmi1.Attaquer();
+                Console.WriteLine($"{fourmi1.GetNom()} attaque {fourmi2.GetNom()} avec des dégâts de {degats}");
                 fourmi2.SubirDegats(degats);
                 fourmi2.AfficherInfos();
-                Console.WriteLine("Le tournoi interrompu par le joueur.");
 
-                break;
+                if (fourmi2.GetPointsDeVie() <= 0)
+                {
+                    fourmi2.SetPointsDeVie(0);
+                    Console.WriteLine($"fourmi2 PV <= 0: {fourmi2.GetPointsDeVie()}");
+                    fourmisGuerrieres.Remove(fourmi2);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"fourmi2 PV > 0: {fourmi2.GetPointsDeVie()}");
+                }
 
+
+                //Console.WriteLine("Le tournoi interrompu par le joueur.");
             }
-
         }
-        
     }
 }
