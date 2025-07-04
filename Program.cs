@@ -26,9 +26,8 @@ namespace DuelDeGuerrier
 
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
-            string options = "123450";
             // Si le joueur saisie une autre option que celles disponibles
-            if (!options.Contains(saisie.KeyChar))
+            if (!LireChoixUtilisateur(0,5, saisie))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Veuillez saisir une des options disponibles SVP.");
@@ -75,8 +74,9 @@ namespace DuelDeGuerrier
                     $"\n" +
                     $"Quel type de fourmi souhaitez-vous créer ?\n" +
                     $"\n" +
-                    $"1. Fourmi Noire (Défense élevée)\n" +
-                    $"2. Fourmi Rousse (Attaque élevée)\n" +
+                    $"1. Fourmi Guerrière (Stats équilibrées)\n" +
+                    $"2. Fourmi Noire (Défense élevée)\n" +
+                    $"3. Fourmi Rousse (Attaque élevée)\n" +
                     $"\n" +
                     $"0. Quitter le sous-menu\n");
                 Console.Write("> ");
@@ -87,14 +87,20 @@ namespace DuelDeGuerrier
 
                 switch (saisie)
                 {
-                    case '1': // Si utilisateur veut créer une fourmi noire
+                    case '1': // Si joueur veut créer une fourmi guerrière basique
+                        Guerrier fourmiGuerriere = CreerFourmiGuerriere();
+                        Console.WriteLine("Une fourmi guerrière a été créée!");
+                        fourmiGuerriere.AfficherInfos();
+                        fourmisGuerrieres.Add(fourmiGuerriere);
+                        break;
+                    case '2': // Si utilisateur veut créer une fourmi noire
                         FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
                         Console.WriteLine("Une fourmi noire a été créée !");
                         fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
                         fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
                         break;
 
-                    case '2': // Si utilisateur veut créer une fourmi rousse
+                    case '3': // Si utilisateur veut créer une fourmi rousse
                         FourmiRousse fourmiRousse = CreerFourmiRousse();
                         Console.WriteLine("Une fourmi rousse a été créée !");
                         fourmiRousse.AfficherInfos();
@@ -321,21 +327,23 @@ namespace DuelDeGuerrier
 
         //Methode 
         
-        static bool LireChoixUtilisateur(int min, int max)
+        /**
+         * Vérifie que l'entrée utilisateur soit un entier compris entre min et max
+         * retourne :
+         *      True le cas échéant
+         *      False sinon
+        */
+        static bool LireChoixUtilisateur(int min, int max, ConsoleKeyInfo saisie)
         {
-            ConsoleKeyInfo input = Console.ReadKey();
-            if (Convert.ToInt32(input) >= min && Convert.ToInt32(input) <= max)
+            int saisieInt = Convert.ToInt32(saisie.KeyChar) - 48; // Converti la saisie utilisateur en int
+            if (saisieInt >= min && saisieInt <= max)
             {
                 return true;
             }
             else 
             {
                 return false;
-
             }
         }
-
-
-
     }
 }
