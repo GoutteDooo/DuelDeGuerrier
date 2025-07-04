@@ -13,8 +13,10 @@ namespace DuelDeGuerrier
         {
             Console.WriteLine("--- Menu principal ---");
             Console.WriteLine("1. Créer une fourmi guerrière");
-            Console.WriteLine("2. Afficher les fourmis guerrières");
-            Console.WriteLine("3. Lancer un tournoi\n");
+            Console.WriteLine("2. Supprimer une fourmi guerrière");
+            Console.WriteLine("3. Afficher la liste des fourmis guerrières");
+            Console.WriteLine("4. Lancer un tournoi");
+            Console.WriteLine("5. Afficher l'historique");
             Console.WriteLine("0. Quitter\n");
             Console.Write("Veuillez entrer un nombre: ");
 
@@ -22,7 +24,7 @@ namespace DuelDeGuerrier
 
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
-            string options = "1230";
+            string options = "123450";
             // Si le joueur saisie une autre option que celles disponibles
             if (!options.Contains(saisie.KeyChar))
             {
@@ -35,15 +37,26 @@ namespace DuelDeGuerrier
             {
                 AjouterGuerrier();
             }
+            if (saisie.KeyChar == '2') // Si le joueur veut supprimer une guerrière
+            {
+                SupprimerGuerrier();
+            }
 
-            if (saisie.KeyChar == '2') // Si l'utilisateur veut voir la liste des fourmis guerrières
+            if (saisie.KeyChar == '3') // Si l'utilisateur veut voir la liste des fourmis guerrières
             {
                 AfficherFourmisGuerrieres();
             }
-            if (saisie.KeyChar == '3') // Si le joueur veut lancer le tournoi
+            if (saisie.KeyChar == '4') // Si le joueur veut lancer le tournoi
             {
                 LancerTournoi();
             }
+
+            if (saisie.KeyChar == '5') // Si le joueur affiche l'historique
+            {
+                AfficherHistorique();
+
+            }
+
         }
 
         /**
@@ -186,5 +199,28 @@ namespace DuelDeGuerrier
                 //Console.WriteLine("Le tournoi interrompu par le joueur.");
             }
         }
+
+        public static void SuppprimerGuerrier()
+        {
+            Console.WriteLine("Entrez le nom du guerrier a supprimer:");
+            string nom = Console.ReadLine();
+
+            //Si le nom entrée par le joueur existe dans la liste des fourmis 
+            //Alors, supprimer la fourmi dont le nom correspond 
+            //Sinon, redemandez joueur une entrée 
+
+
+
+            foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
+            {
+                if (nom == fourmiGuerriere.GetNom())
+                {
+                    fourmisGuerrieres.Remove(fourmiGuerriere);
+                    break;
+                }
+            }
+
+        }
+
     }
 }
