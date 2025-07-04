@@ -8,19 +8,13 @@ namespace DuelDeGuerrier.Classes
 {
     internal class Tournoi
     {
+        public int Numero { get; set; }// Numero du tournois
+        public Guerrier Vainqueur { get; set; } // Le vainqueur 
+        public int NombreParticipants { get; set; } // Le nombre de participant 
+        public int Date { get; set; } // La date
 
-        // Numero du tournois
-        // Le vainqueur 
-        // Le nombre de participant 
-        // La date
-
-        public int Numero { get; set; }
-        public Guerrier Vainqueur { get; set; }
-        public int NombreParticipants { get; set; }
-        public int Date { get; set; }
 
         //Constructeur 
-
         public Tournoi(int numero,  Guerrier vainqueur, int nombreParticipants, int date)
         {
             Numero = numero;

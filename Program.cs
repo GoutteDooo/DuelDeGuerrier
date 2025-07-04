@@ -256,18 +256,33 @@ namespace DuelDeGuerrier
             AfficherMenuPrincipal();
         }
 
+        /**
+         * Affiche l'historique des tournois de la liste historique
+         * Par exemple :
+         *          --- HISTORIQUE DES TOURNOIS ---
+         *          
+         *      Tournoi n°2 :
+         *          Vainqueur : Pikachu - Fourmi Noire
+         *          Participants : 12
+         *          Date de lancement : 04/07/2025 14:24
+         *
+         *      Tournoi n°1 :
+         *          Vainqueur : Dracofeu - Fourmi Rousse
+         *          Participants : 8
+         *          Date de lancement : 03/07/2025 17:12
+        */
         public static void AfficherHistorique()
         {
-            Console.WriteLine("Afficher l'historique:");
-
-            //Liste globale 
-
-         
-
-
-           
-        
+            Console.WriteLine("\t\t--- HISTORIQUE DES TOURNOIS ---\n" +
+                "\n");
+            foreach(Tournoi tournoi in historique)
+            {
+                Console.WriteLine("\n" + 
+                    $"\tTournoi n°{tournoi.Numero} :\n" +
+                    $"\t\tVainqueur : {tournoi.Vainqueur.GetNom()} - {tournoi.Vainqueur.GetType()}\n" +
+                    $"\t\tParticipants : {tournoi.NombreParticipants}\n" +
+                    $"\t\tDate de lancement : {tournoi.Date}\n");
+            }
         }
-    
     }
 }
