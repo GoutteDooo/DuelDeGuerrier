@@ -319,5 +319,23 @@ namespace DuelDeGuerrier
             AfficherMenuPrincipal();
         }
 
+        //Methode 
+        
+        static bool LireChoixUtilisateur(int min, int max)
+        {
+            ConsoleKeyInfo input = Console.ReadKey();
+            if (Convert.ToInt32(input) >= min && Convert.ToInt32(input) <= max)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+
+            }
+        }
+
+
+
     }
 }
