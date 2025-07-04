@@ -137,34 +137,38 @@ namespace DuelDeGuerrier
             Console.Write("Quel nom souhaitez-vous lui donner ? (non vide, alphanumérique) ");
             string nom = LireNomValide();
             Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 10 et 100) ");
-            int pvs = Convert.ToInt32(Console.ReadLine());
+            int pvs = LireEntierValide(10,100);
             Console.Write("\nCombien de dés d'attaque souhaitez-vous lui donner ? (entre 1 et 10) ");
-            int desAttaque = Convert.ToInt32(Console.ReadLine());
+            int desAttaque = LireEntierValide(1, 10);
 
             if (classe.Equals("Guerrier"))
             {
-                Guerrier fourmiGuerriere = CreerFourmiGuerriere();
+                Guerrier fourmiGuerriere = CreerFourmiGuerriere(nom, pvs, desAttaque);
                 Console.WriteLine("Une fourmi guerrière a été créée!");
                 fourmiGuerriere.AfficherInfos();
                 fourmisGuerrieres.Add(fourmiGuerriere);
             }
             else if (classe.Equals("FourmiNoire"))
             {
-                FourmiNoire fourmiNoire = CreerFourmiNoire(); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
+                Console.WriteLine("Portera-t-elle une armure lourde ? (O/n)");
+                bool armureLourde = LireBoolValide();
+                FourmiNoire fourmiNoire = CreerFourmiNoire(nom, pvs, desAttaque, armureLourde); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
                 Console.WriteLine("Une fourmi noire a été créée !");
                 fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
                 fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
             }
             else if (classe.Equals("FourmiRousse"))
             {
-                FourmiRousse fourmiRousse = CreerFourmiRousse();
+                FourmiRousse fourmiRousse = CreerFourmiRousse(nom, pvs, desAttaque);
                 Console.WriteLine("Une fourmi rousse a été créée !");
                 fourmiRousse.AfficherInfos();
                 fourmisGuerrieres.Add(fourmiRousse);
             }
             else if (classe.Equals("BalleDeFusil"))
             {
-                BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil();
+                Console.WriteLine("Combien de mana aura-t-elle ? ");
+                int mana = LireEntierValide(10, 100);
+                BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil(nom, pvs, desAttaque, mana);
                 Console.WriteLine("Une fourmi Balle De Fusil a été créée!");
                 balleDeFusil.AfficherInfos();
                 fourmisGuerrieres.Add(balleDeFusil);
@@ -174,30 +178,30 @@ namespace DuelDeGuerrier
         /**
          * Retourne une instance de FourmiNoire
          */
-        public static FourmiNoire CreerFourmiNoire()
+        public static FourmiNoire CreerFourmiNoire(string nom, int pvs, int desAttaque, bool armureLourde)
         {
-            return new FourmiNoire("pikachu", 30, 3, true);
+            return new FourmiNoire(nom, pvs, desAttaque, armureLourde);
         }
 
         /**
          * Retourne une instance de FourmiRousse
          */
-        public static FourmiRousse CreerFourmiRousse()
+        public static FourmiRousse CreerFourmiRousse(string nom, int pvs, int desAttaque)
         {
-            return new FourmiRousse("dracofeu", 50, 5);
+            return new FourmiRousse(nom, pvs, desAttaque);
         }
 
         /**
          * Retourne une instance Guerrier avec stats aléatoires
         */
-        public static Guerrier CreerFourmiGuerriere()
+        public static Guerrier CreerFourmiGuerriere(string nom, int pvs, int desAttaque)
         {
-            return new Guerrier("Dagda", 30, 10);
+            return new Guerrier(nom, pvs, desAttaque);
         }
 
-        public static BalleDeFusil CreerFourmiBalleDeFusil()
+        public static BalleDeFusil CreerFourmiBalleDeFusil(string nom, int pvs, int desAttaque, int mana)
         {
-            return new BalleDeFusil("BimBim", 15, 6);
+            return new BalleDeFusil(nom, pvs, desAttaque, mana);
         }
 
         /**
@@ -225,7 +229,7 @@ namespace DuelDeGuerrier
             /* ----------------------------------------- */
             int numeroDeTournoi = historique.Count + 1;
             int nbParticipants = fourmisGuerrieres.Count;
-            string dateDuTournoi = "04/07/2025,14:53";
+            DateTime dateDuTournoi = DateTime.Now;
 
 
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
@@ -380,6 +384,57 @@ namespace DuelDeGuerrier
         /* -- Lecture des Entrées -- */
         /* ------------------------- */
 
+        /**
+         * Demande une entrée utilisateur pour un nom de fourmi
+         * Retourne :
+         *      Une string contenant un nom valide (non vide, alphanumérique)
+         */
+        public static string LireNomValide()
+        {
+            string input = Console.ReadLine();
+            // Contrôles de saisie
+            while ( input == null || input.Equals("") || !input.All(char.IsLetterOrDigit))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Erreur, veuillez recommencer SVP");
+                Console.ForegroundColor= ConsoleColor.Green;
+                input = Console.ReadLine();
+            }
+            return input;
+        }
+
+        /**
+         * Lit une entrée utilisateur et vérifie si elle est conforme (entre min et max)
+         * Retourne l'entier entré le cas échéant
+         * Sinon, une exception est levée
+         */
+        public static int LireEntierValide(int min, int max)
+        {
+            int input = Convert.ToInt32(Console.ReadLine());
+            while (input < min || input > max)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Erreur, veuillez entrer un nombre compris entre {min} et {max} svp.");
+                Console.ForegroundColor = ConsoleColor.Green;
+                input = Convert.ToInt32(Console.ReadLine());
+            }
+            return input;
+        }
+
+        /**
+         * Lit une entrée utilisateur entre "o" ou "n", et redemande si une autre entrée est donnée
+         * Retourne:
+         *      true si l'entrée est "o"
+         *      false si l'entrée est "n"
+         */
+        public static bool LireBoolValide()
+        {
+            ConsoleKeyInfo input = Console.ReadKey();
+            if (char.ToLower(input.KeyChar) == 'o' || input.Key == ConsoleKey.Enter)
+                return true;
+            else
+                return false;
+        }
 
 
 

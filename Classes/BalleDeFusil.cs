@@ -11,9 +11,10 @@ namespace DuelDeGuerrier.Classes
      */
     internal class BalleDeFusil : Guerrier
     {
-        public BalleDeFusil(string nom, int pointsDeVie, int nbDesAttaque) : base(nom, pointsDeVie, nbDesAttaque)
+        public int Mana {  get; set; }
+        public BalleDeFusil(string nom, int pointsDeVie, int nbDesAttaque, int mana) : base(nom, pointsDeVie, nbDesAttaque)
         {
-
+            Mana = mana;
         }
     }
 }
