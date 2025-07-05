@@ -12,12 +12,13 @@ namespace DuelDeGuerrier.Classes
         {
             while (true)
             {
-                Texte.WriteLineCentree("Bienvenue dans le Manuel Utilisateur!\n" +
+                Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
                     "Faites votre choix :\n" +
                     "\n" +
                     "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
-                    "\t2. Fonctionnement des menus et sous-menus\n" +
+                    "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
                     "\t3. Explication des types de fourmi\n" +
+                    "\t4. Explication du menu \"Supprimer une fourmi guerrière\"\n" +
                     "\n" +
                     "\t0. Revenir au Menu Principal\n" +
                     "\n" +
@@ -36,8 +37,8 @@ namespace DuelDeGuerrier.Classes
                         BrefTutoriel();
                         break;
                     case '2':
-                        Texte.WriteLineCentree("Comment fct les menus");
-                        //FonctionnementDesMenus();
+                        Console.WriteLine("Comment fct les menus");
+                        ExplicationsMenuCreerFourmiGuerriere();
                         break;
                     case '3':
                         Console.WriteLine("Types de fourmis");
@@ -53,7 +54,8 @@ namespace DuelDeGuerrier.Classes
         }
 
         /**
-         * Affiche l'ensemble du tutoriel de la liste présente au début de la méthode.
+         * Affiche l'ensemble du tutoriel de la liste présente dans la méthode du type de tutoriel passé en paramètre.
+         * (Exemple : si typeDeTutoriel == "bref", alors on exécutera avec la liste tutoriel de la méthode BrefTutoriel())
          * La liste est composée de tuples de 3 types nommés: ConsoleColor couleur, string texte et int etape :
          * 
          *      - (ConsoleColor) couleur permet l'affichage dans la console la couleur de la string
@@ -62,8 +64,49 @@ namespace DuelDeGuerrier.Classes
          * 
          * Le tutoriel affiche le texte en haut de la console, et les affichages dynamiques seront en-dessous.
          */
+        private static void AfficherTutoriel(List<(ConsoleColor, string, int)> tuto, string typeDeTutoriel)
+        {
+
+            foreach ((ConsoleColor, string, int) affichage in tuto)
+            {
+                Console.Clear();
+                Console.ForegroundColor = affichage.Item1;
+                Console.WriteLine(affichage.Item2);
+                Console.ResetColor();
+                switch (typeDeTutoriel)
+                {
+                    case "bref":
+                        AfficherEtapeBrefTutoriel(affichage.Item3);
+                        break;
+                    case "menuCreerFourmi":
+                        AfficherEtapeMenuCreerFourmi(affichage.Item3);
+                        break;
+                    default:
+                        break;
+                }
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\n\nAppuyez sur une touche pour continuer...");
+                Console.ReadKey();
+            }
+            Console.Clear();
+            Console.ResetColor();
+        }
+        /**
+         * Génère les données du tutoriel bref et lance l'affichage dynamique de ce dernier
+         */
         private static void BrefTutoriel()
         {
+            // Etapes
+            // 1 : Pas d'affichage
+            // 2 : Afficher le Menu Principal
+            // 3 : Afficher le Menu Principal et surligner en rouge l'option 1
+            // 4 : Afficher le Sous-Menu 1
+            // 5 : Afficher le Sous-Menu 1 et surligner l'option 2
+            // 6 : Afficher "nom fourmi"
+            // 7 : Afficher "pvs fourmi"
+            // 8 : Afficher le Menu Principal et surligner en rouge l'option 4
+            // 9 : Afficher "Battle !!!" pour mettre en suspens le joueur
             List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
             {
                 (ConsoleColor.Magenta,"Vous êtes une sorte d'organisateur de combat de fourmi.\n",1),
@@ -82,38 +125,17 @@ namespace DuelDeGuerrier.Classes
                 (ConsoleColor.Magenta,"D'ici là, nous vous laissons le plaisir de tester par vous-même le résultat... \n",9),
                 (ConsoleColor.Yellow,"Merci d'avoir essayé le tutoriel et bon jeu!\n",1),
             };
-            // Etapes
-            // 1 : Pas d'affichage
-            // 2 : Afficher le Menu Principal
-            // 3 : Afficher le Menu Principal et surligner en rouge l'option 1
-            // 4 : Afficher le Sous-Menu 1
-            // 5 : Afficher le Sous-Menu 1 et surligner l'option 2
-            // 6 : Afficher "nom fourmi"
-            // 7 : Afficher "pvs fourmi"
-            // 8 : Afficher le Menu Principal et surligner en rouge l'option 4
-            // 9 : Afficher "Battle !!!" pour mettre en suspens le joueur
-
-            foreach ((ConsoleColor, string, int) affichage in tuto)
-            {
-                Console.Clear();
-                Console.ForegroundColor = affichage.Item1;
-                Console.WriteLine(affichage.Item2);
-                Console.ResetColor();
-                AfficherEtape(affichage.Item3);
-                Console.ResetColor();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\n\nAppuyez sur une touche pour continuer...");
-                Console.ReadKey();
-            }
-            Console.Clear();
-            Console.ResetColor();
+            AfficherTutoriel(tuto, "bref");
         }
 
-        private static void AfficherEtape(int etape)
+        /**
+         * Affiche les étapes de la liste de BrefTutoriel()
+         */
+        private static void AfficherEtapeBrefTutoriel(int etape)
         {
             if (etape != 1)
             {
-                Console.ForegroundColor= ConsoleColor.DarkGray;
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine("\t----- TUTORIEL -----\n");
                 Console.ResetColor();
             }
@@ -180,6 +202,108 @@ namespace DuelDeGuerrier.Classes
                     break;
                 case 9:
                     Console.WriteLine("COMBATS !!!");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**
+         * Petit tutoriel dynamique comme le BrefTuto() mais explique en détail les menus
+         */
+        private static void ExplicationsMenuCreerFourmiGuerriere()
+        {
+            // Etapes
+            // 1: Afficher le menu principal et surligner l'option 1
+            // 2: Afficher le menu créer guerrier
+            // 3: Afficher le menu créer guerrier et surligner l'option 4
+            // 4: Afficher "quel nom souhaitez vous lui donner ?" Athena
+            // 5: Afficher "Combien de PVs souhaitez-vous lui distribuer ?" 50
+            // 6: Afficher "Combien de dés d'attaque souhaitez-vous lui donner ?" 5
+            // 7: Afficher "Combien de mana aura-t-elle ?" 70
+            // 8: Afficher "Une fourmi Balle De Fusil a été créée!\n Athena {PV=50} {Mana=70}" en vert
+            List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
+            {
+                (ConsoleColor.Magenta,"\"1. Créer une fourmi guerrière\"\n",1),
+                (ConsoleColor.Magenta,"Dans ce sous-menu, vous pouvez générer toutes les fourmis guerrières que vous souhaitez.\n",2),
+                (ConsoleColor.Blue,"Par exemple, générons une \"Fourmi Balle de Fusil\" (lanceuse de sorts).\n",3),
+                (ConsoleColor.Cyan,"Nous lui donnons le nom de \"Athéna\".\n",4),
+                (ConsoleColor.Blue,"Distribuons-lui un certain nombre de Points de Vie.\n",5),
+                (ConsoleColor.Yellow,"Le nombre de dés d'attaque permet de savoir combien d'attaque notre fourmi pourra distribuer.\n",6),
+                (ConsoleColor.Yellow,"Par exemple, 5 dés d'attaque permettent de distribuer des dégâts entre 5 et 30 (car 5 dés de six faces seront lancés).\n",6),
+                (ConsoleColor.Yellow,"Chaque nombre obtenu sur chaque dé représentant le nombre de dégâts que la fourmi inflige.\n",6),
+                (ConsoleColor.Yellow,"Si vous voulez des combats sanglants, alors un grand nombre de dés d'attaque peut être intéressant.\n",6),
+                (ConsoleColor.Yellow,"A contrario, si vous voulez des combats plus lents, un petit nombre de dés d'attaque est préférable.\n",6),
+                (ConsoleColor.Cyan,"Spécificité de la fourmi Balle de Fusil : Elle possède de la mana.\n",7),
+                (ConsoleColor.Cyan,"La mana étant l'énergie nécessaire à la fourmi pour pouvoir lancer des sorts.\n",7),
+                (ConsoleColor.Yellow,"Nous avons distribué toutes les données nécessaires à la formation de notre fourmi Balle de Fusil. Bravo !\n",7),
+            };
+            AfficherTutoriel(tuto, "menuCreerFourmi");
+        }
+
+
+        /**
+         * Affiche les étapes de la liste de ExplicationsMenuCreerFourmiGuerriere()
+         */
+        private static void AfficherEtapeMenuCreerFourmi(int etape)
+        {
+            if (etape != 1)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("\t----- TUTORIEL -----\n");
+                Console.ResetColor();
+            }
+            switch (etape)
+            {
+                case 1:
+                    Console.Write("--- Menu principal ---\n");
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.Write("1. Créer une fourmi guerrière\n");
+                    Console.ResetColor();
+                    Console.WriteLine("2. Supprimer une fourmi guerrière\n" +
+                        "3. Afficher la liste des fourmis guerrières\n" +
+                        "4. Lancer un tournoi\n" +
+                        "5. Afficher l'historique\n" +
+                        "\n" +
+                        "6. Consulter le Guide Utilisateur" +
+                        "0. Quitter\n\n");
+                    break;
+                case 2:
+                    Program.AfficherMenuAjouterGuerrier();
+                    break;
+                case 3:
+                    Console.Write(
+                        $"---- Créer une Guerrière ----\n" +
+                        $"\n" +
+                        $"\n" +
+                        $"Quel type de fourmi souhaitez-vous créer ?\n" +
+                        $"\n" +
+                        $"1. Fourmi Guerrière (Stats équilibrées)\n" +
+                        $"2. Fourmi Noire (Défense élevée)\n" +
+                        $"3. Fourmi Rousse (Attaque élevée)\n");
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.Write($"4. Fourmi Balle De Fusil (Peut one shot mais PV faible)\n");
+                    Console.ResetColor();
+                    Console.WriteLine(
+                        $"\n" +
+                        $"0. Quitter le sous-menu\n");
+                    break;
+                case 4:
+                    Console.WriteLine("\"quel nom souhaitez vous lui donner ?\" Athena");
+                    break;
+                case 5:
+                    Console.WriteLine("\"Combien de PVs souhaitez-vous lui distribuer ?\" 50");
+                    break;
+                case 6:
+                    Console.WriteLine("\"Combien de dés d'attaque souhaitez-vous lui donner ?\" 5");
+                    break;
+                case 7:
+                    Console.WriteLine("\"Combien de mana aura-t-elle\" 70");
+                    break;
+                case 8:
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine("Une fourmi Balle De Fusil a été créée!\r\nAthena {PV=50} {Mana=70}");
+                    Console.ResetColor();
                     break;
                 default:
                     break;
