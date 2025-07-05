@@ -7,21 +7,36 @@ namespace DuelDeGuerrier
     {
         static List<Guerrier> fourmisGuerrieres = new List<Guerrier>(); // Liste contenant les fourmis guerrières instanciées
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
+        static int nombreOptions = 6;
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
             GuideUtilisateur.AfficherGuide();
-            //AfficherMenuPrincipal();
+            //MenuPrincipal();
         }
+
+        /**
+         * Affiche dans la console le menu principal
+         */
         public static void AfficherMenuPrincipal()
         {
-            Console.WriteLine("--- Menu principal ---");
-            Console.WriteLine("1. Créer une fourmi guerrière");
-            Console.WriteLine("2. Supprimer une fourmi guerrière");
-            Console.WriteLine("3. Afficher la liste des fourmis guerrières");
-            Console.WriteLine("4. Lancer un tournoi");
-            Console.WriteLine("5. Afficher l'historique");
-            Console.WriteLine("0. Quitter\n");
+            Console.WriteLine("--- Menu principal ---\n" +
+                "1. Créer une fourmi guerrière\n" +
+                "2. Supprimer une fourmi guerrière\n" +
+                "3. Afficher la liste des fourmis guerrières\n" +
+                "4. Lancer un tournoi\n" +
+                "5. Afficher l'historique\n" +
+                "\n" +
+                "6. Consulter le Guide Utilisateur\n" +
+                "0. Quitter\n\n");
+        }
+
+        /**
+         * Affiche le menu principal et propose les interactions avec le joueur
+         */
+        public static void MenuPrincipal()
+        {
+            AfficherMenuPrincipal();
             Console.Write("Veuillez entrer un nombre: ");
 
             ConsoleKeyInfo saisie = Console.ReadKey();
@@ -29,10 +44,10 @@ namespace DuelDeGuerrier
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
             // Si le joueur saisie une autre option que celles disponibles
-            if (!LireChoixUtilisateur(0, 5, saisie))
+            if (!LireChoixUtilisateur(0, nombreOptions, saisie))
             {
                 AfficherErreur("Veuillez saisir une des options disponibles SVP.");
-                AfficherMenuPrincipal();
+                MenuPrincipal();
             }
             if (saisie.KeyChar == '1') // Si le joueur veut créer un guerrier
             {
@@ -53,6 +68,10 @@ namespace DuelDeGuerrier
             if (saisie.KeyChar == '5') // Si le joueur affiche l'historique
             {
                 AfficherHistorique();
+            }
+            if (saisie.KeyChar == '6') // Si le joueur affiche l'historique
+            {
+                GuideUtilisateur.AfficherGuide();
             }
             if (saisie.KeyChar == '0') // Si le joueur veut quitter le programme
             {
@@ -104,7 +123,7 @@ namespace DuelDeGuerrier
                 Console.ResetColor();
             }
             // Retourner au menu principal lorsque joueur a appuyé sur '0'
-            AfficherMenuPrincipal();
+            MenuPrincipal();
         }
 
         /**
@@ -482,7 +501,7 @@ namespace DuelDeGuerrier
             Console.WriteLine("Appuyez sur une touche pour revenir au menu principal");
             ConsoleKeyInfo input = Console.ReadKey();
             Console.Clear();
-            AfficherMenuPrincipal();
+            MenuPrincipal();
         }
 
 
