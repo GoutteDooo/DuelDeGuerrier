@@ -40,7 +40,6 @@ namespace DuelDeGuerrier
             {
                 SupprimerGuerrier();
             }
-
             if (saisie.KeyChar == '3') // Si l'utilisateur veut voir la liste des fourmis guerrières
             {
                 AfficherFourmisGuerrieres();
@@ -49,12 +48,14 @@ namespace DuelDeGuerrier
             {
                 LancerTournoi();
             }
-
             if (saisie.KeyChar == '5') // Si le joueur affiche l'historique
             {
                 AfficherHistorique();
             }
-
+            if (saisie.KeyChar == '0') // Si le joueur veut quitter le programme
+            {
+                QuitterProgramme();
+            }
         }
 
         /**
@@ -383,6 +384,16 @@ namespace DuelDeGuerrier
 
             // Entrée utilisateur pour revenir au menu principal
             RetourMenuPrincipal();
+        }
+
+        /**
+         * Affiche un message d'au revoir et quitte le programme avec un code 0
+         */
+        public static void QuitterProgramme()
+        {
+            Console.WriteLine("Merci d'avoir joué à L'Arène Des Fourmis !\n\n" +
+                "A bientôt!!");
+            Environment.Exit(0);
         }
 
         /* ------------------------- */
