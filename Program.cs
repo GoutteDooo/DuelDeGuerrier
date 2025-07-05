@@ -113,7 +113,7 @@ namespace DuelDeGuerrier
         public static void AfficherMenuAjouterGuerrier()
         {
             Console.WriteLine(
-                $"---- Créer un Guerrier ----\n" +
+                $"---- Créer une Guerrière ----\n" +
                 $"\n" +
                 $"\n" +
                 $"Quel type de fourmi souhaitez-vous créer ?\n" +
