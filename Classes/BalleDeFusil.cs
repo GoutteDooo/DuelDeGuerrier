@@ -105,5 +105,11 @@ namespace DuelDeGuerrier.Classes
             this._mana += resultatDes;
             Console.WriteLine($"Test: Mana après: {this.Mana}");
         }
+
+        public override void AfficherInfos()
+        {
+            //TEST
+            Console.WriteLine($"{this.GetNom()} {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
+        }
     }
 }

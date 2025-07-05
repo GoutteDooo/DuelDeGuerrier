@@ -60,7 +60,7 @@ namespace DuelDeGuerrier.Classes
          * Affiche le nom et les points de vie de l'instance dans le format suivant :
          *  [nom] {PV=xx}
          */
-        public void AfficherInfos()
+        public virtual void AfficherInfos()
         {
             Console.WriteLine(_nom + " {PV=" + _pointsDeVie + "}");
         }
