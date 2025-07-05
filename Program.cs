@@ -253,6 +253,7 @@ namespace DuelDeGuerrier
                 RetourMenuPrincipal();
                 return;
             }
+
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
             while (fourmisGuerrieres.Count > 1)
             {
@@ -291,23 +292,32 @@ namespace DuelDeGuerrier
             var fourmi2 = fourmisGuerrieres[1];
 
             Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
+            bool fourmi1Attaque = true; // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
             while (true)
             {
-                int degats = fourmi1.Attaquer();
-                Console.WriteLine(degats > 0 ? $"{fourmi1.GetNom()} attaque {fourmi2.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.");
-                fourmi2.SubirDegats(degats);
-                fourmi2.AfficherInfos();
-                fourmi1.AfficherInfos();
+                // Défini qui attaque et qui défend ce tour
+                var fourmiAttaquante = fourmi1Attaque ? fourmi1 : fourmi2;
+                var fourmiDefenseur = fourmi1Attaque ? fourmi2 : fourmi1;
 
-                if (fourmi2.GetPointsDeVie() <= 0)
+                int degats = fourmiAttaquante.Attaquer();
+                if (degats == 99999)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n" + (degats > 0 ? $"{fourmiAttaquante.GetNom()} attaque {fourmiDefenseur.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.") +
+                    "\n");
+                Console.ResetColor();
+
+                fourmiDefenseur.SubirDegats(degats);
+                
+                fourmiDefenseur.AfficherInfos();
+                fourmiAttaquante.AfficherInfos();
+
+                if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
-                    fourmi2.SetPointsDeVie(0);
-                    fourmisGuerrieres.Remove(fourmi2);
+                    fourmiDefenseur.SetPointsDeVie(0);
+                    fourmisGuerrieres.Remove(fourmiDefenseur);
                     break;
                 }
-
-
-                //Console.WriteLine("Le tournoi interrompu par le joueur.");
+                fourmi1Attaque = !fourmi1Attaque;
             }
         }
 

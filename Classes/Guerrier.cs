@@ -46,7 +46,7 @@ namespace DuelDeGuerrier.Classes
          */
         public void SetPointsDeVie(int pointsDeVie)
         {
-            _pointsDeVie = pointsDeVie;
+            _pointsDeVie = pointsDeVie > 0 ? pointsDeVie : 0;
         }
         /**
          * Récupère le nombre de dés d'attaque de l'instance
@@ -62,7 +62,10 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void AfficherInfos()
         {
+            if (_pointsDeVie == 0)
+                Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_nom + " {PV=" + (_pointsDeVie < 0 ? 0 : _pointsDeVie) + "}");
+            Console.ResetColor();
         }
         /**
          * Renvoie un entier entre 1 et 6
@@ -78,7 +81,7 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void SubirDegats(int degats)
         {
-            _pointsDeVie -= degats;
+            SetPointsDeVie(_pointsDeVie - degats);
         }
     }
 }

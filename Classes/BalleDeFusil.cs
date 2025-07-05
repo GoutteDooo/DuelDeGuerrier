@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,43 +36,45 @@ namespace DuelDeGuerrier.Classes
                 int indexSort = rng.Next(0, sorts.Count);
                 // Cas particulier : Si indexSort tombe sur le bouclier et qu'il est déjà actif, alors on relance le dés
                 while (BouclierActif && sorts[indexSort] == "Bouclier Magique")
-                {
-                    Console.WriteLine("--- TEST --- Bouclier déjà actif, on relance le dés");
                     indexSort = rng.Next(0, sorts.Count);
-                }
 
-                // On affiche le sort trouvé
-                Console.WriteLine($"{this.GetNom()} consomme 10 mana pour utiliser {sorts[indexSort]}!! (mana restants: {this.Mana})");
                 Mana -= 10;
+
                 /* SORTS */
                 Console.ForegroundColor = ConsoleColor.Yellow; // Les sorts seront affichés en Jaune
+                // On affiche le sort trouvé
+                Console.WriteLine($"{this.GetNom()} consomme 10 mana pour utiliser {sorts[indexSort]}!! (mana restants: {this.Mana})");
                 switch (indexSort)
                 {
                     case 0:
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("La Boule de Feu inflige 10 points de dégâts!!");
                         degats += 10;
                         break;
 
                     case 1:
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"{this.GetNom()} récupère 5 PV !");
-                        //TEST
-                        Console.WriteLine($"Test, PV avant : {this.GetPointsDeVie()}");
                         this.SetPointsDeVie(this.GetPointsDeVie() + 5);
-                        Console.WriteLine($"Test, PV après : {this.GetPointsDeVie()}");
                         break;
 
                     case 2:
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine($"Un bouclier Magique s'active, réduisant les dégâts subits de 50% contre la prochaine attaque.");
-                        //TEST
                         BouclierActif = true;
                         break;
 
                     case 3:
+                        int resultatAttendu = 10;
                         Console.WriteLine($"{this.GetNom()} tente une attaque {sorts[indexSort]} !\n" +
-                            $"Lancer de dés en cours... Si le résultat est 6, l'adversaire perd le round.");
-                        int resultat = rng.Next(1, 6+1);
-                        Console.WriteLine(resultat < 6 ? $"Le résultat est {resultat}, rien ne se passe et {this.GetNom()} a simplement perdu du mana." : $"6 ! BOOM ! {this.GetNom()} ouvre ses mandibules bien grandes et une sorte de balle part à tout vitesse en direction de son adversaire !!!");
-                        degats = resultat < 6 ? degats : 99999;
+                            $"Lancer de dés en cours... Si le résultat est {resultatAttendu}, l'adversaire perd le round.");
+                        int resultat = rng.Next(1, resultatAttendu + 1);
+                        if (resultat < resultatAttendu)
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        else
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine(resultat < resultatAttendu ? $"Le résultat est {resultat}, rien ne se passe et {this.GetNom()} a simplement perdu du mana." : $"\n\t{resultatAttendu}!!! BOOM ! {this.GetNom()} ouvre ses mandibules bien grandes et une sorte de balle part à tout vitesse en direction de son adversaire !!!\n");
+                        degats = resultat < resultatAttendu ? degats : 99999;
                         break;
 
                     default:
@@ -89,13 +92,14 @@ namespace DuelDeGuerrier.Classes
 
         public override void SubirDegats(int degats)
         {
-            base.SubirDegats(BouclierActif ? degats / 2 : degats);
             // On désactive le bouclierActif s'il l'était
             if (BouclierActif)
             {
-                Console.WriteLine($"Le bouclier de {this.GetNom()} était activé, les dégâts sont réduits par 2 !");
+                degats = degats / 2;
+                Console.WriteLine($"Le bouclier de {this.GetNom()} est activé, les dégâts sont réduits par 2, {this.GetNom()} subi donc {degats} dégâts !");
                 BouclierActif = false;
             }
+            base.SubirDegats(degats);
         }
 
         /**
@@ -106,16 +110,14 @@ namespace DuelDeGuerrier.Classes
         {
             Random rng = new Random();
             int resultatDes = rng.Next(3, 8+1);
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"{this.GetNom()} n'a pas assez de mana pour lancer un sort ! Elle utilise donc sa capacité de régénération et récupère {resultatDes} points de mana...");
-            //TEST
-            Console.WriteLine($"Test: Mana avant: {this.Mana}");
+            Console.ResetColor();
             Mana += resultatDes;
-            Console.WriteLine($"Test: Mana après: {this.Mana}");
         }
 
         public override void AfficherInfos()
         {
-            //TEST
             Console.WriteLine($"{this.GetNom()} {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
         }
     }
