@@ -244,6 +244,13 @@ namespace DuelDeGuerrier
             {
                 AfficherErreur("Aucune fourmi n'est présente dans l'arène !");
                 RetourMenuPrincipal();
+                return;
+            }
+            else if (fourmisGuerrieres.Count == 1) // Une seule participante
+            {
+                AfficherErreur("Il faut au moins deux participants pour lancer un tournoi !");
+                RetourMenuPrincipal();
+                return;
             }
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
             while (fourmisGuerrieres.Count > 1)
@@ -312,52 +319,35 @@ namespace DuelDeGuerrier
          */
         public static void SupprimerGuerrier()
         {
-            bool suppressionFaite = false; // Vérifie que la suppression a bien été faite
-
             // Tant que le joueur entre un nom inexistant dans la liste (que la suppression n'a pas été effectuée)
-            while (!suppressionFaite)
+            // Si plus aucune fourmi dans la liste
+            if (fourmisGuerrieres.Count == 0)
             {
-                Console.WriteLine($"Liste des fourmis guerrières: {String.Join(" ,", fourmisGuerrieres.Select(f => f.GetNom()))}");
-                // Entrée utilisateur
-                Console.WriteLine("Entrez le nom de la fourmi guerrière à supprimer ('exit' pour quitter):");
-                string? nom = Console.ReadLine();
-                if (nom == "exit")
-                    break;
-
-                // Pour chaque fourmi guerrière de la liste fourmisGuerrieres
-                foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
-                {
-                    //Si le nom entrée par le joueur est le même que celui de la fourmiGuerriere
-                    if (nom == fourmiGuerriere.GetNom())
-                    {
-                        //Alors, supprimer la fourmi dont le nom correspond
-                        Console.WriteLine($"La fourmi dont le nom est {fourmiGuerriere.GetNom()} a été supprimée de la liste.");
-                        fourmisGuerrieres.Remove(fourmiGuerriere);
-                        suppressionFaite = true;
-                        break;
-                    }
-                }
-                // Si le nom de la fourmi guerrière est inexistant dans la liste, renvoyer une erreur
-                Console.Clear();
-                // Si la suppression n'a pas été faite
-                if (!suppressionFaite)
-                {
-                    // On affiche une erreur
-                    AfficherErreur("Erreur! Le nom de la fourmi guerrière que vous avez entré est inexistant.");
-                }
-                else
-                {
-                    // On affiche la confirmation de suppression
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"La fourmi du nom de {nom} a bien été supprimée de la liste.");
-                    Console.ResetColor();
-                    // Et on remet suppression sur false si le joueur veut supprimer une autre fourmi guerrière
-                    suppressionFaite = false;
-                }
+                AfficherErreur("Plus aucune fourmi présente dans l'arène !");
+                RetourMenuPrincipal();
+                return;
             }
-            // Clear le sous-menu avant de reprendre le menu principal
-            Console.Clear();
-            AfficherMenuPrincipal();
+            while (true)
+            {
+                Console.WriteLine($"Liste des fourmis guerrières: {String.Join("", fourmisGuerrieres.Select((f, i) => $"\n{i + 1} - {f.GetNom()} ({f.GetType()})"))}");
+                // Entrée utilisateur
+                Console.WriteLine("Entrez le numéro de la fourmi guerrière à supprimer ('0' pour quitter):");
+
+                // Forcer le joueur à entrer un numéro valide
+                int indexMax = fourmisGuerrieres.Count;
+                int numero = LireEntierValide(0, indexMax);
+
+                if (numero > 0)
+                {
+                    // Supprimer la fourmi dont le numero correspond
+                    Console.WriteLine($"La fourmi dont le nom est {fourmisGuerrieres[numero - 1].GetNom()} a été supprimée de la liste.");
+                    fourmisGuerrieres.RemoveAt(numero - 1);
+                    Console.Clear();
+                }
+                else // numero == 0
+                    break;
+            }
+            RetourMenuPrincipal();
         }
 
         /**
@@ -437,7 +427,7 @@ namespace DuelDeGuerrier
             while (input < min || input > max)
             {
                 AfficherErreur($"Erreur, veuillez entrer un nombre compris entre {min} et {max} svp.");
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ResetColor();
                 input = Convert.ToInt32(Console.ReadLine());
             }
             return input;
