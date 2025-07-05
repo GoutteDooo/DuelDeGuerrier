@@ -41,7 +41,8 @@ namespace DuelDeGuerrier.Classes
                         ExplicationsMenuCreerFourmiGuerriere();
                         break;
                     case '3':
-                        Console.WriteLine("Types de fourmis");
+                        Console.WriteLine("\t------ Types de fourmis ------\n" +
+                            "\t" + new string('-', 30));
                         TypesDeFourmi();
                         break;
                     case '0':
@@ -329,7 +330,7 @@ namespace DuelDeGuerrier.Classes
                 Console.Clear();
                 if (i > 0 && input.Key.ToString() == "LeftArrow")
                 {
-                    i --;
+                    i--;
                     continue;
                 }
                 if (i < fourmis.Count - 1 && input.Key.ToString() == "RightArrow")
@@ -344,27 +345,46 @@ namespace DuelDeGuerrier.Classes
          */
         private static void AfficherFourmi(string typeDeFourmi)
         {
+            string fourmiASCII;
+            string texte;
             switch (typeDeFourmi)
             {
                 case "guerriere":
-                    string fourmi = "                                         \r\n                                         \r\n            =++=:         -=             \r\n                  #      *               \r\n    #               :   *                \r\n   . *              %   -                \r\n    = #          *.:----+%:              \r\n     = *       ::#=---*#+-*#             \r\n      * #      *@+*---%#@++#-            \r\n       # +    ::-*=---**=:+%.            \r\n        # =    #=-=*=---=*%-             \r\n         -::.    *%#**#%#. =*+           \r\n           + -    .*%%@##.  .*           \r\n            * #*  *****@%#=              \r\n            =%%%%%%**#*+  +=             \r\n               %% =*##%%#+.%-            \r\n                 =++++%%*#%%+            \r\n                 %@@@@@@@%: +**          \r\n                 #  -@@= -#              \r\n               .+:        +-             \r\n                ..........               \r\n                                         ";
-                    Console.WriteLine(fourmi);
-                    string texte = "Fourmi Guerrière";
-                    Console.WriteLine(new string('-', texte.Length) + "\n" +
-                        texte + "\n" +
-                        new string('-', texte.Length) + "\n");
-
-                    texte = "Capacités";
-                    Console.WriteLine(new string('-', texte.Length) + "\n" +
-                        texte + "\n" +
-                        new string('-', texte.Length) + "\n");
-                    Coloriser.ColorerTexte(ConsoleColor.Red, "- Attaque à chaque tour\n");
-                    Coloriser.ColorerTexte(ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)");
-
+                    fourmiASCII = "                                         \r\n                                         \r\n            =++=:         -=             \r\n                  #      *               \r\n    #               :   *                \r\n   . *              %   -                \r\n    = #          *.:----+%:              \r\n     = *       ::#=---*#+-*#             \r\n      * #      *@+*---%#@++#-            \r\n       # +    ::-*=---**=:+%.            \r\n        # =    #=-=*=---=*%-             \r\n         -::.    *%#**#%#. =*+           \r\n           + -    .*%%@##.  .*           \r\n            * #*  *****@%#=              \r\n            =%%%%%%**#*+  +=             \r\n               %% =*##%%#+.%-            \r\n                 =++++%%*#%%+            \r\n                 %@@@@@@@%: +**          \r\n                 #  -@@= -#              \r\n               .+:        +-             \r\n                ..........               \r\n                                         ";
+                    List<(ConsoleColor, string)> capacitesGuerriere = new List<(ConsoleColor, string)> { 
+                        (ConsoleColor.Red, "- Attaque à chaque tour\n"),
+                        (ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)")
+                    };
+                    GenererTableFourmi(fourmiASCII, "Fourmi Guerriere", capacitesGuerriere);
+                    break;
+                case "noire":
+                    fourmiASCII = "                       :+++=                  \r\n                       =  :=:=*:              \r\n                      -- -:                   \r\n                   -#*#**+                    \r\n                  =%##+-@*+                   \r\n         .-===-=**%%%##****:                  \r\n        +*-+******#%%%%###*-                  \r\n        =#*+++###*##%@@%%##:                  \r\n  .  .++*%#####%%%%%%@#  ..                   \r\n  :*%%%%%%%@%@@@@%%#*+=                       \r\n :*%%%####%%@@@@%=::-%@*#%@@%%%*+=-::.....    \r\n+##%@@@%#%%%@@@-     *%-*%%*.     .::----::::.\r\n+##%@@@%%%#=*%=       #%+                     \r\n     -%=     *%.                              \r\n    -%-       ##                              \r\n   :%-         %+                             \r\n  :%.          .%:                            \r\n .%.            .%                            \r\n *%#.            *%##.                        ";
+                    List<(ConsoleColor, string)> capacitesNoire = new List<(ConsoleColor, string)> {
+                        (ConsoleColor.Red, "- Attaque modérée à chaque tour\n"),
+                        (ConsoleColor.Cyan, "- Peut porter une armure lourde (réduction de 50% des dégâts)")
+                    };
+                    GenererTableFourmi(fourmiASCII, "Fourmi Noire", capacitesNoire);
                     break;
                 default:
                     break;
             }
+            Console.WriteLine();
+        }
+
+        private static void GenererTableFourmi(string ascii, string type, List<(ConsoleColor, string)> capacites)
+        {
+            Console.WriteLine(ascii);
+            Console.WriteLine(new string('-', type.Length) + "\n" +
+                type + "\n" +
+                new string('-', type.Length) + "\n");
+
+            type = "Capacités";
+            Console.WriteLine(new string('-', type.Length) + "\n" +
+                type + "\n" +
+                new string('-', type.Length) + "\n");
+            foreach((ConsoleColor, string) capacite in capacites)
+                Coloriser.ColorerTexte(capacite.Item1, capacite.Item2);
+
         }
     }
 }
