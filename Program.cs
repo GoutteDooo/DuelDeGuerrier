@@ -423,14 +423,18 @@ namespace DuelDeGuerrier
          */
         public static int LireEntierValide(int min, int max)
         {
-            int input = Convert.ToInt32(Console.ReadLine());
-            while (input < min || input > max)
+            while (true)
             {
-                AfficherErreur($"Erreur, veuillez entrer un nombre compris entre {min} et {max} svp.");
-                Console.ResetColor();
-                input = Convert.ToInt32(Console.ReadLine());
+                // Vérifie si l'input est un entier et qu'il est compris entre min et max
+                if (int.TryParse(Console.ReadLine(), out int input) && (input >= min && input <= max))
+                {
+                    // Alors on le retourne
+                    return input;
+                }
+                else
+                    // Sinon, on redemande à l'utilisateur de saisir un input et on relance la méthode au début
+                    AfficherErreur($"Erreur! Veuillez saisir une entrée comprise entre {min} et {max} svp.");
             }
-            return input;
         }
 
         /**
