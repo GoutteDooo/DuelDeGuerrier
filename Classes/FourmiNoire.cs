@@ -17,15 +17,8 @@ namespace DuelDeGuerrier.Classes
         public FourmiNoire(string nom, int pointsDeVie, int nbDesAttaque, bool armureLourde) : base(nom, pointsDeVie, nbDesAttaque){ 
             _armureLourde = armureLourde;
         }
-        public new void SubirDegats(int degats) {
-            if ( _armureLourde )
-            {
-                base.SubirDegats(degats / 2);
-            }
-            else
-            {
-                base.SubirDegats(degats);
-            }
+        public override void SubirDegats(int degats) {
+            base.SubirDegats(_armureLourde ? degats / 2 : degats);
         }
 
     }

@@ -16,7 +16,6 @@ namespace DuelDeGuerrier.Classes
 
         // Propriétés
         public string Nom { get { return _nom; } }
-        public int PointsDeVie { get; set; }
         public int NbDesAttaques { get; set; }
 
         // Constructeur
@@ -77,7 +76,7 @@ namespace DuelDeGuerrier.Classes
         /**
          * Soustrait le nombre de points de vie de l'instance du parametre int degats
          */
-        public void SubirDegats(int degats)
+        public virtual void SubirDegats(int degats)
         {
             _pointsDeVie -= degats;
         }
