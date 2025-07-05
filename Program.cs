@@ -165,7 +165,7 @@ namespace DuelDeGuerrier
             }
             else if (classe.Equals("BalleDeFusil"))
             {
-                Console.WriteLine("Combien de mana aura-t-elle ? ");
+                Console.WriteLine("Combien de mana aura-t-elle (entre 10 et 100) ? ");
                 int mana = LireEntierValide(10, 100);
                 BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil(nom, pvs, desAttaque, mana);
                 Console.WriteLine("Une fourmi Balle De Fusil a été créée!");
@@ -211,7 +211,7 @@ namespace DuelDeGuerrier
             // Si la liste est vide
             if (fourmisGuerrieres.Count == 0)
             {
-                AfficherErreur("Aucune fourmi guerrière n'est présente dans l'arène!");
+                AfficherErreur("Aucune fourmi guerrière n'est présente dans le Hall Des Combattantes!");
             }
             else
             {
@@ -319,16 +319,15 @@ namespace DuelDeGuerrier
          */
         public static void SupprimerGuerrier()
         {
-            // Tant que le joueur entre un nom inexistant dans la liste (que la suppression n'a pas été effectuée)
-            // Si plus aucune fourmi dans la liste
-            if (fourmisGuerrieres.Count == 0)
-            {
-                AfficherErreur("Plus aucune fourmi présente dans l'arène !");
-                RetourMenuPrincipal();
-                return;
-            }
             while (true)
             {
+                // Si plus aucune fourmi dans la liste
+                if (fourmisGuerrieres.Count == 0)
+                {
+                    AfficherErreur("Plus aucune fourmi présente dans le hall des combattantes !");
+                    RetourMenuPrincipal();
+                    return;
+                }
                 Console.WriteLine($"Liste des fourmis guerrières: {String.Join("", fourmisGuerrieres.Select((f, i) => $"\n{i + 1} - {f.GetNom()} ({f.GetType()})"))}");
                 // Entrée utilisateur
                 Console.WriteLine("Entrez le numéro de la fourmi guerrière à supprimer ('0' pour quitter):");
