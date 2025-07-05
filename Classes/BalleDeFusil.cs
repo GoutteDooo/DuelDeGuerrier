@@ -16,9 +16,11 @@ namespace DuelDeGuerrier.Classes
         private int _mana = 50;
         private List<string> sorts = new List<string> { "Boule de Feu", "Soin", "Bouclier Magique", "Tir Balle De Fusil" };
         public int Mana { get; set; }
+        public int ManaMax { get; set; }
         public bool BouclierActif { get; set; }
         public BalleDeFusil(string nom, int pointsDeVie, int nbDesAttaque, int mana = 50, bool bouclierActif = false) : base(nom, pointsDeVie, nbDesAttaque)
         {
+            ManaMax = mana;
             Mana = mana;
             BouclierActif = bouclierActif;
         }
@@ -65,7 +67,7 @@ namespace DuelDeGuerrier.Classes
                         break;
 
                     case 3:
-                        int resultatAttendu = 10;
+                        int resultatAttendu = 7;
                         Console.WriteLine($"{this.GetNom()} tente une attaque {sorts[indexSort]} !\n" +
                             $"Lancer de dés en cours... Si le résultat est {resultatAttendu}, l'adversaire perd le round.");
                         int resultat = rng.Next(1, resultatAttendu + 1);
@@ -73,7 +75,7 @@ namespace DuelDeGuerrier.Classes
                             Console.ForegroundColor = ConsoleColor.Gray;
                         else
                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine(resultat < resultatAttendu ? $"Le résultat est {resultat}, rien ne se passe et {this.GetNom()} a simplement perdu du mana." : $"\n\t{resultatAttendu}!!! BOOM ! {this.GetNom()} ouvre ses mandibules bien grandes et une sorte de balle part à tout vitesse en direction de son adversaire !!!\n");
+                            Console.WriteLine(resultat < resultatAttendu ? $"Le résultat est {resultat}, rien ne se passe et {this.GetNom()} a simplement perdu du mana." : $"\n\t{resultatAttendu}!!! BOOM ! {this.GetNom()} ouvre ses mandibules bien grandes et une sorte de balle part à toute vitesse en direction de son adversaire !!!\n");
                         degats = resultat < resultatAttendu ? degats : 99999;
                         break;
 
@@ -119,6 +121,11 @@ namespace DuelDeGuerrier.Classes
         public override void AfficherInfos()
         {
             Console.WriteLine($"{this.GetNom()} {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
+        }
+        public override void ResetMax()
+        {
+            base.ResetMax();
+            Mana = ManaMax;
         }
     }
 }

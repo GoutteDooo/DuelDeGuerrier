@@ -11,6 +11,7 @@ namespace DuelDeGuerrier.Classes
     {
         //Attributs
         private string _nom; //Nom du guerrier
+        private int _pointsDeVieMax; // Nombre de pvs max du guerrier
         private int _pointsDeVie; // Points de vie du guerrier
         private int _nbDesAttaque; // Nombre de dés attaque du guerrier
 
@@ -22,6 +23,7 @@ namespace DuelDeGuerrier.Classes
         public Guerrier(string nom, int pointsDeVie, int nbDesAttaque)
         {
             _nom = nom;
+            _pointsDeVieMax = pointsDeVie;
             _pointsDeVie = pointsDeVie;
             _nbDesAttaque = nbDesAttaque;
         }
@@ -47,6 +49,14 @@ namespace DuelDeGuerrier.Classes
         public void SetPointsDeVie(int pointsDeVie)
         {
             _pointsDeVie = pointsDeVie > 0 ? pointsDeVie : 0;
+        }
+
+        /**
+         * Remet les points de vie de l'instance à son maximum
+         */
+        public virtual void ResetMax()
+        {
+            _pointsDeVie = _pointsDeVieMax;
         }
         /**
          * Récupère le nombre de dés d'attaque de l'instance

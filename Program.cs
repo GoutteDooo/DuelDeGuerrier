@@ -10,7 +10,8 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            AfficherMenuPrincipal();
+            GuideUtilisateur.AfficherGuide();
+            //AfficherMenuPrincipal();
         }
         public static void AfficherMenuPrincipal()
         {
@@ -257,7 +258,10 @@ namespace DuelDeGuerrier
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
             while (fourmisGuerrieres.Count > 1)
             {
-                Console.WriteLine($"--- ROUND n°{round} ---");
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\t--- ROUND n°{round} ---");
+                Console.ResetColor();
+                Console.WriteLine();
                 Combattre(); // Fait se combattre les deux premières fourmis de la liste
                 round++;
             }
@@ -291,7 +295,10 @@ namespace DuelDeGuerrier
             var fourmi1 = fourmisGuerrieres[0];
             var fourmi2 = fourmisGuerrieres[1];
 
-            Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
+            string combat = $"--- Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()} ---";
+            Console.WriteLine(new string('-',combat.Length) + "\n" +
+                combat + "\n" +
+                new string('-', combat.Length) + "\n");
             bool fourmi1Attaque = true; // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
             while (true)
             {
@@ -314,7 +321,9 @@ namespace DuelDeGuerrier
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
                     fourmiDefenseur.SetPointsDeVie(0);
+                    fourmiAttaquante.ResetMax(); // Remet ses pvs (et manas si en a) au max pour le prochain combat
                     fourmisGuerrieres.Remove(fourmiDefenseur);
+                    Console.WriteLine("\n");
                     break;
                 }
                 fourmi1Attaque = !fourmi1Attaque;
@@ -375,6 +384,13 @@ namespace DuelDeGuerrier
         {
             Console.WriteLine("\t\t--- HISTORIQUE DES TOURNOIS ---\n" +
                 "\n");
+            // Si aucun tournoi dans l'historique
+            if (historique.Count == 0)
+            {
+                AfficherErreur("Aucune archive de tournoi n'existe!");
+                RetourMenuPrincipal();
+                return;
+            }
             foreach (Tournoi tournoi in historique)
             {
                 tournoi.AfficherDonnees();
@@ -461,7 +477,7 @@ namespace DuelDeGuerrier
         /**
          * Demande une entrée utilisateur pour revenir au menu principal
          */
-        static void RetourMenuPrincipal()
+        public static void RetourMenuPrincipal()
         {
             Console.WriteLine("Appuyez sur une touche pour revenir au menu principal");
             ConsoleKeyInfo input = Console.ReadKey();
