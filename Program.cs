@@ -29,9 +29,7 @@ namespace DuelDeGuerrier
             // Si le joueur saisie une autre option que celles disponibles
             if (!LireChoixUtilisateur(0, 5, saisie))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Veuillez saisir une des options disponibles SVP.");
-                Console.ResetColor();
+                AfficherErreur("Veuillez saisir une des options disponibles SVP.");
                 AfficherMenuPrincipal();
             }
             if (saisie.KeyChar == '1') // Si le joueur veut créer un guerrier
@@ -216,7 +214,7 @@ namespace DuelDeGuerrier
                 // On affiche les infos de la fourmiGuerriere actuelle
                 fourmiGuerriere.AfficherInfos();
             }
-            EntreeUtilisateurMenuPrincipal();
+            RetourMenuPrincipal();
         }
 
         /**
@@ -231,7 +229,13 @@ namespace DuelDeGuerrier
             int nbParticipants = fourmisGuerrieres.Count;
             DateTime dateDuTournoi = DateTime.Now;
 
-
+            // Gestion d'erreurs
+            // S'il n'y a aucune fourmi dans la liste
+            if (fourmisGuerrieres.Count == 0)
+            {
+                AfficherErreur("Aucune fourmi n'est présente dans l'arène !");
+                RetourMenuPrincipal();
+            }
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
             while (fourmisGuerrieres.Count > 1)
             {
@@ -251,7 +255,7 @@ namespace DuelDeGuerrier
                 Console.WriteLine("Un tournoi a été ajouté dans l'historique.");
 
                 //Entrée utilisateur pour revenir au menu principal
-                EntreeUtilisateurMenuPrincipal();
+                RetourMenuPrincipal();
             }
             else
             {
@@ -330,9 +334,7 @@ namespace DuelDeGuerrier
                 if (!suppressionFaite)
                 {
                     // On affiche une erreur
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Erreur! Le nom de la fourmi guerrière que vous avez entré est inexistant.");
-                    Console.ResetColor();
+                    AfficherErreur("Erreur! Le nom de la fourmi guerrière que vous avez entré est inexistant.");
                 }
                 else
                 {
@@ -370,18 +372,21 @@ namespace DuelDeGuerrier
                 "\n");
             foreach (Tournoi tournoi in historique)
             {
+                tournoi.AfficherDonnees();
+                /*
                 Console.WriteLine("\n" +
                     $"\tTournoi n°{tournoi.Numero} :\n" +
                     $"\t\tVainqueur : {tournoi.Vainqueur.GetNom()} - {tournoi.Vainqueur.GetType()}\n" +
                     $"\t\tParticipants : {tournoi.NombreParticipants}\n" +
-                    $"\t\tDate de lancement : {tournoi.Date}\n");
+                    $"\t\tDate de lancement : {tournoi.Date}\n");*/
             }
 
             // Entrée utilisateur pour revenir au menu principal
-            EntreeUtilisateurMenuPrincipal();
+            RetourMenuPrincipal();
         }
 
-        /* -- Lecture des Entrées -- */
+        /* ------------------------- */
+        /* -- LECTURE DES ENTREES -- */
         /* ------------------------- */
 
         /**
@@ -395,8 +400,7 @@ namespace DuelDeGuerrier
             // Contrôles de saisie
             while ( input == null || input.Equals("") || !input.All(char.IsLetterOrDigit))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Erreur, veuillez recommencer SVP");
+                AfficherErreur("Erreur, veuillez recommencer SVP");
                 Console.ForegroundColor= ConsoleColor.Green;
                 input = Console.ReadLine();
             }
@@ -413,8 +417,7 @@ namespace DuelDeGuerrier
             int input = Convert.ToInt32(Console.ReadLine());
             while (input < min || input > max)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Erreur, veuillez entrer un nombre compris entre {min} et {max} svp.");
+                AfficherErreur($"Erreur, veuillez entrer un nombre compris entre {min} et {max} svp.");
                 Console.ForegroundColor = ConsoleColor.Green;
                 input = Convert.ToInt32(Console.ReadLine());
             }
@@ -436,14 +439,10 @@ namespace DuelDeGuerrier
                 return false;
         }
 
-
-
-        /* -- HELPERS -- */
-        /* ------------- */
         /**
          * Demande une entrée utilisateur pour revenir au menu principal
          */
-        static void EntreeUtilisateurMenuPrincipal()
+        static void RetourMenuPrincipal()
         {
             Console.WriteLine("Appuyez sur une touche pour revenir au menu principal");
             ConsoleKeyInfo input = Console.ReadKey();
@@ -451,8 +450,10 @@ namespace DuelDeGuerrier
             AfficherMenuPrincipal();
         }
 
-        //Methode 
 
+        /* ------------- */
+        /* -- HELPERS -- */
+        /* ------------- */
         /**
          * Vérifie que l'entrée utilisateur soit un entier compris entre min et max
          * retourne :
@@ -462,14 +463,17 @@ namespace DuelDeGuerrier
         static bool LireChoixUtilisateur(int min, int max, ConsoleKeyInfo saisie)
         {
             int saisieInt = Convert.ToInt32(saisie.KeyChar) - 48; // Converti la saisie utilisateur en int
-            if (saisieInt >= min && saisieInt <= max)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (saisieInt >= min && saisieInt <= max);
+        }
+
+        /**
+         * Affiche la string erreur passée en paramètre en rouge et reset les couleurs de la console
+         */
+        public static void AfficherErreur(string erreur)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erreur);
+            Console.ResetColor();
         }
     }
 }

@@ -1,1 +1,2 @@
-- Ajouter un générateur de nom aléatoire pour les guerrières
+- [] Ajouter un générateur de nom aléatoire pour les guerrières
+- [] Pouvoir enregistrer dans un fichier la liste des guerrières afin de pouvoir les regénérer rapidement

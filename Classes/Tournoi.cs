@@ -23,5 +23,14 @@ namespace DuelDeGuerrier.Classes
             Date = date;
         }
 
+        public void AfficherDonnees()
+        {
+            Console.WriteLine("\n" +
+                    $"\tTournoi n°{this.Numero} :\n" +
+                    $"\t\tVainqueur : {this.Vainqueur.GetNom()} - {this.Vainqueur.GetType()}\n" +
+                    $"\t\tParticipants : {this.NombreParticipants}\n" +
+                    $"\t\tDate de lancement : {this.Date}\n");
+        }
+
     }
 }
