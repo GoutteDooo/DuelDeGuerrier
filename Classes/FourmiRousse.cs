@@ -23,7 +23,7 @@ namespace DuelDeGuerrier.Classes
         public int Attaquer()
         {
             Random random = new Random();
-            int rng = random.Next(1, 6);
+            int rng = random.Next(1, 6+1);
             if (rng <= 2) 
             {
                 return 2;

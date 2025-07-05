@@ -18,8 +18,10 @@ namespace DuelDeGuerrier.Classes
             _armureLourde = armureLourde;
         }
         public override void SubirDegats(int degats) {
+            if (_armureLourde)
+                Console.WriteLine($"L'armure lourde de {this.GetNom()} réduit les dégâts subis par deux!");
+
             base.SubirDegats(_armureLourde ? degats / 2 : degats);
         }
-
     }
 }

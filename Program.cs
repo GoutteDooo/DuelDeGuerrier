@@ -9,6 +9,7 @@ namespace DuelDeGuerrier
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
         static void Main(string[] args)
         {
+            Console.Title = "Arene de Fourmis";
             AfficherMenuPrincipal();
         }
         public static void AfficherMenuPrincipal()
@@ -289,24 +290,20 @@ namespace DuelDeGuerrier
             var fourmi1 = fourmisGuerrieres[0];
             var fourmi2 = fourmisGuerrieres[1];
 
+            Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
             while (true)
             {
-                Console.WriteLine($"Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()}");
                 int degats = fourmi1.Attaquer();
-                Console.WriteLine($"{fourmi1.GetNom()} attaque {fourmi2.GetNom()} avec des dégâts de {degats}");
+                Console.WriteLine(degats > 0 ? $"{fourmi1.GetNom()} attaque {fourmi2.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.");
                 fourmi2.SubirDegats(degats);
                 fourmi2.AfficherInfos();
+                fourmi1.AfficherInfos();
 
                 if (fourmi2.GetPointsDeVie() <= 0)
                 {
                     fourmi2.SetPointsDeVie(0);
-                    Console.WriteLine($"fourmi2 PV <= 0: {fourmi2.GetPointsDeVie()}");
                     fourmisGuerrieres.Remove(fourmi2);
                     break;
-                }
-                else
-                {
-                    Console.WriteLine($"fourmi2 PV > 0: {fourmi2.GetPointsDeVie()}");
                 }
 
 

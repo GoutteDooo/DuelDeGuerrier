@@ -62,7 +62,7 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void AfficherInfos()
         {
-            Console.WriteLine(_nom + " {PV=" + _pointsDeVie + "}");
+            Console.WriteLine(_nom + " {PV=" + (_pointsDeVie < 0 ? 0 : _pointsDeVie) + "}");
         }
         /**
          * Renvoie un entier entre 1 et 6
@@ -70,7 +70,7 @@ namespace DuelDeGuerrier.Classes
         public virtual int Attaquer()
         {
             Random random = new Random();
-            return random.Next(1, 6);
+            return random.Next(1, 6+1);
         }
 
         /**
