@@ -26,7 +26,7 @@ namespace DuelDeGuerrier.Classes
 
                 ConsoleKeyInfo input = Console.ReadKey();
                 Console.Clear();
-                if (!"012".Contains(input.KeyChar))
+                if (!"01234".Contains(input.KeyChar))
                 {
                     Program.AfficherErreur("Veuillez entrer une option valide svp.");
                     continue;
@@ -42,7 +42,7 @@ namespace DuelDeGuerrier.Classes
                         break;
                     case '3':
                         Console.WriteLine("Types de fourmis");
-                        //TypesDeFourmis();
+                        TypesDeFourmi();
                         break;
                     case '0':
                         Program.MenuPrincipal();
@@ -304,6 +304,63 @@ namespace DuelDeGuerrier.Classes
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine("Une fourmi Balle De Fusil a été créée!\r\nAthena {PV=50} {Mana=70}");
                     Console.ResetColor();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**
+         * Petit manuel dynamique qui explique en détail les types de fourmi
+         */
+        private static void TypesDeFourmi()
+        {
+            List<string> fourmis = new() { "guerriere", "noire", "rousse", "balle de fusil" };
+            for (int i = 0; i < fourmis.Count; i = i) //particulier : i ne bouge pas dans le step car il est manipulé par l'utilisateur
+            {
+                AfficherFourmi(fourmis[i]);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                if (i > 0)
+                    Console.Write("[<-]  ");
+                if (i < fourmis.Count - 1)
+                    Console.Write(i > 0 ? "  [->]" : "      [->]");
+                Console.ResetColor();
+                ConsoleKeyInfo input = Console.ReadKey();
+                Console.Clear();
+                if (i > 0 && input.Key.ToString() == "LeftArrow")
+                {
+                    i --;
+                    continue;
+                }
+                if (i < fourmis.Count - 1 && input.Key.ToString() == "RightArrow")
+                {
+                    i++;
+                }
+            }
+        }
+
+        /**
+         * Affiche le type de fourmi passé en paramètre
+         */
+        private static void AfficherFourmi(string typeDeFourmi)
+        {
+            switch (typeDeFourmi)
+            {
+                case "guerriere":
+                    string fourmi = "                                         \r\n                                         \r\n            =++=:         -=             \r\n                  #      *               \r\n    #               :   *                \r\n   . *              %   -                \r\n    = #          *.:----+%:              \r\n     = *       ::#=---*#+-*#             \r\n      * #      *@+*---%#@++#-            \r\n       # +    ::-*=---**=:+%.            \r\n        # =    #=-=*=---=*%-             \r\n         -::.    *%#**#%#. =*+           \r\n           + -    .*%%@##.  .*           \r\n            * #*  *****@%#=              \r\n            =%%%%%%**#*+  +=             \r\n               %% =*##%%#+.%-            \r\n                 =++++%%*#%%+            \r\n                 %@@@@@@@%: +**          \r\n                 #  -@@= -#              \r\n               .+:        +-             \r\n                ..........               \r\n                                         ";
+                    Console.WriteLine(fourmi);
+                    string texte = "Fourmi Guerrière";
+                    Console.WriteLine(new string('-', texte.Length) + "\n" +
+                        texte + "\n" +
+                        new string('-', texte.Length) + "\n");
+
+                    texte = "Capacités";
+                    Console.WriteLine(new string('-', texte.Length) + "\n" +
+                        texte + "\n" +
+                        new string('-', texte.Length) + "\n");
+                    Coloriser.ColorerTexte(ConsoleColor.Red, "- Attaque à chaque tour\n");
+                    Coloriser.ColorerTexte(ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)");
+
                     break;
                 default:
                     break;
