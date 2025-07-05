@@ -32,8 +32,7 @@ namespace DuelDeGuerrier.Classes
                 switch (input.KeyChar)
                 {
                     case '1':
-                        Console.WriteLine("bref tuto");
-                        //BrefTutoriel();
+                        BrefTutoriel();
                         break;
                     case '2':
                         Console.WriteLine("Comment fct les menus");
@@ -44,7 +43,7 @@ namespace DuelDeGuerrier.Classes
                         //TypesDeFourmis();
                         break;
                     case '0':
-                        Program.RetourMenuPrincipal();
+                        Program.AfficherMenuPrincipal();
                         break;
                     default:
                         break;
@@ -68,29 +67,68 @@ namespace DuelDeGuerrier.Classes
             {
                 (ConsoleColor.Magenta,"Vous êtes une sorte d'organisateur de combat de fourmi.\n",1),
                 (ConsoleColor.Blue,"Au début du jeu, aucune fourmi n'est présente dans le Hall des Combattantes.\n",1),
+                (ConsoleColor.Blue,"Le Hall des Combattantes est là où toutes les fourmis se réunissent avant de combattre.\n",1),
                 (ConsoleColor.Green,"Ci-dessous, voici le Menu Principal. (Vous ne pouvez pas y toucher le temps du tuto)\n",2),
-                (ConsoleColor.Blue,"Lorsque vous sélectionnez l'option \"1. Créer une fourmi guerrière\",\n",4),
+                (ConsoleColor.Blue,"Lorsque vous sélectionnez l'option \"1. Créer une fourmi guerrière\",\n",3),
                 (ConsoleColor.Blue,"Vous entrez dans le sous-menu \"Créer une Guerrière\",\n",4),
                 (ConsoleColor.Magenta,"Dans ce sous-menu, vous pouvez créer actuellement 4 types de fourmis.\n",4),
-                (ConsoleColor.Magenta,"Supposons que vous vouliez créer une Fourmi Noire...\n",4),
-                (ConsoleColor.Green,"Alors, vous n'avez qu'à presser la touche 2.\n",4),
-                (ConsoleColor.Blue,"Lorsque c'est fait, plusieurs données seront demandées pour pouvoir générer la fourmi dans le Hall des Combattantes.\n",5),
-                (ConsoleColor.Blue,"Le nom, les points de vie, et d'autres données qui peuvent être spécifiques au type de fourmi. \n",5),
+                (ConsoleColor.Magenta,"Supposons que vous voulez créer une Fourmi Noire...\n",4),
+                (ConsoleColor.Green,"Alors, vous n'avez qu'à presser la touche 2.\n",5),
+                (ConsoleColor.Blue,"Lorsque c'est fait, plusieurs données seront demandées pour pouvoir générer la fourmi dans le Hall des Combattantes.\n",6),
+                (ConsoleColor.Blue,"Le nom, les points de vie, et d'autres données qui peuvent être spécifiques au type de fourmi. \n",6),
                 (ConsoleColor.Magenta,"Une fois que vous avez généré suffisamment de fourmis, vous pourrez retourner au Menu Principal et d'autres options seront disponibles. \n",2),
-                (ConsoleColor.Green,"La principale étant l'option \"4. Lancer un tournoi\" \n",6),
-                (ConsoleColor.Magenta,"D'ici là, nous vous laissons le plaisir de tester par vous-même le résultat... \n",6),
-                (ConsoleColor.Yellow,"Merci d'avoir essayé le tutoriel et bon jeu!\n",6),
+                (ConsoleColor.Green,"La principale étant l'option \"4. Lancer un tournoi\" \n",7),
+                (ConsoleColor.Magenta,"D'ici là, nous vous laissons le plaisir de tester par vous-même le résultat... \n",7),
+                (ConsoleColor.Yellow,"Merci d'avoir essayé le tutoriel et bon jeu!\n",7),
             };
             // Etapes
             // 1 : Pas d'affichage
             // 2 : Afficher le Menu Principal
             // 3 : Afficher le Menu Principal et surligner en rouge l'option 1
             // 4 : Afficher le Sous-Menu 1
-            // 5 : Afficher "nom fourmi"
-            // 6 : Afficher le Menu Principal et surligner en rouge l'option 4
+            // 5 : Afficher le Sous-Menu 1 et surligner l'option 2
+            // 6 : Afficher "nom fourmi"
+            // 7 : Afficher le Menu Principal et surligner en rouge l'option 4
 
+            foreach ((ConsoleColor, string, int) affichage in tuto)
+            {
+                Console.Clear();
+                Console.ForegroundColor = affichage.Item1;
+                Console.WriteLine(affichage.Item2);
+                AfficherEtape(affichage.Item3);
+                Console.ResetColor();
+                Console.WriteLine("\n\nAppuyez sur une touche pour continuer...");
+                Console.ReadKey();
+            }
+            Console.Clear();
+            Console.ResetColor();
+        }
 
-
+        private static void AfficherEtape(int etape)
+        {
+            switch (etape)
+            {
+                case 1:
+                    Console.WriteLine("Etape 1");
+                    break;
+                case 2:
+                    Console.WriteLine("Etape 2");
+                    break;
+                case 3:
+                    Console.WriteLine("Etape 3");
+                    break;
+                case 4:
+                    Console.WriteLine("Etape 4");
+                    break;
+                case 5:
+                    Console.WriteLine("Etape 5");
+                    break;
+                case 6:
+                    Console.WriteLine("Etape 6");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
