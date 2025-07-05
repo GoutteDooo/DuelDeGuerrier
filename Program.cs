@@ -136,7 +136,7 @@ namespace DuelDeGuerrier
             Console.Write("Quel nom souhaitez-vous lui donner ? (non vide, alphanumérique) ");
             string nom = LireNomValide();
             Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 10 et 100) ");
-            int pvs = LireEntierValide(10,100);
+            int pvs = LireEntierValide(10, 100);
             Console.Write("\nCombien de dés d'attaque souhaitez-vous lui donner ? (entre 1 et 10) ");
             int desAttaque = LireEntierValide(1, 10);
 
@@ -208,12 +208,20 @@ namespace DuelDeGuerrier
          */
         public static void AfficherFourmisGuerrieres()
         {
-            Console.WriteLine("Les fourmis guerrières sont :");
-            // Pour chaque fourmiGuerriere dans la liste fourmisGuerrieres
-            foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
+            // Si la liste est vide
+            if (fourmisGuerrieres.Count == 0)
             {
-                // On affiche les infos de la fourmiGuerriere actuelle
-                fourmiGuerriere.AfficherInfos();
+                AfficherErreur("Aucune fourmi guerrière n'est présente dans l'arène!");
+            }
+            else
+            {
+                Console.WriteLine("Les fourmis guerrières sont :");
+                // Pour chaque fourmiGuerriere dans la liste fourmisGuerrieres
+                foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
+                {
+                    // On affiche les infos de la fourmiGuerriere actuelle
+                    fourmiGuerriere.AfficherInfos();
+                }
             }
             RetourMenuPrincipal();
         }
@@ -312,7 +320,7 @@ namespace DuelDeGuerrier
                 Console.WriteLine($"Liste des fourmis guerrières: {String.Join(" ,", fourmisGuerrieres.Select(f => f.GetNom()))}");
                 // Entrée utilisateur
                 Console.WriteLine("Entrez le nom de la fourmi guerrière à supprimer ('exit' pour quitter):");
-                string nom = Console.ReadLine();
+                string? nom = Console.ReadLine();
                 if (nom == "exit")
                     break;
 
@@ -407,12 +415,12 @@ namespace DuelDeGuerrier
          */
         public static string LireNomValide()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             // Contrôles de saisie
-            while ( input == null || input.Equals("") || !input.All(char.IsLetterOrDigit))
+            while (input == null || input.Equals("") || !input.All(char.IsLetterOrDigit))
             {
                 AfficherErreur("Erreur, veuillez recommencer SVP");
-                Console.ForegroundColor= ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Green;
                 input = Console.ReadLine();
             }
             return input;
