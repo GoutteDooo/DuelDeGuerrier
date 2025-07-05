@@ -67,7 +67,7 @@ namespace DuelDeGuerrier.Classes
         /**
          * Renvoie un entier entre 1 et 6
          */
-        public int Attaquer()
+        public virtual int Attaquer()
         {
             Random random = new Random();
             return random.Next(1, 6);

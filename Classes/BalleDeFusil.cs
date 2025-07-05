@@ -25,12 +25,12 @@ namespace DuelDeGuerrier.Classes
         /**
          * Méthode redéfinie de la classe mère Guerrier
          */
-        public new int Attaquer()
+        public override int Attaquer()
         {
-            Random rng = new Random();
-            int degats = rng.Next(1, 6);
             if (Mana >= 10)
             {
+                Random rng = new Random();
+                int degats = 0;
                 // Lance un dés entre [0, sorts.Count - 1] pour récupérer un index aléatoire de sorts
                 int indexSort = rng.Next(0, sorts.Count - 1);
                 // On affiche le sort trouvé
@@ -46,6 +46,7 @@ namespace DuelDeGuerrier.Classes
 
                     case 1:
                         Console.WriteLine($"{this.GetNom()} récupère 5 PV !");
+                        //TEST
                         Console.WriteLine($"Test, PV avant : {this.GetPointsDeVie()}");
                         this.SetPointsDeVie(5);
                         Console.WriteLine($"Test, PV après : {this.GetPointsDeVie()}");
@@ -53,6 +54,7 @@ namespace DuelDeGuerrier.Classes
 
                     case 2:
                         Console.WriteLine($"Un bouclier Magique s'active, réduisant les dégâts subits de 50% contre la prochaine attaque.");
+                        //TEST
                         Console.WriteLine($"Test, bouclier avant : {this.BouclierActif}");
                         BouclierActif = true;
                         Console.WriteLine($"Test, bouclier après : {this.BouclierActif}");
@@ -70,8 +72,12 @@ namespace DuelDeGuerrier.Classes
                         break;
                 }
                 Console.ResetColor();
+                return degats;
             }
-            return degats;
+            else
+            {
+                return 0;
+            }
         }
 
         public override void SubirDegats(int degats)
@@ -83,6 +89,21 @@ namespace DuelDeGuerrier.Classes
                 Console.WriteLine($"Le bouclier de {this.GetNom()} était activé, les dégâts sont réduits par 2 !");
                 BouclierActif = false;
             }
+        }
+
+        /**
+         * Méthode utilisée lorsque l'instance n'a plus assez de mana pour Attaquer.
+         * Lance un dés qui régénère son mana entre 3 et 8
+         */
+        private void RegenererMana()
+        {
+            Random rng = new Random();
+            int resultatDes = rng.Next(3, 8);
+            Console.WriteLine($"{this.GetNom()} n'a pas assez de mana pour lancer un sort ! Elle utilise donc sa capacité de régénération et récupère {resultatDes} points de mana...");
+            //TEST
+            Console.WriteLine($"Test: Mana avant: {this.Mana}");
+            this._mana += resultatDes;
+            Console.WriteLine($"Test: Mana après: {this.Mana}");
         }
     }
 }
