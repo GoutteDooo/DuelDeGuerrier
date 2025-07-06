@@ -336,10 +336,6 @@ namespace DuelDeGuerrier
                 // Insérer le tournoi dans l'historique de tournois
                 historique.Insert(0, tournoi);
                 //Entrée utilisateur pour revenir au menu principal
-
-                //TEST
-                tournoi.AfficherHistoriqueCombats();
-
                 RetourMenuPrincipal();
             }
             else
@@ -471,7 +467,7 @@ namespace DuelDeGuerrier
                 {
                     tournoi.AfficherDonnees();
                 }
-                Console.WriteLine("Entrez le numéro d'un tournoi pour consulter son tableau de classement : (0 pour annuler)");
+                Console.WriteLine("Entrez le numéro d'un tournoi pour consulter son tableau de classement et ses combats : (0 pour annuler)");
 
                 // Entrée utilisateur pour afficher en détail un tournoi
                 int input = LireEntierValide(0, historique.Count);
@@ -482,6 +478,7 @@ namespace DuelDeGuerrier
                 Console.Clear();
                 Console.WriteLine($"Voici les classements du tournoi n°{input} : \n");
                 historique.Find(h => h.Numero == input).AfficherClassement();
+                historique.Find(h => h.Numero == input).AfficherHistoriqueCombats();
                 Console.WriteLine("\n\tApppuyez sur une touche pour revenir aux archives...");
                 Console.ReadKey();
                 Console.Clear();
