@@ -15,19 +15,19 @@ namespace DuelDeGuerrier.Classes
         public DateTime Date { get; set; } // La date
         public List<List<ICombattant>> Classements { get; set; } // Les classements des participantes
 
-
-        public Tournoi()
-        {
-
-        }
-
         //Constructeur 
-        public Tournoi(int numero,  ICombattant vainqueur, int nombreParticipants, DateTime date)
+        public Tournoi(int numero, int nombreParticipants, DateTime date, List<List<ICombattant>> classements)
         {
             Numero = numero;
-            Vainqueur = vainqueur;
             NombreParticipants = nombreParticipants;
             Date = date;
+            Classements = classements;
+        }
+
+        // Setter
+        public void SetVainqueur(ICombattant vainqueur)
+        {
+            Vainqueur = vainqueur;
         }
 
         public void AfficherDonnees()

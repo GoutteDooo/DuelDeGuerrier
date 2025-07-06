@@ -12,16 +12,16 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            Tournoi tournoi = new Tournoi();
-            tournoi.Classements = new List<List<ICombattant>>
-            {
-                new List<ICombattant>() { new Guerrier("f",10,10),  new Guerrier("g",10,10),  new Guerrier("h",10,10) , new Guerrier("i",10,10) },
-                new List<ICombattant>() { new Guerrier("C",10,10),  new Guerrier("D",10,10),  new Guerrier("E",10,10) },
-                new List<ICombattant>() { new Guerrier("B",10,10) },
-                new List<ICombattant>() { new Guerrier("A",10,10) },
-            };
-            tournoi.AfficherClassement();
-            //MenuPrincipal();
+            //Tournoi tournoi = new Tournoi();
+            //tournoi.Classements = new List<List<ICombattant>>
+            //{
+            //    new List<ICombattant>() { new Guerrier("f",10,10),  new Guerrier("g",10,10),  new Guerrier("h",10,10) , new Guerrier("i",10,10) },
+            //    new List<ICombattant>() { new Guerrier("C",10,10),  new Guerrier("D",10,10),  new Guerrier("E",10,10) },
+            //    new List<ICombattant>() { new Guerrier("B",10,10) },
+            //    new List<ICombattant>() { new Guerrier("A",10,10) },
+            //};
+            //tournoi.AfficherClassement();
+            MenuPrincipal();
         }
 
         /**
@@ -270,6 +270,8 @@ namespace DuelDeGuerrier
             int numeroDeTournoi = historique.Count + 1;
             int nbParticipants = fourmisGuerrieres.Count;
             DateTime dateDuTournoi = DateTime.Now;
+            List<List<ICombattant>> classements = new List<List<ICombattant>>();
+            Tournoi tournoi = new Tournoi(numeroDeTournoi, nbParticipants, dateDuTournoi, classements);
 
             // -- Gestion d'erreurs --
             // -----------------------
@@ -290,21 +292,26 @@ namespace DuelDeGuerrier
             // -- Démarrage du Tournoi --
             // --------------------------
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
-            int duelID = 0; // Permet de savoir où l'on se situe dans le tournoi
+            int duelID = 0; // Permet de savoir précisément à quel duel on se situe dans le tournoi
+            int etape = 0; // Pour savoir exactement à quelle étape (huitième, quarts...) l'on se situe dans le tournoi
+            tournoi.Classements.Add(new List<ICombattant>()); // On crée une nouvelle liste pour le classement de l'étape actuelle
             while (fourmisGuerrieres.Count > 1)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.Write($"\t--- ROUND n°{round} ---");
                 Console.ResetColor();
                 Console.WriteLine("\n");
-                Combattre(duelID); // Fait se combattre la fourmi duelID et duelID+1 de la liste (si elles existent) et supprime la perdante de la liste
+                Combattre(duelID, tournoi.Classements[etape]); // Fait se combattre la fourmi duelID et duelID+1 de la liste (si elles existent) et supprime la perdante de la liste
                 round++;
                 duelID++;
                 // Si on a atteint la fin de la liste, ou qu'une fourmi n'a pas d'adversaire (nombre de participants impair)
                 if (duelID >= fourmisGuerrieres.Count - 1)
                 {
                     // On lance l'étape suivante du tournoi
+                    tournoi.Classements.Add(new List<ICombattant>()); // On crée une nouvelle liste pour le classement de l'étape actuelle
+                    etape++;
                     // Donc on remet duelID à 0 pour repartir au début de la liste.
+                    duelID = 0;
 
                     // /!\ Cas particulier ! /!\
                     //     ----------------
@@ -318,19 +325,21 @@ namespace DuelDeGuerrier
                         fourmisGuerrieres.RemoveAt(dernierIndex);
                         fourmisGuerrieres.Insert(0, temp);
                     }
-                    duelID = 0;
                 }
             }
             // S'il ne reste plus qu'une seule fourmi guerrière dans la liste
             if (fourmisGuerrieres.Count == 1)
             {
-                Console.WriteLine($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!");
 
+                Console.WriteLine($"------ FIN DU TOURNOI ------\n");
+                Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
+                Console.WriteLine($"Voici le classement :");
                 /* Crée une nouvelle instance de Tournoi et l'insérer dans l'historique */
                 ICombattant vainqueur = fourmisGuerrieres[0];
-                historique.Insert(0, new Tournoi(numeroDeTournoi, vainqueur, nbParticipants, dateDuTournoi));
-                //TEST
-                Console.WriteLine("Un tournoi a été ajouté dans l'historique.");
+                tournoi.SetVainqueur(vainqueur);
+                tournoi.Classements[etape].Add(vainqueur);
+                historique.Insert(0, tournoi);
+                tournoi.AfficherClassement();
 
                 //Entrée utilisateur pour revenir au menu principal
                 RetourMenuPrincipal();
@@ -344,8 +353,9 @@ namespace DuelDeGuerrier
         /**
          * Fait se combattre les deux premières fourmis de la liste fourmisGuerrieres à l'index duelID jusqu'à ce qu'une des deux gagne.
          * Lorsqu'une fourmi remporte son duel, elle récupère tout ses PVs par défaut
+         * Lorsqu'une fourmi perd son duel, elle est insérée dans la liste classements
          */
-        public static void Combattre(int duelID)
+        public static void Combattre(int duelID, List<ICombattant> etapeDeClassement)
         {
             var fourmi1 = fourmisGuerrieres[duelID];
             var fourmi2 = fourmisGuerrieres[duelID+1];
@@ -373,13 +383,17 @@ namespace DuelDeGuerrier
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
                 Thread.Sleep(100);
+                // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
+                    // Afficher le vainqueur
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"{fourmiAttaquante.GetNom()} remporte le duel face à {fourmiDefenseur.GetNom()} !");
                     Console.ResetColor();
                     fourmiDefenseur.SetPointsDeVie(0);
-                    fourmiAttaquante.ResetMax(); // Remet ses pvs (et manas si en a) au max pour le prochain combat
+                    fourmiAttaquante.ResetMax(); // Remet les pvs (et manas si en a) au max du vainqueur pour le prochain combat
+                    // Insérer le perdant dans la liste de classement actuelle
+                    etapeDeClassement.Add(fourmiDefenseur);
                     fourmisGuerrieres.Remove(fourmiDefenseur);
                     Console.WriteLine("\n");
                     break;
