@@ -94,7 +94,6 @@ namespace DuelDeGuerrier
                 char saisie = Console.ReadKey().KeyChar;
 
                 Console.Clear(); // Afficher le texte en lien avec la saisie et réafficher le sous-menu
-                Console.ForegroundColor = ConsoleColor.Green;
 
                 switch (saisie)
                 {
@@ -165,7 +164,7 @@ namespace DuelDeGuerrier
             if (classe.Equals("Guerrier"))
             {
                 ICombattant fourmiGuerriere = CreerFourmiGuerriere(nom, pvs, desAttaque);
-                Console.WriteLine("Une fourmi guerrière a été créée!");
+                Coloriser.ColorerTexte(ConsoleColor.Green, "Une fourmi guerrière a été créée!\n");
                 fourmiGuerriere.AfficherInfos();
                 fourmisGuerrieres.Add(fourmiGuerriere);
             }
@@ -174,14 +173,14 @@ namespace DuelDeGuerrier
                 Console.WriteLine("Portera-t-elle une armure lourde ? (O/n)");
                 bool armureLourde = LireBoolValide();
                 FourmiNoire fourmiNoire = CreerFourmiNoire(nom, pvs, desAttaque, armureLourde); // On crée une nouvelle instance de FourmiNoire (nommée fourmiTest)
-                Console.WriteLine("Une fourmi noire a été créée !");
+                Coloriser.ColorerTexte(ConsoleColor.Green, "Une fourmi noire a été créée !\n");
                 fourmiNoire.AfficherInfos(); // On utilise la méthode AfficherInfos de la classe FourmiNoire
                 fourmisGuerrieres.Add(fourmiNoire); // Ajouter l'instance de fourmiNoire à la liste des fourmis guerrières
             }
             else if (classe.Equals("FourmiRousse"))
             {
                 FourmiRousse fourmiRousse = CreerFourmiRousse(nom, pvs, desAttaque);
-                Console.WriteLine("Une fourmi rousse a été créée !");
+                Coloriser.ColorerTexte(ConsoleColor.Green, "Une fourmi rousse a été créée !\n");
                 fourmiRousse.AfficherInfos();
                 fourmisGuerrieres.Add(fourmiRousse);
             }
@@ -190,7 +189,7 @@ namespace DuelDeGuerrier
                 Console.WriteLine("Combien de mana aura-t-elle (entre 10 et 100) ? ");
                 int mana = LireEntierValide(10, 100);
                 BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil(nom, pvs, desAttaque, mana);
-                Console.WriteLine("Une fourmi Balle De Fusil a été créée!");
+                Coloriser.ColorerTexte(ConsoleColor.Green, "Une fourmi Balle De Fusil a été créée!\n");
                 balleDeFusil.AfficherInfos();
                 fourmisGuerrieres.Add(balleDeFusil);
             }
