@@ -8,7 +8,6 @@ namespace DuelDeGuerrier
     {
         static List<ICombattant> fourmisGuerrieres = new List<ICombattant>(); // Liste contenant les fourmis guerrières instanciées
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
-        static int nombreOptions = 6;
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
@@ -45,38 +44,38 @@ namespace DuelDeGuerrier
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
             // Si le joueur saisie une autre option que celles disponibles
+            int nombreOptions = 7;
             if (!LireChoixUtilisateur(0, nombreOptions, saisie))
             {
                 AfficherErreur("Veuillez saisir une des options disponibles SVP.");
                 MenuPrincipal();
             }
-            if (saisie.KeyChar == '1') // Si le joueur veut créer un guerrier
+            switch (saisie.KeyChar)
             {
-                AjouterGuerrier();
-            }
-            if (saisie.KeyChar == '2') // Si le joueur veut supprimer une guerrière
-            {
-                SupprimerGuerrier();
-            }
-            if (saisie.KeyChar == '3') // Si l'utilisateur veut voir la liste des fourmis guerrières
-            {
-                AfficherFourmisGuerrieres();
-            }
-            if (saisie.KeyChar == '4') // Si le joueur veut lancer le tournoi
-            {
-                LancerTournoi();
-            }
-            if (saisie.KeyChar == '5') // Si le joueur affiche l'historique
-            {
-                AfficherHistorique();
-            }
-            if (saisie.KeyChar == '6') // Si le joueur affiche l'historique
-            {
-                GuideUtilisateur.AfficherGuide();
-            }
-            if (saisie.KeyChar == '0') // Si le joueur veut quitter le programme
-            {
-                QuitterProgramme();
+                case '1':
+                    AjouterGuerrier(); // Si le joueur veut créer un guerrier
+                    break;
+                case '2':
+                    SupprimerGuerrier(); // Si le joueur veut supprimer une guerrière
+                    break;
+                case '3':
+                    AfficherFourmisGuerrieres(); // Si l'utilisateur veut voir la liste des fourmis guerrières
+                    break;
+                case '4':
+                    LancerTournoi(); // Si le joueur veut lancer le tournoi
+                    break;
+                case '5':
+                    AfficherHistorique(); // Si le joueur affiche l'historique
+                    break;
+                case '6':
+                    SauvegarderFourmis(); // Si le joueur souhaite enregistrer la liste de fourmis
+                    break;
+                case '7':
+                    GuideUtilisateur.AfficherGuide(); // Si le joueur affiche l'historique
+                    break;
+                case '0':
+                    QuitterProgramme(); // Si le joueur veut quitter le programme
+                    break;
             }
         }
 
@@ -330,6 +329,7 @@ namespace DuelDeGuerrier
                 // Afficher le classement
                 Console.WriteLine($"Voici le classement :");
                 ICombattant vainqueur = fourmisGuerrieres[0];
+                vainqueur.IncrementerVictoires(); // Incrémenter le compteur de victoire de la fourmi victorieuse
                 tournoi.SetVainqueur(vainqueur);
                 tournoi.Classements[etape].Add(vainqueur);
                 tournoi.AfficherClassement();

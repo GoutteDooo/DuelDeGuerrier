@@ -15,5 +15,6 @@ namespace DuelDeGuerrier.Interfaces
         public void SubirDegats(int degats);
         public void AfficherInfos();
         public void ResetMax();
+        public void IncrementerVictoires();
     }
 }
