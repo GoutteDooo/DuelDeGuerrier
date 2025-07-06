@@ -12,7 +12,16 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            MenuPrincipal();
+            Tournoi tournoi = new Tournoi();
+            tournoi.Classements = new List<List<ICombattant>>
+            {
+                new List<ICombattant>() { new Guerrier("f",10,10),  new Guerrier("g",10,10),  new Guerrier("h",10,10) , new Guerrier("i",10,10) },
+                new List<ICombattant>() { new Guerrier("C",10,10),  new Guerrier("D",10,10),  new Guerrier("E",10,10) },
+                new List<ICombattant>() { new Guerrier("B",10,10) },
+                new List<ICombattant>() { new Guerrier("A",10,10) },
+            };
+            tournoi.AfficherClassement();
+            //MenuPrincipal();
         }
 
         /**
