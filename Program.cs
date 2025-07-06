@@ -278,9 +278,9 @@ namespace DuelDeGuerrier
             while (fourmisGuerrieres.Count > 1)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\t--- ROUND n°{round} ---");
+                Console.Write($"\t--- ROUND n°{round} ---");
                 Console.ResetColor();
-                Console.WriteLine();
+                Console.WriteLine("\n");
                 Combattre(); // Fait se combattre les deux premières fourmis de la liste
                 round++;
             }
@@ -314,7 +314,7 @@ namespace DuelDeGuerrier
             var fourmi1 = fourmisGuerrieres[0];
             var fourmi2 = fourmisGuerrieres[1];
 
-            string combat = $"--- Combat entre {fourmi1.GetNom()} et {fourmi2.GetNom()} ---";
+            string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.GetType()}) et {fourmi2.GetNom()}({fourmi2.GetType()}) ---";
             Console.WriteLine(new string('-',combat.Length) + "\n" +
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
@@ -336,9 +336,12 @@ namespace DuelDeGuerrier
                 
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
-
+                Thread.Sleep(1500);
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine($"{fourmiAttaquante.GetNom()} remporte le duel face à {fourmiDefenseur.GetNom()} !");
+                    Console.ResetColor();
                     fourmiDefenseur.SetPointsDeVie(0);
                     fourmiAttaquante.ResetMax(); // Remet ses pvs (et manas si en a) au max pour le prochain combat
                     fourmisGuerrieres.Remove(fourmiDefenseur);

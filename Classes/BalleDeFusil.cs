@@ -98,7 +98,9 @@ namespace DuelDeGuerrier.Classes
             if (BouclierActif)
             {
                 degats = degats / 2;
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"Le bouclier de {this.GetNom()} est activé, les dégâts sont réduits par 2, {this.GetNom()} subi donc {degats} dégâts !");
+                Console.ResetColor();
                 BouclierActif = false;
             }
             base.SubirDegats(degats);

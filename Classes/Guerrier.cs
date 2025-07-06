@@ -72,7 +72,7 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void AfficherInfos()
         {
-            if (_pointsDeVie == 0)
+            if (GetPointsDeVie() <= 0)
                 Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_nom + " {PV=" + (_pointsDeVie < 0 ? 0 : _pointsDeVie) + "}");
             Console.ResetColor();

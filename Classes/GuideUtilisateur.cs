@@ -72,8 +72,7 @@ namespace DuelDeGuerrier.Classes
             foreach ((ConsoleColor, string, int) affichage in tuto)
             {
                 Console.Clear();
-                Console.ForegroundColor = affichage.Item1;
-                Console.WriteLine(affichage.Item2);
+                Coloriser.ColorerTexte(affichage.Item1, "\n\t" + affichage.Item2 + "\n");
                 Console.ResetColor();
                 switch (typeDeTutoriel)
                 {
@@ -233,7 +232,8 @@ namespace DuelDeGuerrier.Classes
                 (ConsoleColor.Magenta,"Dans ce sous-menu, vous pouvez générer toutes les fourmis guerrières que vous souhaitez.\n",2),
                 (ConsoleColor.Blue,"Par exemple, générons une \"Fourmi Balle de Fusil\" (lanceuse de sorts).\n",3),
                 (ConsoleColor.Cyan,"Nous lui donnons le nom de \"Athéna\".\n",4),
-                (ConsoleColor.Blue,"Distribuons-lui un certain nombre de Points de Vie.\n",5),
+                (ConsoleColor.Blue,"Distribuons-lui 50 de Points de Vie.\n",5),
+                (ConsoleColor.Blue,"Attention, vous ne pouvez insérer que des nombres pour les points de vie. Et la limite vous sera indiquée.\n",5),
                 (ConsoleColor.Yellow,"Le nombre de dés d'attaque permet de savoir combien d'attaque notre fourmi pourra distribuer.\n",6),
                 (ConsoleColor.Yellow,"Par exemple, 5 dés d'attaque permettent de distribuer des dégâts entre 5 et 30 (car 5 dés de six faces seront lancés).\n",6),
                 (ConsoleColor.Yellow,"Chaque nombre obtenu sur chaque dé représentant le nombre de dégâts que la fourmi inflige.\n",6),
@@ -241,7 +241,7 @@ namespace DuelDeGuerrier.Classes
                 (ConsoleColor.Yellow,"A contrario, si vous voulez des combats plus lents, un petit nombre de dés d'attaque est préférable.\n",6),
                 (ConsoleColor.Cyan,"Spécificité de la fourmi Balle de Fusil : Elle possède de la mana.\n",7),
                 (ConsoleColor.Cyan,"La mana étant l'énergie nécessaire à la fourmi pour pouvoir lancer des sorts.\n",7),
-                (ConsoleColor.Yellow,"Nous avons distribué toutes les données nécessaires à la formation de notre fourmi Balle de Fusil. Bravo !\n",7),
+                (ConsoleColor.Yellow,"Nous avons distribué toutes les données nécessaires à la formation de notre fourmi Balle de Fusil. Il est temps d'aller la faire combattre dans l'arène !\n",7),
             };
             AfficherTutoriel(tuto, "menuCreerFourmi");
         }
@@ -330,7 +330,7 @@ namespace DuelDeGuerrier.Classes
                     Console.Write("\t" + "[<-]  ");
                 if (i < fourmis.Count - 1)
                     Console.Write("\t" + (i > 0 ? "  [->]" : "      [->]"));
-                Coloriser.ColorerTexte(ConsoleColor.Blue,"\n\nAppuyez sur les flèches directionnelles pour naviguer entre les fourmis, et sur n'importe quelle autre touche pour quitter.\n");
+                Coloriser.ColorerTexte(ConsoleColor.Blue, "\n\nAppuyez sur les flèches directionnelles pour naviguer entre les fourmis, et sur n'importe quelle autre touche pour quitter.\n");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 0);
                 ConsoleKeyInfo input = Console.ReadKey();
@@ -365,7 +365,7 @@ namespace DuelDeGuerrier.Classes
             {
                 case "guerriere":
                     fourmiASCII = "                                 ....\r\n                   .--             ..\r\n               .-+-. :.            ..\r\n              .:.-.--=##*#-        ..\r\n             :-..  :+**###*.=#:      \r\n            .:    .*######+%@%:      \r\n           :+-.    .**##=:::-.*-     \r\n           :##.   .*::::--=%%*=-+.   \r\n    -##+.   -+   .*+=+-:-*%*  .=-*   \r\n      --+++:=- :+#+===+#%%*     :=*: \r\n      :*   :+#%*- .:=-+%%#*-.::-*#-  \r\n      .#*   +*+==++##%%%##%%#*:.%%.  \r\n        =-  ::     .*.***:++:-**##-  \r\n        :.  -:     =*#*:#-+@@%%##*=  \r\n         :.=#-     .** ++#%*@@@@-.   \r\n         .:*-=     :*. =++**#@%@*    \r\n          .: :.   .+#. .***#*#%@*    \r\n          .:.     -#=   .#####%%:    \r\n           .:    .+#.    +*%%%%-     \r\n            -.   -=      :==         \r\n            .- .==        :=         \r\n          .:--=*#***#%%%%%+*%%%##*=. \r\n            ..-=+#*+.   .:=-*%%%%#*: \r\n                          .+--# .... \r\n                              :      \r\n                                ..   ";
-                    List<(ConsoleColor, string)> capacitesGuerriere = new List<(ConsoleColor, string)> { 
+                    List<(ConsoleColor, string)> capacitesGuerriere = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Red, "- Attaque à chaque tour\n"),
                         (ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)")
                     };
@@ -381,7 +381,8 @@ namespace DuelDeGuerrier.Classes
                     break;
 
                 case "rousse":
-                    fourmiASCII = "         %#       %%%                            \r\n        %  @   %%     %#%                        \r\n        %    %                                   \r\n      #####                                      \r\n  %%%%%%%%%%%%#                                  \r\n    %%%%%%%%%%%%                                 \r\n    @@@%%%%%%%%                                  \r\n    @@#+*#%%#%                                   \r\n   %%#%@%#%%%%#%%                                \r\n   %%%%%%@%@%%%%%                                \r\n  #%@@%%%@%%%@@@@                                \r\n @%%##@%%%%%@@ @@                                \r\n @@%%#%@%@%@@  %%%%                              \r\n   %%@%@@@@@  %%@@      **                       \r\n  ##%@@@@@@%@%%       %%%####**++==-=+*+++++***  \r\n @%%@@@@@%%%@@@@@@@@@           %%%@             \r\n  @@@@%%@ @@@@@% #                               \r\n %@@ %%%      @@@##                              \r\n@@   %%        @@@%%                             \r\n                @  @@                            ";
+                    //fourmiASCII = "         %#       %%%                            \r\n        %  @   %%     %#%                        \r\n        %    %                                   \r\n      #####                                      \r\n  %%%%%%%%%%%%#                                  \r\n    %%%%%%%%%%%%                                 \r\n    @@@%%%%%%%%                                  \r\n    @@#+*#%%#%                                   \r\n   %%#%@%#%%%%#%%                                \r\n   %%%%%%@%@%%%%%                                \r\n  #%@@%%%@%%%@@@@                                \r\n @%%##@%%%%%@@ @@                                \r\n @@%%#%@%@%@@  %%%%                              \r\n   %%@%@@@@@  %%@@      **                       \r\n  ##%@@@@@@%@%%       %%%####**++==-=+*+++++***  \r\n @%%@@@@@%%%@@@@@@@@@           %%%@             \r\n  @@@@%%@ @@@@@% #                               \r\n %@@ %%%      @@@##                              \r\n@@   %%        @@@%%                             \r\n                @  @@                            ";
+                    fourmiASCII = "                                                   \r\n             .                   .::               \r\n           :         .-          :--+.             \r\n                 : = =**##        :+%#=.           \r\n               =   .##%#%%           +#%#          \r\n              -  #*:*#%%#%            :#%#         \r\n              : +   ++ =+#+            *%#         \r\n                      +#+=**%%##       +%.         \r\n                    +**=+*#-*%%%#.     **          \r\n                  .#%%%++*+++%%##*=   .#.          \r\n                  *+   ++*-***.   .==:++           \r\n      :+*=:.    =+      *#=*%=       =%-           \r\n   -=*%@%%%%#*##.   ==*#%%=*#-                     \r\n  +=*=#=          *#+#@#*%*+#%-                    \r\n  --: -          *%%%%%#**%=#%%.                   \r\n    :.           #%#**%%@%%=#%@=                   \r\n               . ##+*#%%%@%##%##%                  \r\n            =*=*#*%##%%%#=%%#**#%@:.*%*.           \r\n          :+.   *%*=*#%=   =:  .+++=+**#=          \r\n        .*=    *#.    -               +**+         \r\n       -*+   .+*                      ==-*+        \r\n       *:   =#%:                      .#-:+*       \r\n      +=   +%%-                       .*% -+#.     \r\n     .*-  :#-                           :* +%#     \r\n    .*+  :*:                              *:-*-    \r\n        -+=                               *+ -*.   \r\n       .+*:                               %* .**   \r\n      .+#                                    .+*-  \r\n      :-:                                     -*+  \r\n                                               ..  ";
                     List<(ConsoleColor, string)> capacitesRousse = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Red, "- Attaque moyenne plus élevée\n"),
                         (ConsoleColor.Yellow, "- A une faible chance de parer les dégâts")
@@ -396,7 +397,7 @@ namespace DuelDeGuerrier.Classes
                         (ConsoleColor.Green, "\t• Soin : Récupère 5 Points de Vie\n"),
                         (ConsoleColor.Cyan, "\t• Bouclier Magique : Réduit les dégâts de 50% contre la prochaine attaque adverse\n"),
                         (ConsoleColor.Yellow, "\t• Tir Balle de Fusil : Lance un dé de 1 à 7. Si le résultat est 7, la fourmi Balle de Fusil remporte le duel.\n"),
-                        (ConsoleColor.Red, "\n- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement\n"),
+                        (ConsoleColor.Red, "\n\t- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement\n"),
                         (ConsoleColor.Red, "       un sort de récupération de mana, qui lui fait récupérer entre 3 et 8 points de mana, au prix d'un tour."),
                     };
                     GenererTableFourmi(fourmiASCII, "Fourmi Balle de Fusil", capacitesBDF);
@@ -427,7 +428,7 @@ namespace DuelDeGuerrier.Classes
             Console.WriteLine(ascii);
 
             type = "-- Capacités --";
-            Console.WriteLine("\t\t" + new string('-', type.Length) + "\n" +
+            Console.WriteLine("\n\t\t" + new string('-', type.Length) + "\n" +
                 "\t\t" + type + "\n" +
                 "\t\t" + new string('-', type.Length) + "\n");
             foreach ((ConsoleColor, string) capacite in capacites)
@@ -448,6 +449,8 @@ namespace DuelDeGuerrier.Classes
             // 3 : Afficher Action Atalante attaque Athéna
             // 4 : Afficher Action Bouclier Magique Athéna
             // 5 : Afficher Nouvelle Action Atalante attaque Athéna
+            // 6 : Afficher Victoire d'Atalante et Round N°2 -- Combat entre Atalante et Pénélope --
+            // 7 : Afficher Atalante remporte le tournoi !
             List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
             {
                 (ConsoleColor.Magenta,"Dans le menu principal, une fois que vous avez au moins deux fourmis présentes dans le Hall Des Combattantes,\n",1),
@@ -455,19 +458,131 @@ namespace DuelDeGuerrier.Classes
                 (ConsoleColor.Yellow,"Un Tournoi débute ! Les fourmis se battent entre elles jusqu'à ce qu'il n'en reste plus qu'une.\n",2),
                 (ConsoleColor.Yellow,"Un combat se déroule tour par tour.\n",2),
                 (ConsoleColor.Yellow,"Une fourmi effectue une action par tour, et donne ensuite la main à l'autre.\n",2),
-                (ConsoleColor.Yellow,"Une action peut être une simplement une attaque, ou alors plus complexe comme une combinaison de sorts.\n",2),
-                (ConsoleColor.Blue,"Ici, la fourmi Noire Atalante effectue une attaque simple et inflige 4 dégâts à Athéna\n",3),
-                (ConsoleColor.Cyan,"Elle passe la main à Athéna, qui est de type Balle De Fusil. \n",3),
-                (ConsoleColor.Cyan,"Athéna effectue une action propre au type Balle de Fusil. Elle active son bouclier, mais en contrepartie n'inflige aucun dégâts ce tour-ci. \n",4),
+                (ConsoleColor.Yellow,"Une action peut être simplement une attaque, ou alors quelque chose de plus complexe comme une combinaison de sorts.\n",2),
+                (ConsoleColor.Blue,"Ici, la fourmi Noire Atalante effectue une attaque simple et inflige 5 dégâts à Athéna\n",3),
+                (ConsoleColor.Yellow,"Le nombre de points de vie et de mana (si la fourmi en a) est inscrit à la fin de chaque tour.\n",3),
+                (ConsoleColor.Cyan,"Elle passe la main à Athéna, qui est de type \"Balle De Fusil\". \n",3),
+                (ConsoleColor.Cyan,"Athéna effectue une action propre au type \"Balle de Fusil\". Elle active son bouclier, mais en contrepartie n'inflige aucun dégâts ce tour-ci. \n",4),
                 (ConsoleColor.Magenta,"La main passe à Atalante, et ainsi de suite jusqu'à ce qu'il y'ait un vainqueur.\n",5),
-                (ConsoleColor.Magenta,"Lorsqu'il y'a un vainqueur, le perdant est éliminé et le vainqueur affronte la fourmi suivante.\n",5),
+                (ConsoleColor.Magenta,"Lorsqu'il y'a un vainqueur, le perdant est éliminé et le vainqueur affronte la fourmi suivante.\n",6),
+                (ConsoleColor.Magenta,"Lorsqu'il ne reste plus qu'une fourmi (pas de match nul possible), la fourmi restante remporte le tournoi.\n",7),
+                (ConsoleColor.Blue,"Vous constaterez également que certaines données intéressantes du tournoi ont été ajoutées dans l'historique.\n",7),
+                (ConsoleColor.Yellow,"Merci d'avoir suivi ce tutoriel !\n",7),
             };
             AfficherTutoriel(tuto, "deroulementDuel");
         }
 
         private static void AfficherEtapeDeroulementDuel(int etape)
         {
-            return;
+            void AfficherRound(int action)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.Write($"\t--- ROUND n°1 ---");
+                Console.ResetColor();
+                Console.WriteLine("\n\n" +
+                    "---------------------------------------\n" +
+                    "--- Combat entre Atalante et Athéna ---\n" +
+                    "---------------------------------------\n");
+                if (action > 0)
+                {
+                    Console.WriteLine("\n\nAtalante attaque Athéna avec des dégâts de 5\n" +
+                        "\n" +
+                        "Athéna {PV=35} {Mana=60}\n" +
+                        "Atalante {PV=50}\n");
+                }
+                if (action > 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Athéna consomme 10 mana pour utiliser Bouclier Magique!! (mana restants: 50)");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Un bouclier Magique s'active, réduisant les dégâts subits de 50% contre la prochaine attaque.");
+                    Console.ResetColor();
+                    Console.WriteLine("\nAucun dégât n'a été distribué ce tour.\n" +
+                        "\n" +
+                        "Atalante {PV=50}\r\n" +
+                        "Athéna {PV=37} {Mana=50}");
+                }
+                if (action > 2)
+                {
+                    Console.WriteLine("\nAtalante attaque Athéna avec des dégâts de 6\n" +
+                        "\n");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Le bouclier de Athéna est activé, les dégâts sont réduits par 2, Athéna subi donc 3 dégâts !\r\n");
+                    Console.ResetColor();
+                    Console.WriteLine("Athéna {PV=34} {Mana=50}\r\nAtalante {PV=50}");
+                }
+
+            }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("\t----- TUTORIEL -----\n");
+            Console.ResetColor();
+            switch (etape)
+            {
+                // 1 : Afficher menu principal avec option 4 surlignée
+                case 1:
+                    Console.Write("--- Menu principal ---\n");
+                    Console.Write("1. Créer une fourmi guerrière\n" +
+                        "2. Supprimer une fourmi guerrière\n" +
+                        "3. Afficher la liste des fourmis guerrières\n");
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    Console.Write("4. Lancer un tournoi\n");
+                    Console.ResetColor();
+                    Console.WriteLine("5. Afficher l'historique\n" +
+                        "\n" +
+                        "6. Consulter le Guide Utilisateur" +
+                        "0. Quitter\n\n");
+                    break;
+                // 2 : Afficher "Round n°1 - Combat entre..."
+                case 2:
+                    AfficherRound(0);
+                    break;
+                // 3 : Afficher Action Atalante attaque Athéna
+                case 3:
+                    AfficherRound(1);
+                    break;
+                // 4 : Afficher Action Bouclier Magique Athéna
+                case 4:
+                    AfficherRound(2);
+                    break;
+                // 5 : Afficher Nouvelle Action Atalante attaque Athéna
+                case 5:
+                    AfficherRound(3);
+                    break;
+                // 6 : Afficher Victoire d'Atalante et Round N°2 -- Combat entre Atalante et Pénélope --
+                case 6:
+                    Console.WriteLine("...\n" +
+                        "Atalante attaque Athéna avec des dégâts de 6\r\n\r\n");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Athéna {PV=0} {Mana=11}");
+                    Console.ResetColor();
+                    Console.WriteLine("Atalante {PV=45}\r\n");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine($"Atalante remporte le duel face à Athéna !");
+                    Console.ResetColor();
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Write($"\t--- ROUND n°2 ---\n");
+                    Console.ResetColor();
+                    Console.WriteLine(
+                        "\n-----------------------------------------\n" +
+                        "--- Combat entre Atalante et Pénélope ---\n" +
+                        "-----------------------------------------\n");
+                    break;
+                // 7 : Afficher Atalante remporte le tournoi !
+                case 7:
+                    Console.WriteLine("...\n" +
+                        "Atalante attaque Pénélope avec des dégâts de 6\n" +
+                        "\n");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Pénélope {PV=0}");
+                    Console.ResetColor();
+                    Console.WriteLine("Atalante {PV=32}\n" +
+                        "\n" +
+                        "La fourmi Atalante a remporté le tournoi!\r\n" +
+                        "Un tournoi a été ajouté dans l'historique.");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
