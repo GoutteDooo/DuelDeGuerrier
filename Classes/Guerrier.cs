@@ -15,6 +15,7 @@ namespace DuelDeGuerrier.Classes
         private int _pointsDeVieMax; // Nombre de pvs max du guerrier
         private int _pointsDeVie; // Points de vie du guerrier
         private int _nbDesAttaque; // Nombre de dés attaque du guerrier
+        private int _victoires; // Nombre de victoires
 
         // Propriétés
         public string Nom { get { return _nom; } }
@@ -27,6 +28,7 @@ namespace DuelDeGuerrier.Classes
             _pointsDeVieMax = pointsDeVie;
             _pointsDeVie = pointsDeVie;
             _nbDesAttaque = nbDesAttaque;
+            _victoires = 0;
         }
 
         // Méthodes
@@ -57,7 +59,14 @@ namespace DuelDeGuerrier.Classes
          * Récupère le nombre de dés d'attaque de l'instance
          */
         public int GetNbDesAttaque() => _nbDesAttaque;
-
+        /**
+         * Incrémente le nombre de victoires de l'instance
+         */
+        public void IncrementerVictoires()
+        {
+            _victoires++;
+        }
+        public int GetNbVictoires() => _victoires;
         /**
          * Affiche le nom et les points de vie de l'instance dans le format suivant :
          *  [nom] {PV=xx}
