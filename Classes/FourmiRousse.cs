@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    internal class FourmiRousse : Guerrier
+    internal class FourmiRousse : Guerrier, ICombattant
     {
         // Attributs
         // Propriétés

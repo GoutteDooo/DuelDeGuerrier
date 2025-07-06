@@ -11,9 +11,9 @@ namespace DuelDeGuerrier.Classes
     /**
      * Les Fourmis Balle de Fusil peuvent one shot leur adversaire si le dés tombe sur une valeur définie
      */
-    internal class BalleDeFusil : Guerrier
+    internal class BalleDeFusil : Guerrier, ICombattant
     {
-        private int _mana = 50;
+        // Propriétés
         private List<string> sorts = new List<string> { "Boule de Feu", "Soin", "Bouclier Magique", "Tir Balle De Fusil" };
         public int Mana { get; set; }
         public int ManaMax { get; set; }
@@ -24,6 +24,8 @@ namespace DuelDeGuerrier.Classes
             Mana = mana;
             BouclierActif = bouclierActif;
         }
+
+        //Méthodes 
 
         /**
          * Méthode redéfinie de la classe mère Guerrier
@@ -87,6 +89,7 @@ namespace DuelDeGuerrier.Classes
             }
             else
             {
+                // Si plus de mana, on lance RegenererMana()
                 RegenererMana();
                 return 0;
             }
@@ -108,12 +111,12 @@ namespace DuelDeGuerrier.Classes
 
         /**
          * Méthode utilisée lorsque l'instance n'a plus assez de mana pour Attaquer.
-         * Lance un dés qui régénère son mana entre 3 et 8
+         * Lance un dés qui régénère son mana entre 5 et 10
          */
         private void RegenererMana()
         {
             Random rng = new Random();
-            int resultatDes = rng.Next(3, 8+1);
+            int resultatDes = rng.Next(3, 10+1);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"{this.GetNom()} n'a pas assez de mana pour lancer un sort ! Elle utilise donc sa capacité de régénération et récupère {resultatDes} points de mana...");
             Console.ResetColor();

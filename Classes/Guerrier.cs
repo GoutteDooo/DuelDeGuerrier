@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    internal class Guerrier
+    class Guerrier
     {
         //Attributs
         private string _nom; //Nom du guerrier

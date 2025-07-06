@@ -152,17 +152,18 @@ namespace DuelDeGuerrier.Classes
                     Program.AfficherMenuPrincipal();
                     break;
                 case 3:
-                    Console.Write("--- Menu principal ---\n");
+                    Console.Write("\t    ----- Menu principal -----\n");
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    Console.Write("1. Créer une fourmi guerrière\n");
+                    Console.Write("\t1. Créer une fourmi guerrière\n");
                     Console.ResetColor();
-                    Console.WriteLine("2. Supprimer une fourmi guerrière\n" +
-                        "3. Afficher la liste des fourmis guerrières\n" +
-                        "4. Lancer un tournoi\n" +
-                        "5. Afficher l'historique\n" +
-                        "\n" +
-                        "6. Consulter le Guide Utilisateur" +
-                        "0. Quitter\n\n");
+                    Console.WriteLine(
+                        "\t2. Supprimer une fourmi guerrière\n" +
+                        "\t3. Afficher la liste des fourmis guerrières\n" +
+                        "\t4. Lancer un tournoi\n" +
+                        "\t5. Afficher l'historique\n" +
+                        "\t\n" +
+                        "\t6. Consulter le Guide Utilisateur" +
+                        "\t0. Quitter\n\n");
                     break;
                 case 4:
                     Program.AfficherMenuAjouterGuerrier();
@@ -191,18 +192,18 @@ namespace DuelDeGuerrier.Classes
                     Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 10 et 100) ");
                     break;
                 case 8:
-                    Console.Write("--- Menu principal ---\n" +
-                        "1. Créer une fourmi guerrière\n" +
-                        "2. Supprimer une fourmi guerrière\n" +
-                        "3. Afficher la liste des fourmis guerrières\n");
+                    Console.Write("\t   ----- Menu principal -----\n" +
+                        "\t1. Créer une fourmi guerrière\n" +
+                        "\t2. Supprimer une fourmi guerrière\n" +
+                        "\t3. Afficher la liste des fourmis guerrières\n");
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    Console.Write("4. Lancer un tournoi\n");
+                    Console.Write("\t4. Lancer un tournoi\n");
                     Console.ResetColor();
                     Console.WriteLine(
-                        "5. Afficher l'historique\n" +
-                        "\n" +
-                        "6. Consulter le Guide Utilisateur" +
-                        "0. Quitter\n\n");
+                        "\t5. Afficher l'historique\n" +
+                        "\t\n" +
+                        "\t6. Consulter le Guide Utilisateur" +
+                        "\t0. Quitter\n\n");
                     break;
                 case 9:
                     Console.WriteLine("COMBATS !!!");
@@ -261,17 +262,18 @@ namespace DuelDeGuerrier.Classes
             switch (etape)
             {
                 case 1:
-                    Console.Write("--- Menu principal ---\n");
+                    Console.Write("\t----- Menu principal -----\n");
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    Console.Write("1. Créer une fourmi guerrière\n");
+                    Console.Write("\t1. Créer une fourmi guerrière\n");
                     Console.ResetColor();
-                    Console.WriteLine("2. Supprimer une fourmi guerrière\n" +
-                        "3. Afficher la liste des fourmis guerrières\n" +
-                        "4. Lancer un tournoi\n" +
-                        "5. Afficher l'historique\n" +
-                        "\n" +
-                        "6. Consulter le Guide Utilisateur" +
-                        "0. Quitter\n\n");
+                    Console.WriteLine(
+                        "\t2. Supprimer une fourmi guerrière\n" +
+                        "\t3. Afficher la liste des fourmis guerrières\n" +
+                        "\t4. Lancer un tournoi\n" +
+                        "\t5. Afficher l'historique\n" +
+                        "\t\n" +
+                        "\t6. Consulter le Guide Utilisateur" +
+                        "\t0. Quitter\n\n");
                     break;
                 case 2:
                     Program.AfficherMenuAjouterGuerrier();
@@ -332,7 +334,6 @@ namespace DuelDeGuerrier.Classes
                     Console.Write("\t" + (i > 0 ? "  [->]" : "      [->]"));
                 Coloriser.ColorerTexte(ConsoleColor.Blue, "\n\nAppuyez sur les flèches directionnelles pour naviguer entre les fourmis, et sur n'importe quelle autre touche pour quitter.\n");
                 Console.ResetColor();
-                Console.SetCursorPosition(0, 0);
                 ConsoleKeyInfo input = Console.ReadKey();
                 Console.Clear();
                 if (i > 0 && input.Key.ToString() == "LeftArrow")

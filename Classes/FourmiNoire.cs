@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    internal class FourmiNoire : Guerrier
+    internal class FourmiNoire : Guerrier, ICombattant
     {
         // Attributs
         private bool _armureLourde; //Détermine si le FourmiNoire porte une armure lourde 

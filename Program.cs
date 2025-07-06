@@ -11,8 +11,7 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            GuideUtilisateur.AfficherGuide();
-            //MenuPrincipal();
+            MenuPrincipal();
         }
 
         /**
@@ -20,15 +19,16 @@ namespace DuelDeGuerrier
          */
         public static void AfficherMenuPrincipal()
         {
-            Console.WriteLine("--- Menu principal ---\n" +
-                "1. Créer une fourmi guerrière\n" +
-                "2. Supprimer une fourmi guerrière\n" +
-                "3. Afficher la liste des fourmis guerrières\n" +
-                "4. Lancer un tournoi\n" +
-                "5. Afficher l'historique\n" +
-                "\n" +
-                "6. Consulter le Guide Utilisateur\n" +
-                "0. Quitter\n\n");
+            Console.WriteLine(
+                "\t   ----- Menu principal -----\n\n" +
+                "\t1. Créer une fourmi guerrière\n" +
+                "\t2. Supprimer une fourmi guerrière\n" +
+                "\t3. Afficher la liste des fourmis guerrières\n" +
+                "\t4. Lancer un tournoi\n" +
+                "\t5. Afficher l'historique\n" +
+                "\t\n" +
+                "\t6. Consulter le Guide Utilisateur\n" +
+                "\t0. Quitter\n\n");
         }
 
         /**
