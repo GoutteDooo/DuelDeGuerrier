@@ -12,15 +12,6 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            //Tournoi tournoi = new Tournoi();
-            //tournoi.Classements = new List<List<ICombattant>>
-            //{
-            //    new List<ICombattant>() { new Guerrier("f",10,10),  new Guerrier("g",10,10),  new Guerrier("h",10,10) , new Guerrier("i",10,10) },
-            //    new List<ICombattant>() { new Guerrier("C",10,10),  new Guerrier("D",10,10),  new Guerrier("E",10,10) },
-            //    new List<ICombattant>() { new Guerrier("B",10,10) },
-            //    new List<ICombattant>() { new Guerrier("A",10,10) },
-            //};
-            //tournoi.AfficherClassement();
             MenuPrincipal();
         }
 
@@ -327,19 +318,21 @@ namespace DuelDeGuerrier
                     }
                 }
             }
-            // S'il ne reste plus qu'une seule fourmi guerrière dans la liste
+            // S'il ne reste plus qu'une seule fourmi guerrière dans la liste, alors c'est la gagnante
             if (fourmisGuerrieres.Count == 1)
             {
 
+                // Affichage
                 Console.WriteLine($"------ FIN DU TOURNOI ------\n");
                 Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
+                // Afficher le classement
                 Console.WriteLine($"Voici le classement :");
-                /* Crée une nouvelle instance de Tournoi et l'insérer dans l'historique */
                 ICombattant vainqueur = fourmisGuerrieres[0];
                 tournoi.SetVainqueur(vainqueur);
                 tournoi.Classements[etape].Add(vainqueur);
-                historique.Insert(0, tournoi);
                 tournoi.AfficherClassement();
+                // Insérer le tournoi dans l'historique de tournois
+                historique.Insert(0, tournoi);
 
                 //Entrée utilisateur pour revenir au menu principal
                 RetourMenuPrincipal();
@@ -358,10 +351,10 @@ namespace DuelDeGuerrier
         public static void Combattre(int duelID, List<ICombattant> etapeDeClassement)
         {
             var fourmi1 = fourmisGuerrieres[duelID];
-            var fourmi2 = fourmisGuerrieres[duelID+1];
+            var fourmi2 = fourmisGuerrieres[duelID + 1];
 
             string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.GetType()}) et {fourmi2.GetNom()}({fourmi2.GetType()}) ---";
-            Console.WriteLine(new string('-',combat.Length) + "\n" +
+            Console.WriteLine(new string('-', combat.Length) + "\n" +
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
             bool fourmi1Attaque = true; // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
@@ -379,7 +372,7 @@ namespace DuelDeGuerrier
                 Console.ResetColor();
 
                 fourmiDefenseur.SubirDegats(degats);
-                
+
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
                 Thread.Sleep(100);
@@ -463,11 +456,27 @@ namespace DuelDeGuerrier
                 RetourMenuPrincipal();
                 return;
             }
-            foreach (Tournoi tournoi in historique)
+            while (true)
             {
-                tournoi.AfficherDonnees();
-            }
+                foreach (Tournoi tournoi in historique)
+                {
+                    tournoi.AfficherDonnees();
+                }
+                Console.WriteLine("Entrez le numéro d'un tournoi pour consulter son tableau de classement : (0 pour annuler)");
 
+                // Entrée utilisateur pour afficher en détail un tournoi
+                int input = LireEntierValide(0, historique.Count);
+                // Si utilisateur a entré '0', alors on quitte le menu
+                if (input == 0)
+                    break;
+
+                Console.Clear();
+                Console.WriteLine($"Voici les classements du tournoi n°{input} : \n");
+                historique.Find(h => h.Numero == input).AfficherClassement();
+                Console.WriteLine("\n\tApppuyez sur une touche pour revenir aux archives...");
+                Console.ReadKey();
+                Console.Clear();
+            }
             // Entrée utilisateur pour revenir au menu principal
             RetourMenuPrincipal();
         }
@@ -505,9 +514,9 @@ namespace DuelDeGuerrier
         }
 
         /**
-         * Lit une entrée utilisateur et vérifie si elle est conforme (entre min et max)
+         * Lit une entrée utilisateur et vérifie qu'elle est conforme (entre min et max)
          * Retourne l'entier entré le cas échéant
-         * Sinon, une exception est levée
+         * Sinon, un message d'erreur est affiché, invitant l'utilisateur a entrer de nouveau
          */
         public static int LireEntierValide(int min, int max)
         {
