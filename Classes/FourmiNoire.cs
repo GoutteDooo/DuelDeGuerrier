@@ -21,7 +21,7 @@ namespace DuelDeGuerrier.Classes
             if (_armureLourde && degats > 0)
             {
                 degats = degats / 2;
-                Console.WriteLine($"L'armure lourde de {this.GetNom()} réduit les dégâts subis par deux et prend donc {degats}!");
+                Console.WriteLine($"L'armure lourde de {this.GetNom()} réduit les dégâts subis par deux et prend donc {(degats < 1000 ? degats : "INFINI")}!");
             }
 
             base.SubirDegats(degats);

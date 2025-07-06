@@ -41,10 +41,9 @@ namespace DuelDeGuerrier.Classes
                         ExplicationsMenuCreerFourmiGuerriere();
                         break;
                     case '3':
-
+                        DeroulementDuel();
+                        break;
                     case '4':
-                        Console.WriteLine("\t------ Types de fourmis ------\n" +
-                            "\t" + new string('-', 30));
                         TypesDeFourmi();
                         break;
                     case '0':
@@ -83,6 +82,9 @@ namespace DuelDeGuerrier.Classes
                         break;
                     case "menuCreerFourmi":
                         AfficherEtapeMenuCreerFourmi(affichage.Item3);
+                        break;
+                    case "deroulementDuel":
+                        AfficherEtapeDeroulementDuel(affichage.Item3);
                         break;
                     default:
                         break;
@@ -325,9 +327,10 @@ namespace DuelDeGuerrier.Classes
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine();
                 if (i > 0)
-                    Console.Write("[<-]  ");
+                    Console.Write("\t" + "[<-]  ");
                 if (i < fourmis.Count - 1)
-                    Console.Write(i > 0 ? "  [->]" : "      [->]");
+                    Console.Write("\t" + (i > 0 ? "  [->]" : "      [->]"));
+                Coloriser.ColorerTexte(ConsoleColor.Blue,"\n\nAppuyez sur les flèches directionnelles pour naviguer entre les fourmis, et sur n'importe quelle autre touche pour quitter.\n");
                 Console.ResetColor();
                 Console.SetCursorPosition(0, 0);
                 ConsoleKeyInfo input = Console.ReadKey();
@@ -351,14 +354,17 @@ namespace DuelDeGuerrier.Classes
 
         /**
          * Affiche le type de fourmi passé en paramètre
+         * Une liste contenant couleur et texte pour les compétences de la fourmi est envoyé à une autre méthode pour la gestion graphique
          */
         private static void AfficherFourmi(string typeDeFourmi)
         {
-            string fourmiASCII;
+            Console.WriteLine("\t------ Types de fourmis ------\n" +
+                "\t" + new string('-', 30));
+            string fourmiASCII; // String qui récupère l'ascii art de la fourmi
             switch (typeDeFourmi)
             {
                 case "guerriere":
-                    fourmiASCII = "                                         \r\n                                         \r\n            =++=:         -=             \r\n                  #      *               \r\n    #               :   *                \r\n   . *              %   -                \r\n    = #          *.:----+%:              \r\n     = *       ::#=---*#+-*#             \r\n      * #      *@+*---%#@++#-            \r\n       # +    ::-*=---**=:+%.            \r\n        # =    #=-=*=---=*%-             \r\n         -::.    *%#**#%#. =*+           \r\n           + -    .*%%@##.  .*           \r\n            * #*  *****@%#=              \r\n            =%%%%%%**#*+  +=             \r\n               %% =*##%%#+.%-            \r\n                 =++++%%*#%%+            \r\n                 %@@@@@@@%: +**          \r\n                 #  -@@= -#              \r\n               .+:        +-             \r\n                ..........               \r\n                                         ";
+                    fourmiASCII = "                                 ....\r\n                   .--             ..\r\n               .-+-. :.            ..\r\n              .:.-.--=##*#-        ..\r\n             :-..  :+**###*.=#:      \r\n            .:    .*######+%@%:      \r\n           :+-.    .**##=:::-.*-     \r\n           :##.   .*::::--=%%*=-+.   \r\n    -##+.   -+   .*+=+-:-*%*  .=-*   \r\n      --+++:=- :+#+===+#%%*     :=*: \r\n      :*   :+#%*- .:=-+%%#*-.::-*#-  \r\n      .#*   +*+==++##%%%##%%#*:.%%.  \r\n        =-  ::     .*.***:++:-**##-  \r\n        :.  -:     =*#*:#-+@@%%##*=  \r\n         :.=#-     .** ++#%*@@@@-.   \r\n         .:*-=     :*. =++**#@%@*    \r\n          .: :.   .+#. .***#*#%@*    \r\n          .:.     -#=   .#####%%:    \r\n           .:    .+#.    +*%%%%-     \r\n            -.   -=      :==         \r\n            .- .==        :=         \r\n          .:--=*#***#%%%%%+*%%%##*=. \r\n            ..-=+#*+.   .:=-*%%%%#*: \r\n                          .+--# .... \r\n                              :      \r\n                                ..   ";
                     List<(ConsoleColor, string)> capacitesGuerriere = new List<(ConsoleColor, string)> { 
                         (ConsoleColor.Red, "- Attaque à chaque tour\n"),
                         (ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)")
@@ -383,7 +389,7 @@ namespace DuelDeGuerrier.Classes
                     GenererTableFourmi(fourmiASCII, "Fourmi Rousse", capacitesRousse);
                     break;
                 case "balleDeFusil":
-                    fourmiASCII = "                         ...:*+--****-....   \r\n                        .:**##########***:.  \r\n                       .+*###%%%%#==*%###*+. \r\n                   ...:**##%%%%%%#+=*#%%%#**:\r\n              .:.  .+-=*##%%%%%%%#%%####%##*+\r\n       .-**+:-=+=====.+*###%%#########%%%%#**\r\n       =#*#*+*#+#++#++**#*########*####%%##**\r\n .::. .*+++=*:=*:=.+***#***********########*+\r\n.=...:+*:.-: .:.:.-..:-.+************#####**:\r\n-..:-....::. .=. ..-. ::.-****************+..\r\n:+...  .=.  .-.    .-. ::..-************+..  \r\n      .=.  .=..         :-.  ..:-+=-:..      \r\n      ...  -..          ..-.     ....        ";
+                    fourmiASCII = "            :   ..             \r\n          .  . ::-:            \r\n         .  =::-=-.       -.   \r\n             :--=-     .:      \r\n          -  ::===   -.     :  \r\n           .::==:=+=..    -    \r\n            .:-===-====.:      \r\n            ==--==+=.-.=       \r\n           -=-+-===+ :.-=:     \r\n         ==-=:=-==-  .::-      \r\n      .==  .=--+-. -   :=      \r\n    :=.   .-=:.=-==::. :=+     \r\n  :+     -=:.=  :---+::-- .-   \r\n..     =- ..-:  ::==-=--:   :  \r\n    :=.   ..-:  -:-----:.:   :.\r\n  :-      ..=-:.--:=:--=. :    \r\n          :+.:: .---===-.  .:  \r\n           .--.:..-+-=--       \r\n              :::  :-=-=       \r\n              ..    . -:       \r\n             ..     : .        \r\n             .     .:          \r\n           ...     .:          \r\n        ...-:     ::=          \r\n        ..       ..:..         ";
                     List<(ConsoleColor, string)> capacitesBDF = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Blue, "- Lance uniquement des sorts à chaque tour de manière aléatoire contre 10 points de mana :\n"),
                         (ConsoleColor.Red, "\t• Boule de Feu : Inflige 10 points de dégâts\n"),
@@ -391,7 +397,7 @@ namespace DuelDeGuerrier.Classes
                         (ConsoleColor.Cyan, "\t• Bouclier Magique : Réduit les dégâts de 50% contre la prochaine attaque adverse\n"),
                         (ConsoleColor.Yellow, "\t• Tir Balle de Fusil : Lance un dé de 1 à 7. Si le résultat est 7, la fourmi Balle de Fusil remporte le duel.\n"),
                         (ConsoleColor.Red, "\n- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement\n"),
-                        (ConsoleColor.Red, "       un sort de récupération de mana, qui lui fait récupérer entre 3 et 8 points de mana, au prix d'un tour.)"),
+                        (ConsoleColor.Red, "       un sort de récupération de mana, qui lui fait récupérer entre 3 et 8 points de mana, au prix d'un tour."),
                     };
                     GenererTableFourmi(fourmiASCII, "Fourmi Balle de Fusil", capacitesBDF);
                     break;
@@ -401,20 +407,67 @@ namespace DuelDeGuerrier.Classes
             Console.WriteLine();
         }
 
+        /**
+         * Génère graphiquement :
+         *      -----------------
+         *      Type de la fourmi (param type)
+         *      -----------------
+         *      ASCII ART de la fourmi (param ascii)
+         *      ---------
+         *      CAPACITES
+         *      ---------
+         *      - Compétences de la fourmi (param capacites)
+         */
         private static void GenererTableFourmi(string ascii, string type, List<(ConsoleColor, string)> capacites)
         {
+            Console.WriteLine("\n\n");
+            Console.WriteLine("\t\t" + new string('-', type.Length) + "\n" +
+                "\t\t" + type + "\n" +
+                "\t\t" + new string('-', type.Length) + "\n");
             Console.WriteLine(ascii);
-            Console.WriteLine(new string('-', type.Length) + "\n" +
-                type + "\n" +
-                new string('-', type.Length) + "\n");
 
-            type = "Capacités";
-            Console.WriteLine(new string('-', type.Length) + "\n" +
-                type + "\n" +
-                new string('-', type.Length) + "\n");
-            foreach((ConsoleColor, string) capacite in capacites)
+            type = "-- Capacités --";
+            Console.WriteLine("\t\t" + new string('-', type.Length) + "\n" +
+                "\t\t" + type + "\n" +
+                "\t\t" + new string('-', type.Length) + "\n");
+            foreach ((ConsoleColor, string) capacite in capacites)
+            {
+                Console.Write("\t");
                 Coloriser.ColorerTexte(capacite.Item1, capacite.Item2);
+            }
+        }
 
+        /**
+         * Génère les données du tutoriel déroulement duel et lance l'affichage dynamique de ce dernier
+         */
+        private static void DeroulementDuel()
+        {
+            // Etapes
+            // 1 : Afficher menu principal avec option 4 surlignée
+            // 2 : Afficher "Round n°1 - Combat entre..."
+            // 3 : Afficher Action Atalante attaque Athéna
+            // 4 : Afficher Action Bouclier Magique Athéna
+            // 5 : Afficher Nouvelle Action Atalante attaque Athéna
+            List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
+            {
+                (ConsoleColor.Magenta,"Dans le menu principal, une fois que vous avez au moins deux fourmis présentes dans le Hall Des Combattantes,\n",1),
+                (ConsoleColor.Blue,"Lorsque vous sélectionnez \"4. Lancer un tournoi\"...\n",1),
+                (ConsoleColor.Yellow,"Un Tournoi débute ! Les fourmis se battent entre elles jusqu'à ce qu'il n'en reste plus qu'une.\n",2),
+                (ConsoleColor.Yellow,"Un combat se déroule tour par tour.\n",2),
+                (ConsoleColor.Yellow,"Une fourmi effectue une action par tour, et donne ensuite la main à l'autre.\n",2),
+                (ConsoleColor.Yellow,"Une action peut être une simplement une attaque, ou alors plus complexe comme une combinaison de sorts.\n",2),
+                (ConsoleColor.Blue,"Ici, la fourmi Noire Atalante effectue une attaque simple et inflige 4 dégâts à Athéna\n",3),
+                (ConsoleColor.Cyan,"Elle passe la main à Athéna, qui est de type Balle De Fusil. \n",3),
+                (ConsoleColor.Cyan,"Athéna effectue une action propre au type Balle de Fusil. Elle active son bouclier, mais en contrepartie n'inflige aucun dégâts ce tour-ci. \n",4),
+                (ConsoleColor.Magenta,"La main passe à Atalante, et ainsi de suite jusqu'à ce qu'il y'ait un vainqueur.\n",5),
+                (ConsoleColor.Magenta,"Lorsqu'il y'a un vainqueur, le perdant est éliminé et le vainqueur affronte la fourmi suivante.\n",5),
+            };
+            AfficherTutoriel(tuto, "deroulementDuel");
+        }
+
+        private static void AfficherEtapeDeroulementDuel(int etape)
+        {
+            return;
         }
     }
 }

@@ -413,12 +413,6 @@ namespace DuelDeGuerrier
             foreach (Tournoi tournoi in historique)
             {
                 tournoi.AfficherDonnees();
-                /*
-                Console.WriteLine("\n" +
-                    $"\tTournoi n°{tournoi.Numero} :\n" +
-                    $"\t\tVainqueur : {tournoi.Vainqueur.GetNom()} - {tournoi.Vainqueur.GetType()}\n" +
-                    $"\t\tParticipants : {tournoi.NombreParticipants}\n" +
-                    $"\t\tDate de lancement : {tournoi.Date}\n");*/
             }
 
             // Entrée utilisateur pour revenir au menu principal
