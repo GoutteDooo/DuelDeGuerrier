@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace DuelDeGuerrier.Classes
 {
@@ -18,7 +19,13 @@ namespace DuelDeGuerrier.Classes
         */
         public static void SauvegarderFourmis(List<ICombattant> fourmis)
         {
+            // test
+            Guerrier combattant = new Guerrier("toto", 13, 4);
 
+            var options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+            string jsonString = JsonSerializer.Serialize(combattant);
+            Console.WriteLine(jsonString);
         }
     }
 }

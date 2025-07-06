@@ -10,42 +10,40 @@ namespace DuelDeGuerrier.Classes
 {
     class Guerrier : ICombattant
     {
-        //Attributs
-        private string _nom; //Nom du guerrier
-        private int _pointsDeVieMax; // Nombre de pvs max du guerrier
-        private int _pointsDeVie; // Points de vie du guerrier
-        private int _nbDesAttaque; // Nombre de dés attaque du guerrier
-        private int _victoires; // Nombre de victoires
-
         // Propriétés
-        public string Nom { get { return _nom; } }
-        public int NbDesAttaques { get; set; }
+        public string Nom { get ; set; }//Nom du guerrier
+        public int PointsDeVieMax { get; }// Nombre de pvs max du guerrier
+        public int PointsDeVie { get; set; }// Points de vie du guerrier
+        public int NbDesAttaque { get; set; }// Nombre de dés attaque du guerrier
+        public int Victoires { get; set; }// Nombre de victoires
+        public string Type { get; }
 
         // Constructeur
         public Guerrier(string nom, int pointsDeVie, int nbDesAttaque)
         {
-            _nom = nom;
-            _pointsDeVieMax = pointsDeVie;
-            _pointsDeVie = pointsDeVie;
-            _nbDesAttaque = nbDesAttaque;
-            _victoires = 0;
+            Nom = nom;
+            PointsDeVieMax = pointsDeVie;
+            PointsDeVie = pointsDeVie;
+            NbDesAttaque = nbDesAttaque;
+            Victoires = 0;
+            Type = "Guerrière";
         }
 
         // Méthodes
         /**
          * Récupére le nom de l'instance
          */
-        public string GetNom() => _nom;
+        public string GetNom() => Nom;
         /**
          * Récupére les PV de l'instance
          */
-        public int GetPointsDeVie() => _pointsDeVie;
+        public int GetPointsDeVie() => PointsDeVie;
         /**
          * Modifie les PV de l'instance
          */
         public void SetPointsDeVie(int pointsDeVie)
         {
-            _pointsDeVie = pointsDeVie > 0 ? pointsDeVie : 0;
+            PointsDeVie = pointsDeVie > 0 ? pointsDeVie : 0;
         }
 
         /**
@@ -53,20 +51,22 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void ResetMax()
         {
-            _pointsDeVie = _pointsDeVieMax;
+            PointsDeVie = PointsDeVieMax;
         }
         /**
          * Récupère le nombre de dés d'attaque de l'instance
          */
-        public int GetNbDesAttaque() => _nbDesAttaque;
+        public int GetNbDesAttaque() => NbDesAttaque;
         /**
          * Incrémente le nombre de victoires de l'instance
          */
         public void IncrementerVictoires()
         {
-            _victoires++;
+            Victoires++;
         }
-        public int GetNbVictoires() => _victoires;
+        public int GetNbVictoires() => Victoires;
+
+        public new string GetType() => Type;
         /**
          * Affiche le nom et les points de vie de l'instance dans le format suivant :
          *  [nom] {PV=xx}
@@ -75,7 +75,7 @@ namespace DuelDeGuerrier.Classes
         {
             if (GetPointsDeVie() <= 0)
                 Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(_nom + " {PV=" + (_pointsDeVie < 0 ? 0 : _pointsDeVie) + "}");
+            Console.WriteLine(Nom + " {PV=" + (PointsDeVie < 0 ? 0 : PointsDeVie) + "}");
             Console.ResetColor();
         }
         /**
@@ -88,7 +88,7 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual void SubirDegats(int degats)
         {
-            SetPointsDeVie(_pointsDeVie - degats);
+            SetPointsDeVie(PointsDeVie - degats);
         }
     }
 }

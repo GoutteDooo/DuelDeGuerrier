@@ -11,9 +11,12 @@ namespace DuelDeGuerrier.Classes
     {
         // Attributs
         // Propriétés
+        public string Type { get; }
         // Constructeur
         public FourmiRousse(string nom, int pointsDeVie, int nbDesAttaque) : base(nom, pointsDeVie, nbDesAttaque)
-        { }
+        {
+            Type = "Rousse";
+        }
 
         // Méthodes
         /**
@@ -21,7 +24,7 @@ namespace DuelDeGuerrier.Classes
          * Si le dés roule sur 1 ou 2, elle infligera 2
          * Si le dés roule sur 3 ou +, elle infligera le dégât indiqué sur le dés
          */
-        public int Attaquer()
+        public override int Attaquer()
         {
             Random random = new Random();
             int rng = random.Next(1, 6+1);

@@ -325,7 +325,7 @@ namespace DuelDeGuerrier.Classes
         private static void TypesDeFourmi()
         {
             List<string> fourmis = new() { "guerriere", "noire", "rousse", "balleDeFusil" };
-            for (int i = 0; i < fourmis.Count; i = i) //particulier : i ne bouge pas dans le step car il est manipulé par l'utilisateur
+            for (int i = 0; i < fourmis.Count; i += 0) //particulier : i ne bouge pas dans le step car il est manipulé par l'utilisateur
             {
                 AfficherFourmi(fourmis[i]);
                 Console.ForegroundColor = ConsoleColor.Yellow;
