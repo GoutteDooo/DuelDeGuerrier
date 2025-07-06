@@ -17,8 +17,9 @@ namespace DuelDeGuerrier.Classes
                     "\n" +
                     "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
                     "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
-                    "\t3. Explication des types de fourmi\n" +
-                    "\t4. Explication du menu \"Supprimer une fourmi guerrière\"\n" +
+                    "\t3. Comment se déroule un duel ?\n" +
+                    "\t4. Explication des types de fourmi\n" +
+                    "\t5. Explication du menu \"Supprimer une fourmi guerrière\"\n" +
                     "\n" +
                     "\t0. Revenir au Menu Principal\n" +
                     "\n" +
@@ -26,7 +27,7 @@ namespace DuelDeGuerrier.Classes
 
                 ConsoleKeyInfo input = Console.ReadKey();
                 Console.Clear();
-                if (!"01234".Contains(input.KeyChar))
+                if (!"012345".Contains(input.KeyChar))
                 {
                     Program.AfficherErreur("Veuillez entrer une option valide svp.");
                     continue;
@@ -37,10 +38,11 @@ namespace DuelDeGuerrier.Classes
                         BrefTutoriel();
                         break;
                     case '2':
-                        Console.WriteLine("Comment fct les menus");
                         ExplicationsMenuCreerFourmiGuerriere();
                         break;
                     case '3':
+
+                    case '4':
                         Console.WriteLine("\t------ Types de fourmis ------\n" +
                             "\t" + new string('-', 30));
                         TypesDeFourmi();
@@ -111,9 +113,9 @@ namespace DuelDeGuerrier.Classes
             List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
             {
                 (ConsoleColor.Magenta,"Vous êtes une sorte d'organisateur de combat de fourmi.\n",1),
-                (ConsoleColor.Blue,"Au début du jeu, aucune fourmi n'est présente dans le Hall des Combattantes.\n",1),
-                (ConsoleColor.Blue,"Le Hall des Combattantes est là où toutes les fourmis se réunissent avant de combattre.\n",1),
-                (ConsoleColor.Green,"Ci-dessous, voici le Menu Principal. (Vous ne pouvez pas y toucher le temps du tuto)\n",2),
+                (ConsoleColor.Blue,"Au début du jeu, aucune fourmi n'est présente dans \"le Hall des Combattantes\".\n",1),
+                (ConsoleColor.Blue,"Le \"Hall des Combattantes\" est là où toutes les fourmis se réunissent avant de combattre.\n",1),
+                (ConsoleColor.Green,"Ci-dessous, voici le Menu Principal. (Vous ne pouvez pas y toucher le temps du tutoriel)\n",2),
                 (ConsoleColor.Blue,"Lorsque vous sélectionnez l'option \"1. Créer une fourmi guerrière\",\n",3),
                 (ConsoleColor.Blue,"Vous entrez dans le sous-menu \"Créer une Guerrière\",\n",4),
                 (ConsoleColor.Magenta,"Dans ce sous-menu, vous pouvez créer actuellement 4 types de fourmi.\n",4),
@@ -225,7 +227,7 @@ namespace DuelDeGuerrier.Classes
             // 8: Afficher "Une fourmi Balle De Fusil a été créée!\n Athena {PV=50} {Mana=70}" en vert
             List<(ConsoleColor couleur, string texte, int etape)> tuto = new List<(ConsoleColor, string, int)>
             {
-                (ConsoleColor.Magenta,"\"1. Créer une fourmi guerrière\"\n",1),
+                (ConsoleColor.Magenta,"Dans le menu principal, sélectionnez l'option \"1. Créer une fourmi guerrière\"\n",1),
                 (ConsoleColor.Magenta,"Dans ce sous-menu, vous pouvez générer toutes les fourmis guerrières que vous souhaitez.\n",2),
                 (ConsoleColor.Blue,"Par exemple, générons une \"Fourmi Balle de Fusil\" (lanceuse de sorts).\n",3),
                 (ConsoleColor.Cyan,"Nous lui donnons le nom de \"Athéna\".\n",4),
@@ -321,6 +323,7 @@ namespace DuelDeGuerrier.Classes
             {
                 AfficherFourmi(fourmis[i]);
                 Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine();
                 if (i > 0)
                     Console.Write("[<-]  ");
                 if (i < fourmis.Count - 1)
@@ -337,6 +340,11 @@ namespace DuelDeGuerrier.Classes
                 if (i < fourmis.Count - 1 && input.Key.ToString() == "RightArrow")
                 {
                     i++;
+                    continue;
+                }
+                if (input.Key.ToString() != "LeftArrow" && input.Key.ToString() != "RightArrow")
+                {
+                    break;
                 }
             }
         }
@@ -351,7 +359,6 @@ namespace DuelDeGuerrier.Classes
             {
                 case "guerriere":
                     fourmiASCII = "                                         \r\n                                         \r\n            =++=:         -=             \r\n                  #      *               \r\n    #               :   *                \r\n   . *              %   -                \r\n    = #          *.:----+%:              \r\n     = *       ::#=---*#+-*#             \r\n      * #      *@+*---%#@++#-            \r\n       # +    ::-*=---**=:+%.            \r\n        # =    #=-=*=---=*%-             \r\n         -::.    *%#**#%#. =*+           \r\n           + -    .*%%@##.  .*           \r\n            * #*  *****@%#=              \r\n            =%%%%%%**#*+  +=             \r\n               %% =*##%%#+.%-            \r\n                 =++++%%*#%%+            \r\n                 %@@@@@@@%: +**          \r\n                 #  -@@= -#              \r\n               .+:        +-             \r\n                ..........               \r\n                                         ";
-                    //fourmiASCII = "\\(\")/\r\n-( )-\r\n/(_)\\";
                     List<(ConsoleColor, string)> capacitesGuerriere = new List<(ConsoleColor, string)> { 
                         (ConsoleColor.Red, "- Attaque à chaque tour\n"),
                         (ConsoleColor.Yellow, "- A une chance de doubler ses dégâts (Attaque tranchante)")
@@ -371,19 +378,19 @@ namespace DuelDeGuerrier.Classes
                     fourmiASCII = "         %#       %%%                            \r\n        %  @   %%     %#%                        \r\n        %    %                                   \r\n      #####                                      \r\n  %%%%%%%%%%%%#                                  \r\n    %%%%%%%%%%%%                                 \r\n    @@@%%%%%%%%                                  \r\n    @@#+*#%%#%                                   \r\n   %%#%@%#%%%%#%%                                \r\n   %%%%%%@%@%%%%%                                \r\n  #%@@%%%@%%%@@@@                                \r\n @%%##@%%%%%@@ @@                                \r\n @@%%#%@%@%@@  %%%%                              \r\n   %%@%@@@@@  %%@@      **                       \r\n  ##%@@@@@@%@%%       %%%####**++==-=+*+++++***  \r\n @%%@@@@@%%%@@@@@@@@@           %%%@             \r\n  @@@@%%@ @@@@@% #                               \r\n %@@ %%%      @@@##                              \r\n@@   %%        @@@%%                             \r\n                @  @@                            ";
                     List<(ConsoleColor, string)> capacitesRousse = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Red, "- Attaque moyenne plus élevée\n"),
-                        (ConsoleColor.Yellow, "- A une faible chance de parer les dégâts)")
+                        (ConsoleColor.Yellow, "- A une faible chance de parer les dégâts")
                     };
                     GenererTableFourmi(fourmiASCII, "Fourmi Rousse", capacitesRousse);
                     break;
                 case "balleDeFusil":
-                    fourmiASCII = "@@@@%%%%%%##%@@%%%@%%%%%%%%%@@%@@@@@@@@@@%%@@\r\n%@@%%%#%%%#%%%%%%%%%%#%%%%%%###%%%%%%#=+%%%%@\r\n@%@%%%%#%%%%%%##*%%%%%%%%%%%%%%%%%%#*%%@@@@@@\r\n%%%%%%%%%%%%%%###*#%%%##+==*#%%%%%#+%%#%@@@@@\r\n%%%#%%%##%%%%#####**#**+*####%%%#%**%*#%%@@@@\r\n%%%##%%###%#*==-+###*##%###**#%%##+%**%%%%%%#\r\n###%##%#######**++##%*##########*###+###%%%%@\r\n%#*#%##%%###%########%*+=-==+*###%#=*#%%%%%%@\r\n%%#*##*##%########+*+%***+-::.-*%*++#%%##%%%@\r\n#*#####*#########*==*#%*++=-:-+%*+=##%%%#%%##\r\n##***+#%*#######*===*#**+++-:-=-=-*#%%%%#+**#\r\n###*+=+##+#####*+=-=*+##*++++==--.*#%%#*+*###\r\n###****+##+###***+=*%@%+*##****+--+####+*#%#*\r\n%###*****#*******#%*#%#*%*###***-:**###*###**\r\n#%##******#+*****%%*+#@@@%%++##%#:+*********#\r\n%#####*+***#+++++####%%%@%#+=+%#=+++****++*##\r\n@%##**##+++**+++=+#%%%%####+===**=++***++*##%\r\n#%%####+**+=+++=+**%%%%##*##*=-*==+++++****#%\r\n#*##***+#*+=++=+*%#%@@%%%%%%%#*+=+++++**###%#\r\n##***+=++***#%#*%%%@@@@@%%###*%#==+=++**#####\r\n##*==++=:-:--*%#%@@%@@@@@@%*%**%#:..-+*****#*\r\n*+-=***+=-++++@%%%%%%%%@@@%*%+%#%*-.:.-+***++\r\n+#++*#######**%%%##%@%%%%%#++##*%#=+-...++++*\r\n+:-*%%*+###%**####%*%%%@%%*#=+=###**++-:.=+++\r\n==+***#%@%#*#@%#*++***#@%****+:=*%*+***+---+*\r\n+*##*+#@@@@@#%##++--=***%*++==-:-#%*+***=:=+*\r\n#*#@@@%%#%@@@%%#*++=-===*#+==--..-#%%%#-==+++\r\n#=+#%%##%@@@@%*#####*=--=#*+*+----#@%#+-:==+*\r\n+-+##%#@@@@@@@%%%%%%%*+++####*+*+=%@*##-.=++*\r\n+#%@@@@@#%@@@%%%%%%%%%%#*%%#%%#*+%@@#=-===+=+\r\n+#%@%@@%+#%%@%%%%%@%%%###%@###*+*@@%@#=-=+=-=\r\n#%@##%*==+#%%%%%%%%%%%%####%%#+=+%@%@*---=+++\r\n@@@@@*====*#%@@%%%%%@%###***%%#+=#%%*+====++*\r\n%%@@++==--=+#%%%%%%@%###*++*%@*=-=#@@*===+***\r\n*+%%*++++=-=+%@%@@@%%%#***+*##*---*@@%#-=+=**\r\n*+*#%*====++*%@@@@%*%####**+++---+*%%#+-==***\r\n%###%+++=+=*%#%@@@@%%%%**+*%*+-==+#%%%*+*+**+\r\n%%%%#*++=*#%%%%%#%@%%%%%#**%#+==+=*%%%%*#++++\r\n%%%%*+*##%%%#*#@@@@%@%%%#*#%%+=.-++*%%%#%**##\r\n@%%%***=##%**==+%@%%%%%%++%##%-.-+++#%%%%*###\r\n@%%***-+#%#=+#%**%%%@%%@%#%###+==:=*+#%%%*##%\r\n@%%##*#%%%***#%%%%@@@%%%#*%%%##*#=:+**%%%###%\r\n@@@@@%%%%#+#%%%@%%@@@@@@%%%@%%%%%*+=+#%@%**#%";
+                    fourmiASCII = "                         ...:*+--****-....   \r\n                        .:**##########***:.  \r\n                       .+*###%%%%#==*%###*+. \r\n                   ...:**##%%%%%%#+=*#%%%#**:\r\n              .:.  .+-=*##%%%%%%%#%%####%##*+\r\n       .-**+:-=+=====.+*###%%#########%%%%#**\r\n       =#*#*+*#+#++#++**#*########*####%%##**\r\n .::. .*+++=*:=*:=.+***#***********########*+\r\n.=...:+*:.-: .:.:.-..:-.+************#####**:\r\n-..:-....::. .=. ..-. ::.-****************+..\r\n:+...  .=.  .-.    .-. ::..-************+..  \r\n      .=.  .=..         :-.  ..:-+=-:..      \r\n      ...  -..          ..-.     ....        ";
                     List<(ConsoleColor, string)> capacitesBDF = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Blue, "- Lance uniquement des sorts à chaque tour de manière aléatoire contre 10 points de mana :\n"),
-                        (ConsoleColor.Red, "\t - Boule de Feu : Inflige 10 points de dégâts\n"),
-                        (ConsoleColor.White, "\t - Soin : Récupère 5 Points de Vie\n"),
-                        (ConsoleColor.Cyan, "\t - Bouclier Magique : Réduit les dégâts de 50% contre la prochaine attaque adverse\n"),
-                        (ConsoleColor.Red, "\t- Lance un dé de 1 à 7. Si le résultat est 7, la fourmi Balle de Fusil remporte le duel.)"),
-                        (ConsoleColor.Red, "- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement)"),
+                        (ConsoleColor.Red, "\t• Boule de Feu : Inflige 10 points de dégâts\n"),
+                        (ConsoleColor.Green, "\t• Soin : Récupère 5 Points de Vie\n"),
+                        (ConsoleColor.Cyan, "\t• Bouclier Magique : Réduit les dégâts de 50% contre la prochaine attaque adverse\n"),
+                        (ConsoleColor.Yellow, "\t• Tir Balle de Fusil : Lance un dé de 1 à 7. Si le résultat est 7, la fourmi Balle de Fusil remporte le duel.\n"),
+                        (ConsoleColor.Red, "\n- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement\n"),
                         (ConsoleColor.Red, "       un sort de récupération de mana, qui lui fait récupérer entre 3 et 8 points de mana, au prix d'un tour.)"),
                     };
                     GenererTableFourmi(fourmiASCII, "Fourmi Balle de Fusil", capacitesBDF);
