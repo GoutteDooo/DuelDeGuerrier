@@ -239,10 +239,10 @@ namespace DuelDeGuerrier.Classes
                 (ConsoleColor.Yellow,"Par exemple, 5 dés d'attaque permettent de distribuer des dégâts entre 5 et 30 (car 5 dés de six faces seront lancés).\n",6),
                 (ConsoleColor.Yellow,"Chaque nombre obtenu sur chaque dé représentant le nombre de dégâts que la fourmi inflige.\n",6),
                 (ConsoleColor.Yellow,"Si vous voulez des combats sanglants, alors un grand nombre de dés d'attaque peut être intéressant.\n",6),
-                (ConsoleColor.Yellow,"A contrario, si vous voulez des combats plus lents, un petit nombre de dés d'attaque est préférable.\n",6),
+                (ConsoleColor.Yellow,"A contrario, si vous voulez des combats plus lents et moins aléatoire, un petit nombre de dés d'attaque est préférable.\n",6),
                 (ConsoleColor.Cyan,"Spécificité de la fourmi Balle de Fusil : Elle possède de la mana.\n",7),
                 (ConsoleColor.Cyan,"La mana étant l'énergie nécessaire à la fourmi pour pouvoir lancer des sorts.\n",7),
-                (ConsoleColor.Yellow,"Nous avons distribué toutes les données nécessaires à la formation de notre fourmi Balle de Fusil. Il est temps d'aller la faire combattre dans l'arène !\n",7),
+                (ConsoleColor.Yellow,"Nous avons distribué toutes les données nécessaires à la formation de notre fourmi Balle de Fusil. Il est temps d'aller la faire combattre dans l'arène !\n",8),
             };
             AfficherTutoriel(tuto, "menuCreerFourmi");
         }
@@ -272,7 +272,7 @@ namespace DuelDeGuerrier.Classes
                         "\t4. Lancer un tournoi\n" +
                         "\t5. Afficher l'historique\n" +
                         "\t\n" +
-                        "\t6. Consulter le Guide Utilisateur" +
+                        "\t6. Consulter le Guide Utilisateur\n" +
                         "\t0. Quitter\n\n");
                     break;
                 case 2:
@@ -296,21 +296,23 @@ namespace DuelDeGuerrier.Classes
                         $"0. Quitter le sous-menu\n");
                     break;
                 case 4:
-                    Console.WriteLine("\"quel nom souhaitez vous lui donner ?\" Athena");
+                    Console.Write("\"quel nom souhaitez vous lui donner ?\"");
+                    Coloriser.ColorerTexte(ConsoleColor.Cyan, " Athena\n");
                     break;
                 case 5:
-                    Console.WriteLine("\"Combien de PVs souhaitez-vous lui distribuer ?\" 50");
+                    Console.WriteLine("\"Combien de PVs souhaitez-vous lui distribuer ?\"");
+                    Coloriser.ColorerTexte(ConsoleColor.Blue, " 50\n");
                     break;
                 case 6:
-                    Console.WriteLine("\"Combien de dés d'attaque souhaitez-vous lui donner ?\" 5");
+                    Console.WriteLine("\"Combien de dés d'attaque souhaitez-vous lui donner ?\"");
+                    Coloriser.ColorerTexte(ConsoleColor.Yellow, " 5\n");
                     break;
                 case 7:
-                    Console.WriteLine("\"Combien de mana aura-t-elle\" 70");
+                    Console.WriteLine("\"Combien de mana aura-t-elle\"");
+                    Coloriser.ColorerTexte(ConsoleColor.Cyan, " 70\n");
                     break;
                 case 8:
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("Une fourmi Balle De Fusil a été créée!\r\nAthena {PV=50} {Mana=70}");
-                    Console.ResetColor();
+                    Coloriser.ColorerTexte(ConsoleColor.DarkGreen, "Une fourmi Balle De Fusil a été créée!\r\nAthena {PV=50} {Mana=70}\n");
                     break;
                 default:
                     break;
@@ -382,11 +384,10 @@ namespace DuelDeGuerrier.Classes
                     break;
 
                 case "rousse":
-                    //fourmiASCII = "         %#       %%%                            \r\n        %  @   %%     %#%                        \r\n        %    %                                   \r\n      #####                                      \r\n  %%%%%%%%%%%%#                                  \r\n    %%%%%%%%%%%%                                 \r\n    @@@%%%%%%%%                                  \r\n    @@#+*#%%#%                                   \r\n   %%#%@%#%%%%#%%                                \r\n   %%%%%%@%@%%%%%                                \r\n  #%@@%%%@%%%@@@@                                \r\n @%%##@%%%%%@@ @@                                \r\n @@%%#%@%@%@@  %%%%                              \r\n   %%@%@@@@@  %%@@      **                       \r\n  ##%@@@@@@%@%%       %%%####**++==-=+*+++++***  \r\n @%%@@@@@%%%@@@@@@@@@           %%%@             \r\n  @@@@%%@ @@@@@% #                               \r\n %@@ %%%      @@@##                              \r\n@@   %%        @@@%%                             \r\n                @  @@                            ";
                     fourmiASCII = "                                                   \r\n             .                   .::               \r\n           :         .-          :--+.             \r\n                 : = =**##        :+%#=.           \r\n               =   .##%#%%           +#%#          \r\n              -  #*:*#%%#%            :#%#         \r\n              : +   ++ =+#+            *%#         \r\n                      +#+=**%%##       +%.         \r\n                    +**=+*#-*%%%#.     **          \r\n                  .#%%%++*+++%%##*=   .#.          \r\n                  *+   ++*-***.   .==:++           \r\n      :+*=:.    =+      *#=*%=       =%-           \r\n   -=*%@%%%%#*##.   ==*#%%=*#-                     \r\n  +=*=#=          *#+#@#*%*+#%-                    \r\n  --: -          *%%%%%#**%=#%%.                   \r\n    :.           #%#**%%@%%=#%@=                   \r\n               . ##+*#%%%@%##%##%                  \r\n            =*=*#*%##%%%#=%%#**#%@:.*%*.           \r\n          :+.   *%*=*#%=   =:  .+++=+**#=          \r\n        .*=    *#.    -               +**+         \r\n       -*+   .+*                      ==-*+        \r\n       *:   =#%:                      .#-:+*       \r\n      +=   +%%-                       .*% -+#.     \r\n     .*-  :#-                           :* +%#     \r\n    .*+  :*:                              *:-*-    \r\n        -+=                               *+ -*.   \r\n       .+*:                               %* .**   \r\n      .+#                                    .+*-  \r\n      :-:                                     -*+  \r\n                                               ..  ";
                     List<(ConsoleColor, string)> capacitesRousse = new List<(ConsoleColor, string)> {
-                        (ConsoleColor.Red, "- Attaque moyenne plus élevée\n"),
-                        (ConsoleColor.Yellow, "- A une faible chance de parer les dégâts")
+                        (ConsoleColor.Red, "- Attaque moyenne plus élevées (Ses dés démarrent à 2 et non à 1)\n"),
+                        (ConsoleColor.Yellow, "- A une faible chance de parer l'attaque adverse (10%)")
                     };
                     GenererTableFourmi(fourmiASCII, "Fourmi Rousse", capacitesRousse);
                     break;

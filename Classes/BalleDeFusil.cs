@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DuelDeGuerrier.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -125,7 +126,10 @@ namespace DuelDeGuerrier.Classes
 
         public override void AfficherInfos()
         {
+            if (GetPointsDeVie() <= 0)
+                Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{this.GetNom()} {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
+            Console.ResetColor();
         }
         public override void ResetMax()
         {

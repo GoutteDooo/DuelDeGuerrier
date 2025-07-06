@@ -1,4 +1,5 @@
 ﻿using DuelDeGuerrier.Classes;
+using DuelDeGuerrier.Interfaces;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DuelDeGuerrier

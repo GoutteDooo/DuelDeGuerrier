@@ -2,3 +2,4 @@
 - [] Pouvoir enregistrer dans un fichier la liste des guerrières afin de pouvoir les regénérer rapidement
 - [] Afficher la liste des fourmis pendant que le joueur fait AjouterGuerrier()
 - [] Retirer le vert pendant la formation de la fourmi et ne l'afficher uniquement lorsqu'elle est générée
+- [] Changer les dégâts en fonction du nombre de dés d'attaque
