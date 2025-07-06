@@ -19,13 +19,13 @@ namespace DuelDeGuerrier.Classes
         public int Mana { get; set; }
         public int ManaMax { get; set; }
         public bool BouclierActif { get; set; }
-        public string Type { get; }
+        public override string Type => "Balle De Fusil";
+
         public BalleDeFusil(string nom, int pointsDeVie, int nbDesAttaque, int mana = 50, bool bouclierActif = false) : base(nom, pointsDeVie, nbDesAttaque)
         {
             ManaMax = mana;
             Mana = mana;
             BouclierActif = bouclierActif;
-            Type = "Balle De Fusil";
         }
 
         //Méthodes 

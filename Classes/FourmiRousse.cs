@@ -11,11 +11,11 @@ namespace DuelDeGuerrier.Classes
     {
         // Attributs
         // Propriétés
-        public string Type { get; }
+        public override string Type => "Rousse";
+
         // Constructeur
         public FourmiRousse(string nom, int pointsDeVie, int nbDesAttaque) : base(nom, pointsDeVie, nbDesAttaque)
         {
-            Type = "Rousse";
         }
 
         // Méthodes

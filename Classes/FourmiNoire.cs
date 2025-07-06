@@ -14,11 +14,10 @@ namespace DuelDeGuerrier.Classes
         private bool _armureLourde; //Détermine si le FourmiNoire porte une armure lourde 
         // Propriétés
         public bool ArmureLourde { get; set; }
-        public string Type { get; }
+        public override string Type => "Noire";
         // Constructeur
         public FourmiNoire(string nom, int pointsDeVie, int nbDesAttaque, bool armureLourde) : base(nom, pointsDeVie, nbDesAttaque){ 
             _armureLourde = armureLourde;
-            Type = "Noire";
         }
         public override void SubirDegats(int degats) {
             if (_armureLourde && degats > 0)

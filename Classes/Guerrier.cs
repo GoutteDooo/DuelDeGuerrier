@@ -16,7 +16,7 @@ namespace DuelDeGuerrier.Classes
         public int PointsDeVie { get; set; }// Points de vie du guerrier
         public int NbDesAttaque { get; set; }// Nombre de dés attaque du guerrier
         public int Victoires { get; set; }// Nombre de victoires
-        public string Type { get; }
+        public virtual string Type => "Guerrière";
 
         // Constructeur
         public Guerrier(string nom, int pointsDeVie, int nbDesAttaque)
@@ -26,7 +26,6 @@ namespace DuelDeGuerrier.Classes
             PointsDeVie = pointsDeVie;
             NbDesAttaque = nbDesAttaque;
             Victoires = 0;
-            Type = "Guerrière";
         }
 
         // Méthodes
@@ -66,7 +65,7 @@ namespace DuelDeGuerrier.Classes
         }
         public int GetNbVictoires() => Victoires;
 
-        public new string GetType() => Type;
+        public string ObtenirType() => Type;
         /**
          * Affiche le nom et les points de vie de l'instance dans le format suivant :
          *  [nom] {PV=xx}

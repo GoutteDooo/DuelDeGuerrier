@@ -356,7 +356,7 @@ namespace DuelDeGuerrier
             var fourmi1 = fourmisGuerrieres[duelID];
             var fourmi2 = fourmisGuerrieres[duelID + 1];
 
-            string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.GetType()}) et {fourmi2.GetNom()}({fourmi2.GetType()}) ---";
+            string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.ObtenirType()}) et {fourmi2.GetNom()}({fourmi2.ObtenirType()}) ---";
             Console.WriteLine(new string('-', combat.Length) + "\n" +
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
@@ -415,7 +415,7 @@ namespace DuelDeGuerrier
                     RetourMenuPrincipal();
                     return;
                 }
-                Console.WriteLine($"Liste des fourmis guerrières: {String.Join("", fourmisGuerrieres.Select((f, i) => $"\n{i + 1} - {f.GetNom()} ({f.GetType()})"))}");
+                Console.WriteLine($"Liste des fourmis guerrières: {String.Join("", fourmisGuerrieres.Select((f, i) => $"\n{i + 1} - {f.GetNom()} ({f.ObtenirType()})"))}");
                 // Entrée utilisateur
                 Console.WriteLine("Entrez le numéro de la fourmi guerrière à supprimer ('0' pour quitter):");
 

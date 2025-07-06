@@ -36,7 +36,7 @@ namespace DuelDeGuerrier.Classes
         {
             Console.WriteLine("\n" +
                     $"\tTournoi n°{this.Numero} :\n" +
-                    $"\t\tVainqueur : {this.Vainqueur.GetNom()} - {this.Vainqueur.GetType()}\n" +
+                    $"\t\tVainqueur : {this.Vainqueur.GetNom()} - {this.Vainqueur.ObtenirType()}\n" +
                     $"\t\tParticipants : {this.NombreParticipants}\n" +
                     $"\t\tDate de lancement : {this.Date}\n");
         }
@@ -59,7 +59,7 @@ namespace DuelDeGuerrier.Classes
                 // S'il n'y a qu'une seule combattante, l'afficher directement
                 if (list.Count == 1)
                 {
-                    Console.WriteLine($"{place}e : {list[0].GetNom()} ({list[0].GetType()})");
+                    Console.WriteLine($"{place}e : {list[0].GetNom()} ({list[0].ObtenirType()})");
                 }
                 else
                 // Sinon, les afficher avec une virgule
