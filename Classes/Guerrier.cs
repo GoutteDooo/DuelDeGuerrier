@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DuelDeGuerrier.Classes
 {
-    class Guerrier
+    class Guerrier : ICombattant
     {
         //Attributs
         private string _nom; //Nom du guerrier
@@ -32,17 +32,11 @@ namespace DuelDeGuerrier.Classes
         /**
          * Récupére le nom de l'instance
          */
-        public string GetNom()
-        {
-            return _nom;
-        }
+        public string GetNom() => _nom;
         /**
          * Récupére les PV de l'instance
          */
-        public int GetPointsDeVie ()
-        {
-            return _pointsDeVie;
-        }
+        public int GetPointsDeVie() => _pointsDeVie;
         /**
          * Modifie les PV de l'instance
          */
@@ -61,10 +55,7 @@ namespace DuelDeGuerrier.Classes
         /**
          * Récupère le nombre de dés d'attaque de l'instance
          */
-        public int GetNbDesAttaque()
-        {
-            return _nbDesAttaque;
-        }
+        public int GetNbDesAttaque() => _nbDesAttaque;
 
         /**
          * Affiche le nom et les points de vie de l'instance dans le format suivant :
@@ -80,11 +71,7 @@ namespace DuelDeGuerrier.Classes
         /**
          * Renvoie un entier entre 1 et 6
          */
-        public virtual int Attaquer()
-        {
-            Random random = new Random();
-            return random.Next(1, 6+1);
-        }
+        public virtual int Attaquer() => new Random().Next(1, 6 + 1);
 
         /**
          * Soustrait le nombre de points de vie de l'instance du parametre int degats

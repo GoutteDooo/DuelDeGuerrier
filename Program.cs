@@ -5,7 +5,7 @@ namespace DuelDeGuerrier
 {
     internal class Program
     {
-        static List<Guerrier> fourmisGuerrieres = new List<Guerrier>(); // Liste contenant les fourmis guerrières instanciées
+        static List<ICombattant> fourmisGuerrieres = new List<ICombattant>(); // Liste contenant les fourmis guerrières instanciées
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
         static int nombreOptions = 6;
         static void Main(string[] args)
@@ -20,7 +20,7 @@ namespace DuelDeGuerrier
         public static void AfficherMenuPrincipal()
         {
             Console.WriteLine(
-                "\t   ----- Menu principal -----\n\n" +
+                "\t   ----- Menu principal -----\n" +
                 "\t1. Créer une fourmi guerrière\n" +
                 "\t2. Supprimer une fourmi guerrière\n" +
                 "\t3. Afficher la liste des fourmis guerrières\n" +
@@ -163,7 +163,7 @@ namespace DuelDeGuerrier
 
             if (classe.Equals("Guerrier"))
             {
-                Guerrier fourmiGuerriere = CreerFourmiGuerriere(nom, pvs, desAttaque);
+                ICombattant fourmiGuerriere = CreerFourmiGuerriere(nom, pvs, desAttaque);
                 Console.WriteLine("Une fourmi guerrière a été créée!");
                 fourmiGuerriere.AfficherInfos();
                 fourmisGuerrieres.Add(fourmiGuerriere);
@@ -214,7 +214,7 @@ namespace DuelDeGuerrier
         /**
          * Retourne une instance Guerrier avec stats aléatoires
         */
-        public static Guerrier CreerFourmiGuerriere(string nom, int pvs, int desAttaque)
+        public static ICombattant CreerFourmiGuerriere(string nom, int pvs, int desAttaque)
         {
             return new Guerrier(nom, pvs, desAttaque);
         }
@@ -290,7 +290,7 @@ namespace DuelDeGuerrier
                 Console.WriteLine($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!");
 
                 /* Crée une nouvelle instance de Tournoi et l'insérer dans l'historique */
-                Guerrier vainqueur = fourmisGuerrieres[0];
+                ICombattant vainqueur = fourmisGuerrieres[0];
                 historique.Insert(0, new Tournoi(numeroDeTournoi, vainqueur, nbParticipants, dateDuTournoi));
                 //TEST
                 Console.WriteLine("Un tournoi a été ajouté dans l'historique.");
