@@ -292,7 +292,7 @@ namespace DuelDeGuerrier
                 Console.Write($"\t--- ROUND n°{round} ---");
                 Console.ResetColor();
                 Console.WriteLine("\n");
-                Combattre(duelID, tournoi.Classements[etape]); // Fait se combattre la fourmi duelID et duelID+1 de la liste (si elles existent) et supprime la perdante de la liste
+                Combattre(duelID, tournoi.Classements[etape], tournoi.HistoriqueCombats, etape); // Fait se combattre la fourmi duelID et duelID+1 de la liste (si elles existent) et supprime la perdante de la liste
                 round++;
                 duelID++;
                 // Si on a atteint la fin de la liste, ou qu'une fourmi n'a pas d'adversaire (nombre de participants impair)
@@ -318,10 +318,12 @@ namespace DuelDeGuerrier
                     }
                 }
             }
+
+            // -- Fin du tournoi --
+            // --------------------
             // S'il ne reste plus qu'une seule fourmi guerrière dans la liste, alors c'est la gagnante
             if (fourmisGuerrieres.Count == 1)
             {
-
                 // Affichage
                 Console.WriteLine($"------ FIN DU TOURNOI ------\n");
                 Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
@@ -333,8 +335,11 @@ namespace DuelDeGuerrier
                 tournoi.AfficherClassement();
                 // Insérer le tournoi dans l'historique de tournois
                 historique.Insert(0, tournoi);
-
                 //Entrée utilisateur pour revenir au menu principal
+
+                //TEST
+                tournoi.AfficherHistoriqueCombats();
+
                 RetourMenuPrincipal();
             }
             else
@@ -347,8 +352,9 @@ namespace DuelDeGuerrier
          * Fait se combattre les deux premières fourmis de la liste fourmisGuerrieres à l'index duelID jusqu'à ce qu'une des deux gagne.
          * Lorsqu'une fourmi remporte son duel, elle récupère tout ses PVs par défaut
          * Lorsqu'une fourmi perd son duel, elle est insérée dans la liste classements
+         * Lorsqu'un duel est terminé, il est ajouté à la liste de l'historique de combats du tournoi
          */
-        public static void Combattre(int duelID, List<ICombattant> etapeDeClassement)
+        public static void Combattre(int duelID, List<ICombattant> etapeDeClassement, List<(int, string, string)> historiqueCombats, int etape)
         {
             var fourmi1 = fourmisGuerrieres[duelID];
             var fourmi2 = fourmisGuerrieres[duelID + 1];
@@ -379,6 +385,9 @@ namespace DuelDeGuerrier
                 // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
+                    // Insérer les détails intéressants du combat dans l'historique de combats
+                    historiqueCombats.Add((etape, fourmiAttaquante.GetNom(), fourmiDefenseur.GetNom()));
+
                     // Afficher le vainqueur
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"{fourmiAttaquante.GetNom()} remporte le duel face à {fourmiDefenseur.GetNom()} !");

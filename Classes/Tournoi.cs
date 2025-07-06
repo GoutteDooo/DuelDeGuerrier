@@ -10,10 +10,11 @@ namespace DuelDeGuerrier.Classes
     internal class Tournoi
     {
         public int Numero { get; set; }// Numero du tournois
-        public ICombattant Vainqueur { get; set; } // Le vainqueur 
+        public ICombattant? Vainqueur { get; set; } // Le vainqueur 
         public int NombreParticipants { get; set; } // Le nombre de participant 
         public DateTime Date { get; set; } // La date
         public List<List<ICombattant>> Classements { get; set; } // Les classements des participantes
+        public List<(int etape, string nomVainqueur, string nomPerdant)>? HistoriqueCombats { get; set; } // Historique des combats joué pendant l'instance de tournoi
 
         //Constructeur 
         public Tournoi(int numero, int nombreParticipants, DateTime date, List<List<ICombattant>> classements)
@@ -22,6 +23,7 @@ namespace DuelDeGuerrier.Classes
             NombreParticipants = nombreParticipants;
             Date = date;
             Classements = classements;
+            HistoriqueCombats = new List<(int, string, string)>();
         }
 
         // Setter
@@ -57,12 +59,12 @@ namespace DuelDeGuerrier.Classes
                 // S'il n'y a qu'une seule combattante, l'afficher directement
                 if (list.Count == 1)
                 {
-                    Console.WriteLine($"{place}. {list[0].GetNom()} ({list[0].GetType()})");
+                    Console.WriteLine($"{place}e : {list[0].GetNom()} ({list[0].GetType()})");
                 }
                 else
                 // Sinon, les afficher avec une virgule
                 {
-                    Console.Write($"{place}. ");
+                    Console.Write($"{place}e : ");
                     for(int j = 0; j < list.Count; j++)
                     {
                         ICombattant combattante = list[j];
@@ -70,6 +72,44 @@ namespace DuelDeGuerrier.Classes
                     }
                     Console.WriteLine();
                 }
+            }
+        }
+
+        /**
+         * Affiche l'historique des combats du tournoi dans le format suivant :
+         *      - Etape : nom de l'étape ou numéro
+         *      - Vainqueur : nom du vainqueur
+         *      - Vaincu : nom du vaincu
+         */
+        public void AfficherHistoriqueCombats()
+        {
+            // Récupérer le nombre d'étapes
+            int? nbEtapes = HistoriqueCombats[HistoriqueCombats.Count - 1].etape;
+            foreach((int etape, string vainqueur, string vaincu) combat in HistoriqueCombats)
+            {
+                string etapeTexte;
+                if (combat.etape == nbEtapes)
+                {
+                    etapeTexte = "Finale";
+                }
+                else if (combat.etape == nbEtapes - 1)
+                {
+                    etapeTexte = "Demi-Finale";
+                }
+                else if (combat.etape == nbEtapes - 2)
+                {
+                    etapeTexte = "Quarts de Finale";
+                }
+                else if (combat.etape == nbEtapes - 3)
+                {
+                    etapeTexte = "Huitièmes de Finale";
+                }
+                else
+                {
+                    etapeTexte = "";
+                }
+                Console.WriteLine($"\tEtape: {(etapeTexte == "" ? combat.etape + nbEtapes - 1 : etapeTexte)}\n" +
+                    $"\t   Vainqueur/Vaincu : {combat.vainqueur}/{combat.vaincu}\n");
             }
         }
     }
