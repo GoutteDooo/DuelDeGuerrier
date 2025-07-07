@@ -22,13 +22,15 @@ namespace DuelDeGuerrier
          */
         public static void AfficherMenuPrincipal()
         {
+            // Affichage de la Rule (Menu Principal)
             var rule = new Rule("[orange1]Menu principal[/]\n");
             AnsiConsole.Write(rule);
+
             // Créer une table
             var table = new Table();
 
+            // Définir le type de bordure de la table
             table.Border(TableBorder.Double);
-            //table.HideHeaders();
             // Créer une colonne
             table.Width(60); // largeur de la table
             table.AddColumn("");
@@ -157,18 +159,34 @@ namespace DuelDeGuerrier
          */
         public static void AfficherMenuAjouterGuerrier()
         {
-            Console.WriteLine(
-                $"---- Créer une Guerrière ----\n" +
-                $"\n" +
-                $"\n" +
-                $"Quel type de fourmi souhaitez-vous créer ?\n" +
-                $"\n" +
-                $"1. Fourmi Guerrière (Stats équilibrées)\n" +
-                $"2. Fourmi Noire (Défense élevée)\n" +
-                $"3. Fourmi Rousse (Attaque élevée)\n" +
-                $"4. Fourmi Balle De Fusil (Peut one shot mais PV faible)\n" +
-                $"\n" +
-                $"0. Quitter le sous-menu\n");
+            // Affichage de la Rule (Menu Principal)
+            var rule = new Rule("[blue]Créer une guerrière[/]\n");
+            AnsiConsole.Write(rule);
+
+            // Créer une table
+            var table = new Table();
+
+            // Définir le type de bordure de la table
+            table.Border(TableBorder.Double);
+            // Créer une colonne
+            table.Width(60); // largeur de la table
+            table.AddColumn("");
+            table.AddColumn(new TableColumn("[gray]Options[/]"));
+
+            // Add some rows
+            table.AddRow("1", "[red]Fourmi Guerrière (Stats équilibrées)[/]");
+            table.AddRow("2", "[yellow]Fourmi Noire (Défense élevée)[/]");
+            table.AddRow("3", "[orange1]Fourmi Rousse (Attaque élevée)[/]");
+            table.AddRow("4", "[cyan]Fourmi Balle De Fusil (Peut one shot mais PV faible)[/]");
+            table.AddRow("", "");
+            table.AddRow("0", "[gray]Revenir au Menu Principal[/]");
+            table.ShowRowSeparators();
+            // Centrer la table
+            table.Centered();
+            // 
+            table.Columns[0].Width = 1;
+            // Render the table to the console
+            AnsiConsole.Write(table);
         }
 
         /**
@@ -219,6 +237,7 @@ namespace DuelDeGuerrier
                 balleDeFusil.AfficherInfos();
                 fourmisGuerrieres.Add(balleDeFusil);
             }
+            Console.Clear();
         }
 
         /**
