@@ -10,47 +10,45 @@ namespace DuelDeGuerrier.Classes
     {
         public static void AfficherGuide()
         {
-            while (true)
-            {
-                Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
-                    "Faites votre choix :\n" +
-                    "\n" +
-                    "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
-                    "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
-                    "\t3. Comment se déroule un duel ?\n" +
-                    "\t4. Explication des types de fourmi\n" +
-                    "\n" +
-                    "\t0. Revenir au Menu Principal\n" +
-                    "\n" +
-                    "Faites votre choix : ");
+            Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
+                "Faites votre choix :\n" +
+                "\n" +
+                "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
+                "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
+                "\t3. Comment se déroule un duel ?\n" +
+                "\t4. Explication des types de fourmi\n" +
+                "\n" +
+                "\t0. Revenir au Menu Principal\n" +
+                "\n" +
+                "Faites votre choix : ");
 
-                ConsoleKeyInfo input = Console.ReadKey();
-                Console.Clear();
-                if (!"01234".Contains(input.KeyChar))
-                {
-                    Program.AfficherErreur("Veuillez entrer une option valide svp.");
-                    continue;
-                }
-                switch (input.KeyChar)
-                {
-                    case '1':
-                        BrefTutoriel();
-                        break;
-                    case '2':
-                        ExplicationsMenuCreerFourmiGuerriere();
-                        break;
-                    case '3':
-                        DeroulementDuel();
-                        break;
-                    case '4':
-                        TypesDeFourmi();
-                        break;
-                    case '0':
-                        Program.MenuPrincipal();
-                        break;
-                    default:
-                        break;
-                }
+            ConsoleKeyInfo input = Console.ReadKey();
+            Console.Clear();
+            if (!"01234".Contains(input.KeyChar))
+            {
+                Program.AfficherErreur("Veuillez entrer une option valide svp.");
+                AfficherGuide();
+                return;
+            }
+            switch (input.KeyChar)
+            {
+                case '1':
+                    BrefTutoriel();
+                    break;
+                case '2':
+                    ExplicationsMenuCreerFourmiGuerriere();
+                    break;
+                case '3':
+                    DeroulementDuel();
+                    break;
+                case '4':
+                    TypesDeFourmi();
+                    break;
+                case '0':
+                    Program.MenuPrincipal();
+                    break;
+                default:
+                    break;
             }
         }
 

@@ -13,7 +13,7 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            //MenuTitre();
+            //MenuTitre
             MenuPrincipal();
 
         }
@@ -24,17 +24,34 @@ namespace DuelDeGuerrier
         {
             var rule = new Rule("[orange1]Menu principal[/]\n");
             AnsiConsole.Write(rule);
-            Console.WriteLine(
-                "\t1. Créer une fourmi guerrière\n" +
-                "\t2. Supprimer une fourmi guerrière\n" +
-                "\t3. Afficher la liste des fourmis guerrières\n" +
-                "\t4. Lancer un tournoi\n" +
-                "\t5. Afficher l'historique\n" +
-                "\t6. Sauvegarder la liste des fourmis guerrières\n" +
-                "\t7. Charger la dernière sauvegarde des fourmis guerrières\n" +
-                "\t\n" +
-                "\t8. Consulter le Guide Utilisateur\n" +
-                "\t0. Quitter\n\n");
+            // Créer une table
+            var table = new Table();
+
+            table.Border(TableBorder.Double);
+            //table.HideHeaders();
+            // Créer une colonne
+            table.Width(60); // largeur de la table
+            table.AddColumn("");
+            table.AddColumn(new TableColumn("[gray]Options[/]"));
+
+            // Add some rows
+            table.AddRow("1", "[yellow]Créer une fourmi guerrière[/]");
+            table.AddRow("2", "[yellow]Supprimer une fourmi guerrière[/]");
+            table.AddRow("3", "[yellow]Afficher la liste des fourmis guerrières[/]");
+            table.AddRow("4", "[yellow]Lancer un tournoi[/]");
+            table.AddRow("5", "[yellow]Afficher l'historique[/]");
+            table.AddRow("6", "[yellow]Sauvegarder la liste des fourmis guerrières[/]");
+            table.AddRow("7", "[yellow]Charger la dernière sauvegarde des fourmis guerrières[/]");
+            table.AddRow("","");
+            table.AddRow("8", "[gray]Consulter le Guide Utilisateur[/]");
+            table.AddRow("0", "[gray]Quitter[/]");
+            table.ShowRowSeparators();
+            // Centrer la table
+            table.Centered();
+            // 
+            table.Columns[0].Width = 1;
+            // Render the table to the console
+            AnsiConsole.Write(table);
         }
 
         /**
