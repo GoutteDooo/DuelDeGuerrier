@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,34 @@ namespace DuelDeGuerrier.Classes
     {
         public static void AfficherGuide()
         {
-            Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
+            var rule = new Rule("[orange1]Menu principal[/]\n");
+            AnsiConsole.Write(rule);
+            // Créer une table
+            var table = new Table();
+
+            table.Border(TableBorder.Double);
+            //table.HideHeaders();
+            // Créer une colonne
+            table.Width(60); // largeur de la table
+            table.AddColumn("");
+            table.AddColumn(new TableColumn("[gray]Options[/]"));
+
+            // Add some rows
+            table.AddRow("1", "[yellow]Bref tutoriel sur l'utilisation du Programme[/]");
+            table.AddRow("2", "[yellow]Explication du menu \"Créer une fourmi guerrière[/]");
+            table.AddRow("3", "[yellow]Comment se déroule un duel [/]");
+            table.AddRow("4", "[yellow]Explication des types de fourmi[/]");
+            table.AddRow("",""); 
+            table.AddRow("0", "[yellow]Revenir au Menu Principa[/]");
+            table.ShowRowSeparators();
+            // Centrer la table
+            table.Centered();
+            // 
+            table.Columns[0].Width = 1;
+            // Render the table to the console
+            AnsiConsole.Write(table);
+        
+        Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
                 "Faites votre choix :\n" +
                 "\n" +
                 "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
