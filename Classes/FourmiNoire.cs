@@ -15,6 +15,8 @@ namespace DuelDeGuerrier.Classes
         // Propriétés
         public bool ArmureLourde { get; set; }
         public override string Type => "Noire";
+        public override string PersonnageAscii => "                 .  .-.            \r\n                 . :               \r\n               ==-+-               \r\n         ...:=+++===               \r\n       :..=====*+++=.              \r\n      :=====+++++-.-               \r\n   .=+++++****+=+:                 \r\n  -=+*++++##=   -: :+:.:-=::.      \r\n  =++#+++:=:     +:                \r\n     --    =                       \r\n    ::      =                      \r\n   :.        -                     \r\n  -=         .+=                   ";
+
         // Constructeur
         public FourmiNoire(string nom, int pointsDeVie, int nbDesAttaque, bool armureLourde) : base(nom, pointsDeVie, nbDesAttaque){ 
             _armureLourde = armureLourde;
@@ -23,7 +25,7 @@ namespace DuelDeGuerrier.Classes
             if (_armureLourde && degats > 0)
             {
                 degats = degats / 2;
-                Console.WriteLine($"L'armure lourde de {this.GetNom()} réduit les dégâts subis par deux et prend donc {(degats < 1000 ? degats : "INFINI")}!");
+                //Console.WriteLine($"L'armure lourde de {this.GetNom()} réduit les dégâts subis par deux et prend donc {(degats < 1000 ? degats : "INFINI")}!");
             }
 
             base.SubirDegats(degats);

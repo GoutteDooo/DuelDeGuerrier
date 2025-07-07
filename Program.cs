@@ -362,10 +362,11 @@ namespace DuelDeGuerrier
 
             while (fourmisGuerrieres.Count > 1)
             {
-                Console.BackgroundColor = ConsoleColor.Red;
-                Console.Write($"\t--- ROUND n°{round} ---");
-                Console.ResetColor();
+                // Affichage du round
+                var rule = new Rule($"[red]ROUND n°{round}[/]");
+                AnsiConsole.Write(rule);
                 Console.WriteLine("\n");
+
                 Combattre(duelID, tournoi.Classements[etape], tournoi.HistoriqueCombats, etape); // Fait se combattre la fourmi duelID et duelID+1 de la liste (si elles existent) et supprime la perdante de la liste
                 round++;
                 duelID++;
@@ -401,8 +402,16 @@ namespace DuelDeGuerrier
                 // Son de victoire
                 Audio.LancerSon("victoire");
                 // Affichage
-                Console.WriteLine($"------ FIN DU TOURNOI ------\n");
-                Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
+                Console.Clear();
+                var rule = new Rule("[yellow]FIN DU TOURNOI[/]");
+                AnsiConsole.Write(rule);
+                AnsiConsole.Write(new Align(
+                    new Text($"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!"),
+                    HorizontalAlignment.Center,
+                    VerticalAlignment.Middle
+                ));
+                //Console.WriteLine($"------ FIN DU TOURNOI ------\n");
+                //Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
                 // Afficher le classement
                 Console.WriteLine($"Voici le classement :");
                 ICombattant vainqueur = fourmisGuerrieres[0];
@@ -435,12 +444,76 @@ namespace DuelDeGuerrier
             var fourmi2 = fourmisGuerrieres[duelID + 1];
 
             // Affichage
+            /*
             string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.ObtenirType()}) et {fourmi2.GetNom()}({fourmi2.ObtenirType()}) ---";
             Console.WriteLine(new string('-', combat.Length) + "\n" +
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
+            */
+            // Test nouvel affichage
+            // 3 layouts côte à côte [F1][DESC][F2]
+            var layout = new Layout("Root")
+                .SplitColumns(
+                    new Layout("Left")
+                    .SplitRows(
+                        new Layout("Top-Left"),
+                        new Layout("Middle-Left"),
+                        new Layout("Bottom-Left")),
+                    new Layout("Center")
+                    .SplitRows(
+                        new Layout("Top-Center"),
+                        new Layout("Bottom-Center")),
+                    new Layout("Right")
+                    .SplitRows(
+                        new Layout("Top-Right"),
+                        new Layout("Middle-Right"),
+                        new Layout("Bottom-Right")));
+
+            //Définir la taille
+            layout["Left"].Size(50);
+            layout["Top-Left"].Size(10);
+            layout["Middle-Left"].Size(10);
+            layout["Right"].Size(50);
+            layout["Top-Right"].Size(10);
+            layout["Middle-Right"].Size(10);
+            layout["Top-Center"].Size(10);
+            layout["Bottom-Center"].Size(50);
+
+            // Afficher les caractères ASCII à l'intérieur
+            layout["Bottom-Left"].Update(
+                new Panel(
+                    Align.Center(
+                        new Markup(fourmi1.GetAscii()),
+                        VerticalAlignment.Middle)));
+
+            layout["Bottom-Right"].Update(
+                new Panel(
+                    Align.Center(
+                        new Markup(fourmi2.GetAscii()),
+                        VerticalAlignment.Middle)));
+
+            //Afficher qui vs qui
+            layout["Top-Center"].Update(
+                new Panel(
+                    Align.Center(
+                        new Markup($"Combat entre {fourmi1.GetNom()}({fourmi1.ObtenirType()}) et {fourmi2.GetNom()}({fourmi2.ObtenirType()})"),
+                    VerticalAlignment.Middle)));
+            //Afficher les noms
+            layout["Middle-Left"].Update(
+                new Panel(
+                    Align.Center(
+                        new Markup(fourmi1.GetNom()),
+                        VerticalAlignment.Middle)));
+            layout["Middle-Right"].Update(
+                new Panel(
+                    Align.Center(
+                        new Markup(fourmi2.GetNom()),
+                        VerticalAlignment.Middle)));
+
             // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
             bool fourmi1Attaque = true;
+            // Contient toute la description d'un combat
+            string descriptionCombat = "";
             while (true)
             {
                 // Défini qui attaque et qui défend ce tour
@@ -448,19 +521,47 @@ namespace DuelDeGuerrier
                 var fourmiDefenseur = fourmi1Attaque ? fourmi2 : fourmi1;
 
                 int degats = fourmiAttaquante.Attaquer();
+                /*
                 if (degats == 99999) // Si une attaque spéciale fait des dégâts infinis
                     Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n" + (degats > 0 ? $"{fourmiAttaquante.GetNom()} attaque {fourmiDefenseur.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.") +
                     "\n");
                 Console.ResetColor();
+                */
+                descriptionCombat += "\n" + (degats > 0 ? $"{fourmiAttaquante.GetNom()} attaque {fourmiDefenseur.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.") + "\n";
+                layout["Bottom-Center"].Update(
+                    new Panel(
+                        Align.Center(
+                            new Markup(descriptionCombat),
+                            VerticalAlignment.Middle)));
+
 
                 // Après l'attaque, la fourmi défenseur prend les dégâts adverses
                 fourmiDefenseur.SubirDegats(degats);
 
-                // Enfin, on affiche les informations des deux fourmis
-                fourmiDefenseur.AfficherInfos();
-                fourmiAttaquante.AfficherInfos();
                 Thread.Sleep(1000);
+                // Test affichage type bar chart
+                layout["Top-Left"].Update(
+                    new Panel(
+                        Align.Center(
+                            new BreakdownChart()
+                            .Width(fourmi1.GetPointsDeVieMax())
+                            .AddItem("PV", fourmi1.GetPointsDeVie(), Color.Green)
+                            .AddItem("", fourmi1.GetPointsDeVieMax() - fourmi1.GetPointsDeVie(), Color.Red))));
+
+                layout["Top-Right"].Update(
+                    new Panel(
+                        Align.Center(
+                            new BreakdownChart()
+                            .Width(fourmi2.GetPointsDeVieMax())
+                            .AddItem("PV", fourmi2.GetPointsDeVie(), Color.Green)
+                            .AddItem("", fourmi2.GetPointsDeVieMax() - fourmi2.GetPointsDeVie(), Color.Red))));
+
+                AnsiConsole.Write(layout);
+
+                // Enfin, on affiche les informations des deux fourmis
+                //fourmiDefenseur.AfficherInfos();
+                //fourmiAttaquante.AfficherInfos();
                 // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
@@ -468,9 +569,20 @@ namespace DuelDeGuerrier
                     historiqueCombats.Add((etape, fourmiAttaquante.GetNom(), fourmiDefenseur.GetNom()));
 
                     // Afficher le vainqueur
+                    /*
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"{fourmiAttaquante.GetNom()} remporte le duel face à {fourmiDefenseur.GetNom()} !");
                     Console.ResetColor();
+                    */
+
+                    layout["Bottom-Center"].Update(
+                        new Panel(
+                            Align.Center(
+                                new Markup($"{fourmiAttaquante.GetNom()} remporte le duel face à {fourmiDefenseur.GetNom()} !", Color.Purple),
+                                VerticalAlignment.Middle)));
+                    AnsiConsole.Write(layout);
+                    Thread.Sleep(2000);
+
                     fourmiDefenseur.SetPointsDeVie(0);
                     fourmiAttaquante.ResetMax(); // Remet les pvs (et manas si en a) au max du vainqueur pour le prochain combat
                     // Insérer le perdant dans la liste de classement actuelle

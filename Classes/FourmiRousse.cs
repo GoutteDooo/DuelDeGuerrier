@@ -12,6 +12,7 @@ namespace DuelDeGuerrier.Classes
         // Attributs
         // Propriétés
         public override string Type => "Rousse";
+        public override string PersonnageAscii => "                               \r\n      .      .      ::=        \r\n         -  *%*%      =%=      \r\n        . + +#*#       -%=     \r\n             .***%*-    %      \r\n           .%%+++#%%+  .=      \r\n          .=  ##+#    ##       \r\n  =#@%%%+%  =+%%+#             \r\n -=       -%%%%#+##            \r\n          +%#*%%*#@+           \r\n       -+**%#%#+%#*## %*       \r\n     .-  +=  =      .  **      \r\n    ==  *-             :-*     \r\n    =  %*              .# +:   \r\n   *. *                  =.*   \r\n     =:                  .+ #  \r\n    =:                      *- \r\n                            =+ ";
 
         // Constructeur
         public FourmiRousse(string nom, int pointsDeVie, int nbDesAttaque) : base(nom, pointsDeVie, nbDesAttaque)

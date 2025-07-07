@@ -19,6 +19,8 @@ namespace DuelDeGuerrier.Classes
         public int NbDesAttaque { get; set; }// Nombre de dés attaque du guerrier
         public int Victoires { get; set; }// Nombre de victoires
         public virtual string Type => "Guerrière";
+        public virtual string PersonnageAscii => "                               \r\n                -:-            \r\n            .-:+. -*-:         \r\n           .:-  .=#*##- ..     \r\n          .-   .####*#+@@-     \r\n         :+-    .*##-:.-.+:    \r\n          *#   :+::.-=#@#-:+   \r\n    =#*:  --  :#%==++%%   .#+  \r\n     :. .#%%**- .+*#@#=  .: +: \r\n     .@. .####%#%%%%###*#.:*=  \r\n       +  :     :--#*:*.:#*%*  \r\n       .. :     +##.#-#@@%##*  \r\n       ..**:    .# +=###@%%.   \r\n        ..-%    == .*+#*%%@-   \r\n         :     :*.  =#%*#%%.   \r\n         .:    =%.   +%%%@=    \r\n          -   :=     :*.       \r\n          .-.--       -:       \r\n        .*#=+%+*%+=*%%-%%%###+ \r\n                      =.+#*###.\r\n                         =     \r\n                           ..  ";
+
 
         // Constructeur
         public Guerrier(string nom, int pointsDeVie, int nbDesAttaque)
@@ -38,7 +40,8 @@ namespace DuelDeGuerrier.Classes
         /**
          * Récupére les PV de l'instance
          */
-        public int GetPointsDeVie() => PointsDeVie;
+        public int GetPointsDeVie() => PointsDeVie < 0 ? 0 : PointsDeVie;
+        public int GetPointsDeVieMax() => PointsDeVieMax;
         /**
          * Modifie les PV de l'instance
          */
@@ -66,6 +69,8 @@ namespace DuelDeGuerrier.Classes
             Victoires++;
         }
         public int GetNbVictoires() => Victoires;
+
+        public virtual string GetAscii() => PersonnageAscii;
 
         public string ObtenirType() => Type;
         /**

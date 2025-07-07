@@ -10,6 +10,7 @@ namespace DuelDeGuerrier.Interfaces
     {
         public string GetNom();
         public int GetPointsDeVie();
+        public int GetPointsDeVieMax();
         public void SetPointsDeVie(int pointsDeVie);
         public int Attaquer();
         public void SubirDegats(int degats);
@@ -18,5 +19,6 @@ namespace DuelDeGuerrier.Interfaces
         public void IncrementerVictoires();
         public string ObtenirType();
         public string ObtenirInfos();
+        public string GetAscii();
     }
 }
