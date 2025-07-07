@@ -28,7 +28,6 @@ namespace DuelDeGuerrier.Classes
             foreach (ICombattant fourmi in fourmis)
             {
                 string StringJSON = JsonSerializer.Serialize(fourmi, fourmi.GetType(), options); // Serialiser la fourmi en une string json
-                Console.WriteLine(StringJSON); // test
                 ElementsJSON.Add(StringJSON); // Ajouter cette string JSON à la liste de string
             }
             //Convertir la liste en une seule string
@@ -36,6 +35,9 @@ namespace DuelDeGuerrier.Classes
 
             // Effectuer l'enregistrement dans un fichier
             File.WriteAllText("sauvegarde.json", ConversionJSONString);
+
+            // Texte de confirmation
+            Console.WriteLine("Sauvegarde effectuée avec succès!");
         }
 
         /**
@@ -94,7 +96,7 @@ namespace DuelDeGuerrier.Classes
                 Console.WriteLine($"Erreur de lecture JSON : {ex.Message}");
             }
 
-            Console.WriteLine("Chargement réalisé avec succès.");
+            Console.WriteLine("Chargement réalisé avec succès!");
             return fourmis;
         }
     }

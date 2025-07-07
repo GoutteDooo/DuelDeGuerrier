@@ -96,6 +96,7 @@ namespace DuelDeGuerrier
                     break;
                 case '6':
                     ChargerSauvegarder.SauvegarderFourmis(fourmisGuerrieres); // Si le joueur souhaite enregistrer la liste de fourmis
+                    MenuPrincipal();
                     break;
                 case '7':
                     fourmisGuerrieres = ChargerSauvegarder.ChargerFourmis();
