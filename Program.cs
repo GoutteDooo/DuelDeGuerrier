@@ -69,7 +69,7 @@ namespace DuelDeGuerrier
                     AfficherHistorique(); // Si le joueur affiche l'historique
                     break;
                 case '6':
-                    Ecriture.SauvegarderFourmis(fourmisGuerrieres); // Si le joueur souhaite enregistrer la liste de fourmis
+                    ChargerDecharger.SauvegarderFourmis(fourmisGuerrieres); // Si le joueur souhaite enregistrer la liste de fourmis
                     break;
                 case '7':
                     GuideUtilisateur.AfficherGuide(); // Si le joueur affiche l'historique
