@@ -18,7 +18,9 @@ namespace DuelDeGuerrier.Classes
         {
             ["menu_principal"] = "Audio/menu_principal.wav",
             ["guide_utilisateur"] = "Audio/guide_utilisateur.wav",
-            ["tournoi"] = "Audio/tournoi.wav"
+            ["tournoi"] = "Audio/tournoi.wav",
+            ["fight"] = "Audio/fight.wav",
+            ["victoire"] = "Audio/victoire.wav"
         };
         static public string musiqueActuelle = cheminMusiques["menu_principal"]; // Pour pouvoir jouer/Arrêter la musique à tout instant
         static public SoundPlayer LecteurMusique = new SoundPlayer(musiqueActuelle); // S'occupe de jouer la musique

@@ -15,7 +15,7 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            MenuTitre();
+            EcranTitre();
         }
         /**
          * Affiche dans la console le menu principal
@@ -89,7 +89,7 @@ namespace DuelDeGuerrier
                     AfficherFourmisGuerrieres(); // Si l'utilisateur veut voir la liste des fourmis guerrières
                     break;
                 case '4':
-                    LancerTournoi(); // Si le joueur veut lancer le tournoi
+                    EcranTournoi(); // Si le joueur veut lancer le tournoi
                     break;
                 case '5':
                     AfficherHistorique(); // Si le joueur affiche l'historique
@@ -306,6 +306,24 @@ namespace DuelDeGuerrier
         }
 
         /**
+         * Affiche l'écran "FIGHT" du tournoi avant de le lancer
+         */
+        public static void EcranTournoi()
+        {
+            // son "fight"
+            Musique.LancerMusique("fight");
+            // Titre principal
+            var font = FigletFont.Load("Fonts/3d.flf");
+            Console.WriteLine("\n\n\n\n\n\n");
+            AnsiConsole.Write(
+            new FigletText(font, "FIGHT")
+            .Centered()
+            .Color(Color.Red));
+            Thread.Sleep(1500);
+            LancerTournoi();
+        }
+
+        /**
          * Fait se combattre toutes les fourmis de la liste fourmisGuerrieres jusqu'à ce qu'il n'en reste plus qu'une victorieuse
          * Lorsqu'il n'en reste plus qu'une, affiche la fourmi victorieuse
          */
@@ -382,6 +400,8 @@ namespace DuelDeGuerrier
             // S'il ne reste plus qu'une seule fourmi guerrière dans la liste, alors c'est la gagnante
             if (fourmisGuerrieres.Count == 1)
             {
+                // Son de victoire
+                Musique.LancerMusique("victoire");
                 // Affichage
                 Console.WriteLine($"------ FIN DU TOURNOI ------\n");
                 Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
@@ -442,7 +462,7 @@ namespace DuelDeGuerrier
                 // Enfin, on affiche les informations des deux fourmis
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
                 // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
@@ -565,7 +585,7 @@ namespace DuelDeGuerrier
         /**
          * Affiche le Menu Titre
          */
-        public static void MenuTitre()
+        public static void EcranTitre()
         {
             // Musique
             Musique.LancerMusique("menu_principal");
