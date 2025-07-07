@@ -24,12 +24,12 @@ namespace DuelDeGuerrier.Classes
             table.AddColumn(new TableColumn("[gray]Options[/]"));
 
             // Add some rows
-            table.AddRow("1", "[yellow]Bref tutoriel sur l'utilisation du Programme[/]");
+            table.AddRow("1", "[orange1]Bref tutoriel sur l'utilisation du Programme[/]");
             table.AddRow("2", "[yellow]Explication du menu \"Créer une fourmi guerrière[/]");
-            table.AddRow("3", "[yellow]Comment se déroule un duel [/]");
-            table.AddRow("4", "[yellow]Explication des types de fourmi[/]");
+            table.AddRow("3", "[red]Comment se déroule un duel [/]");
+            table.AddRow("4", "[green]Explication des types de fourmi[/]");
             table.AddRow("",""); 
-            table.AddRow("0", "[yellow]Revenir au Menu Principa[/]");
+            table.AddRow("0", "Revenir au Menu Principal");
             table.ShowRowSeparators();
             // Centrer la table
             table.Centered();
@@ -38,18 +38,6 @@ namespace DuelDeGuerrier.Classes
             // Render the table to the console
             AnsiConsole.Write(table);
         
-        Console.WriteLine("Bienvenue dans le Manuel Utilisateur!\n" +
-                "Faites votre choix :\n" +
-                "\n" +
-                "\t1. Bref tutoriel sur l'utilisation du Programme\n" +
-                "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
-                "\t3. Comment se déroule un duel ?\n" +
-                "\t4. Explication des types de fourmi\n" +
-                "\n" +
-                "\t0. Revenir au Menu Principal\n" +
-                "\n" +
-                "Faites votre choix : ");
-
             ConsoleKeyInfo input = Console.ReadKey();
             Console.Clear();
             if (!"01234".Contains(input.KeyChar))
@@ -93,7 +81,6 @@ namespace DuelDeGuerrier.Classes
          */
         private static void AfficherTutoriel(List<(ConsoleColor, string, int)> tuto, string typeDeTutoriel)
         {
-
             foreach ((ConsoleColor, string, int) affichage in tuto)
             {
                 Console.Clear();

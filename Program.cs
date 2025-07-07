@@ -13,9 +13,7 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            //MenuTitre
-            MenuPrincipal();
-
+            MenuTitre();
         }
         /**
          * Affiche dans la console le menu principal
@@ -37,16 +35,16 @@ namespace DuelDeGuerrier
             table.AddColumn(new TableColumn("[gray]Options[/]"));
 
             // Add some rows
-            table.AddRow("1", "[yellow]Créer une fourmi guerrière[/]");
-            table.AddRow("2", "[yellow]Supprimer une fourmi guerrière[/]");
-            table.AddRow("3", "[yellow]Afficher la liste des fourmis guerrières[/]");
+            table.AddRow("1", "[green]Créer une fourmi guerrière[/]");
+            table.AddRow("2", "[red]Supprimer une fourmi guerrière[/]");
+            table.AddRow("3", "[cyan]Afficher la liste des fourmis guerrières[/]");
             table.AddRow("4", "[yellow]Lancer un tournoi[/]");
-            table.AddRow("5", "[yellow]Afficher l'historique[/]");
-            table.AddRow("6", "[yellow]Sauvegarder la liste des fourmis guerrières[/]");
-            table.AddRow("7", "[yellow]Charger la dernière sauvegarde des fourmis guerrières[/]");
+            table.AddRow("5", "[gray]Afficher l'historique[/]");
+            table.AddRow("6", "[green]Sauvegarder la liste des fourmis guerrières[/]");
+            table.AddRow("7", "[blue]Charger la dernière sauvegarde des fourmis guerrières[/]");
             table.AddRow("","");
-            table.AddRow("8", "[gray]Consulter le Guide Utilisateur[/]");
-            table.AddRow("0", "[gray]Quitter[/]");
+            table.AddRow("8", "Consulter le Guide Utilisateur");
+            table.AddRow("0", "Quitter");
             table.ShowRowSeparators();
             // Centrer la table
             table.Centered();
