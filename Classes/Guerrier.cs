@@ -76,7 +76,7 @@ namespace DuelDeGuerrier.Classes
         {
             if (GetPointsDeVie() <= 0)
                 Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(Nom + " {PV=" + (PointsDeVie < 0 ? 0 : PointsDeVie) + "}");
+            Console.WriteLine(Nom + "(" + ObtenirType() + ")" +  " {PV=" + (PointsDeVie < 0 ? 0 : PointsDeVie) + "}");
             Console.ResetColor();
         }
         /**

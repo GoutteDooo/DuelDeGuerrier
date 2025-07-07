@@ -394,10 +394,10 @@ namespace DuelDeGuerrier.Classes
                     fourmiASCII = "            :   ..             \r\n          .  . ::-:            \r\n         .  =::-=-.       -.   \r\n             :--=-     .:      \r\n          -  ::===   -.     :  \r\n           .::==:=+=..    -    \r\n            .:-===-====.:      \r\n            ==--==+=.-.=       \r\n           -=-+-===+ :.-=:     \r\n         ==-=:=-==-  .::-      \r\n      .==  .=--+-. -   :=      \r\n    :=.   .-=:.=-==::. :=+     \r\n  :+     -=:.=  :---+::-- .-   \r\n..     =- ..-:  ::==-=--:   :  \r\n    :=.   ..-:  -:-----:.:   :.\r\n  :-      ..=-:.--:=:--=. :    \r\n          :+.:: .---===-.  .:  \r\n           .--.:..-+-=--       \r\n              :::  :-=-=       \r\n              ..    . -:       \r\n             ..     : .        \r\n             .     .:          \r\n           ...     .:          \r\n        ...-:     ::=          \r\n        ..       ..:..         ";
                     List<(ConsoleColor, string)> capacitesBDF = new List<(ConsoleColor, string)> {
                         (ConsoleColor.Blue, "- Lance uniquement des sorts à chaque tour de manière aléatoire contre 10 points de mana :\n"),
-                        (ConsoleColor.Red, "\t• Boule de Feu : Inflige 10 points de dégâts\n"),
-                        (ConsoleColor.Green, "\t• Soin : Récupère 5 Points de Vie\n"),
+                        (ConsoleColor.Red, "\t• Boule de Feu : Inflige 15 points de dégâts\n"),
+                        (ConsoleColor.Green, "\t• Soin : Récupère 10 Points de Vie\n"),
                         (ConsoleColor.Cyan, "\t• Bouclier Magique : Réduit les dégâts de 50% contre la prochaine attaque adverse\n"),
-                        (ConsoleColor.Yellow, "\t• Tir Balle de Fusil : Lance un dé de 1 à 7. Si le résultat est 7, la fourmi Balle de Fusil remporte le duel.\n"),
+                        (ConsoleColor.Yellow, "\t• Tir Balle de Fusil : Lance un dé de 1 à 6. Si le résultat est 6, la fourmi Balle de Fusil remporte le duel.\n"),
                         (ConsoleColor.Red, "\n\t- /!\\ Lorsque la fourmi Balle de Fusil n'a plus assez de mana, elle lance automatiquement\n"),
                         (ConsoleColor.Red, "       un sort de récupération de mana, qui lui fait récupérer entre 3 et 8 points de mana, au prix d'un tour."),
                     };

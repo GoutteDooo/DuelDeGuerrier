@@ -55,14 +55,14 @@ namespace DuelDeGuerrier.Classes
                 {
                     case 0:
                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("La Boule de Feu inflige 10 points de dégâts!!");
-                        degats += 10;
+                        Console.WriteLine("La Boule de Feu inflige 15 points de dégâts!!");
+                        degats += 15;
                         break;
 
                     case 1:
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"{this.GetNom()} récupère 5 PV !");
-                        this.SetPointsDeVie(this.GetPointsDeVie() + 5);
+                        Console.WriteLine($"{this.GetNom()} récupère 10 PV !");
+                        this.SetPointsDeVie(this.GetPointsDeVie() + 10);
                         break;
 
                     case 2:
@@ -72,7 +72,7 @@ namespace DuelDeGuerrier.Classes
                         break;
 
                     case 3:
-                        int resultatAttendu = 7;
+                        int resultatAttendu = 6;
                         Console.WriteLine($"{this.GetNom()} tente une attaque {sorts[indexSort]} !\n" +
                             $"Lancer de dés en cours... Si le résultat est {resultatAttendu}, l'adversaire perd le round.");
                         int resultat = rng.Next(1, resultatAttendu + 1);

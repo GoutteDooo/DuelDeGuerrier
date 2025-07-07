@@ -29,7 +29,7 @@ namespace DuelDeGuerrier
                 "\t6. Sauvegarder la liste des fourmis guerrières\n" +
                 "\t7. Charger la liste des fourmis guerrières\n" +
                 "\t\n" +
-                "\t7. Consulter le Guide Utilisateur\n" +
+                "\t8. Consulter le Guide Utilisateur\n" +
                 "\t0. Quitter\n\n");
         }
 
@@ -46,7 +46,7 @@ namespace DuelDeGuerrier
             // Une fois que l'utilisateur a fait une saisie, on nettoie la console
             Console.Clear();
             // Si le joueur saisie une autre option que celles disponibles
-            int nombreOptions = 7;
+            int nombreOptions = 8;
             if (!LireChoixUtilisateur(0, nombreOptions, saisie))
             {
                 AfficherErreur("Veuillez saisir une des options disponibles SVP.");
