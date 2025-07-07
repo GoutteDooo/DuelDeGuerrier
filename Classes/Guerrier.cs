@@ -90,18 +90,13 @@ namespace DuelDeGuerrier.Classes
             int total = 0;
             Random rnd = new Random();
 
-            Console.WriteLine("Lancers de dès:");
-
             for (int i = 0; i < NbDesAttaque; i++)
             {
                 int lancer = rnd.Next(1, 7);
-                Console.WriteLine(lancer + (i < NbDesAttaque - 1 ? "+" : ""));
                 total += lancer;
             }
 
-            Console.WriteLine(" = " + total);
             return total;
-
         }
 
 

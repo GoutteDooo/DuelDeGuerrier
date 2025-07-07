@@ -27,7 +27,7 @@ namespace DuelDeGuerrier
                 "\t4. Lancer un tournoi\n" +
                 "\t5. Afficher l'historique\n" +
                 "\t6. Sauvegarder la liste des fourmis guerrières\n" +
-                "\t7. Charger la liste des fourmis guerrières\n" +
+                "\t7. Charger la dernière sauvegarde des fourmis guerrières\n" +
                 "\t\n" +
                 "\t8. Consulter le Guide Utilisateur\n" +
                 "\t0. Quitter\n\n");
@@ -351,6 +351,7 @@ namespace DuelDeGuerrier
         }
 
         /**
+         * Gère l'affichage des duels
          * Fait se combattre les deux premières fourmis de la liste fourmisGuerrieres à l'index duelID jusqu'à ce qu'une des deux gagne.
          * Lorsqu'une fourmi remporte son duel, elle récupère tout ses PVs par défaut
          * Lorsqu'une fourmi perd son duel, elle est insérée dans la liste classements
@@ -358,14 +359,17 @@ namespace DuelDeGuerrier
          */
         public static void Combattre(int duelID, List<ICombattant> etapeDeClassement, List<(int, string, string)> historiqueCombats, int etape)
         {
+            // On déclare les deux fourmis qui se battent en duel
             var fourmi1 = fourmisGuerrieres[duelID];
             var fourmi2 = fourmisGuerrieres[duelID + 1];
 
+            // Affichage
             string combat = $"--- Combat entre {fourmi1.GetNom()}({fourmi1.ObtenirType()}) et {fourmi2.GetNom()}({fourmi2.ObtenirType()}) ---";
             Console.WriteLine(new string('-', combat.Length) + "\n" +
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
-            bool fourmi1Attaque = true; // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
+            // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
+            bool fourmi1Attaque = true; 
             while (true)
             {
                 // Défini qui attaque et qui défend ce tour
@@ -373,17 +377,19 @@ namespace DuelDeGuerrier
                 var fourmiDefenseur = fourmi1Attaque ? fourmi2 : fourmi1;
 
                 int degats = fourmiAttaquante.Attaquer();
-                if (degats == 99999)
+                if (degats == 99999) // Si une attaque spéciale fait des dégâts infinis
                     Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n" + (degats > 0 ? $"{fourmiAttaquante.GetNom()} attaque {fourmiDefenseur.GetNom()} avec des dégâts {(degats < 99999 ? $"de {degats}" : "INFINI")}" : "Aucun dégât n'a été distribué ce tour.") +
                     "\n");
                 Console.ResetColor();
 
+                // Après l'attaque, la fourmi défenseur prend les dégâts adverses
                 fourmiDefenseur.SubirDegats(degats);
 
+                // Enfin, on affiche les informations des deux fourmis
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
-                Thread.Sleep(100);
+                Thread.Sleep(2000);
                 // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
