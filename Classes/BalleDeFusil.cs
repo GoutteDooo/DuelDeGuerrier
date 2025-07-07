@@ -130,7 +130,7 @@ namespace DuelDeGuerrier.Classes
         {
             if (GetPointsDeVie() <= 0)
                 Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{this.GetNom()} {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
+            Console.WriteLine($"{this.GetNom()}({this.Type}) {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
             Console.ResetColor();
         }
         public override void ResetMax()
