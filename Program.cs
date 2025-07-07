@@ -206,10 +206,10 @@ namespace DuelDeGuerrier
             /* ---------------------------------------- */
             Console.Write("Quel nom souhaitez-vous lui donner ? (non vide, alphanumérique) ");
             string nom = LireNomValide();
-            Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 10 et 100) ");
-            int pvs = LireEntierValide(10, 100);
-            Console.Write("\nCombien de dés d'attaque souhaitez-vous lui donner ? (entre 1 et 10) ");
-            int desAttaque = LireEntierValide(1, 10);
+            Console.Write("\nCombien de PVs souhaitez-vous lui distribuer ? (entre 50 et 100) ");
+            int pvs = LireEntierValide(50, 100);
+            Console.Write("\nCombien de dés d'attaque souhaitez-vous lui donner ? (entre 1 et 4) ");
+            int desAttaque = LireEntierValide(1, 4);
 
             if (classe.Equals("Guerrier"))
             {
@@ -236,8 +236,8 @@ namespace DuelDeGuerrier
             }
             else if (classe.Equals("BalleDeFusil"))
             {
-                Console.WriteLine("Combien de mana aura-t-elle (entre 10 et 100) ? ");
-                int mana = LireEntierValide(10, 100);
+                Console.WriteLine("Combien de mana aura-t-elle (entre 40 et 100) ? ");
+                int mana = LireEntierValide(40, 100);
                 BalleDeFusil balleDeFusil = CreerFourmiBalleDeFusil(nom, pvs, desAttaque, mana);
                 Coloriser.ColorerTexte(ConsoleColor.Green, "Une fourmi Balle De Fusil a été créée!\n");
                 balleDeFusil.AfficherInfos();
@@ -502,12 +502,12 @@ namespace DuelDeGuerrier
             layout["Middle-Left"].Update(
                 new Panel(
                     Align.Center(
-                        new Markup(fourmi1.GetNom()),
+                        new Markup(fourmi1.GetNom() + $"({fourmi1.ObtenirType()})"),
                         VerticalAlignment.Middle)));
             layout["Middle-Right"].Update(
                 new Panel(
                     Align.Center(
-                        new Markup(fourmi2.GetNom()),
+                        new Markup(fourmi2.GetNom() + $"({fourmi2.ObtenirType()})"),
                         VerticalAlignment.Middle)));
 
             // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
@@ -535,7 +535,10 @@ namespace DuelDeGuerrier
                             new Markup(descriptionCombat),
                             VerticalAlignment.Middle)));
 
-
+                // vider la string si elle devient trop longue
+                if (descriptionCombat.Length > 660)
+                    descriptionCombat = "";
+                        
                 // Après l'attaque, la fourmi défenseur prend les dégâts adverses
                 fourmiDefenseur.SubirDegats(degats);
 

@@ -38,5 +38,12 @@ namespace DuelDeGuerrier.Classes
                 return rng;
             }
         }
+
+        public override void SubirDegats(int degats)
+        {
+            Random rng = new Random();
+            if (rng.Next(1,7) != 7) // 7 = pare les dégâts
+                base.SubirDegats(degats);
+        }
     }
 }
