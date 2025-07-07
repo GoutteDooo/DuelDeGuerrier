@@ -1,5 +1,5 @@
 - [] Ajouter un générateur de nom aléatoire pour les guerrières
-- [] Pouvoir enregistrer dans un fichier la liste des guerrières afin de pouvoir les regénérer rapidement
+- [x] Pouvoir enregistrer dans un fichier la liste des guerrières afin de pouvoir les regénérer rapidement
 - [] Afficher la liste des fourmis pendant que le joueur fait AjouterGuerrier()
-- [] Changer les dégâts en fonction du nombre de dés d'attaque
+- [x] Changer les dégâts en fonction du nombre de dés d'attaque
 - [x] Retirer le vert pendant la formation de la fourmi et ne l'afficher uniquement lorsqu'elle est générée

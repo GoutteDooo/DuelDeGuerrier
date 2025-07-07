@@ -11,7 +11,7 @@ namespace DuelDeGuerrier.Classes
     /**
      * Cette classe a pour but de gérer l'enregistrement et le chargement des fourmis
      */
-    internal class ChargerDecharger
+    internal class ChargerSauvegarder
     {
         /**
          * Enregistre dans un fichier JSON la liste de fourmis passée en paramètre
@@ -35,7 +35,6 @@ namespace DuelDeGuerrier.Classes
 
             // Effectuer l'enregistrement dans un fichier
             File.WriteAllText("sauvegarde.json", ConversionJSONString);
-            
         }
     }
 }
