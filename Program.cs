@@ -99,7 +99,10 @@ namespace DuelDeGuerrier
                     MenuPrincipal();
                     break;
                 case '7':
-                    fourmisGuerrieres = ChargerSauvegarder.ChargerFourmis();
+                    var fourmisTemp = ChargerSauvegarder.ChargerFourmis();
+                    // Ajouter chaque fourmi dans la liste principale
+                    foreach (var fourmiT in fourmisTemp)
+                        fourmisGuerrieres.Add(fourmiT);
                     MenuPrincipal();
                     break;
                 case '8':
@@ -321,6 +324,7 @@ namespace DuelDeGuerrier
             .Centered()
             .Color(Color.Red));
             Thread.Sleep(1500);
+            Console.Clear();
             LancerTournoi();
         }
 
