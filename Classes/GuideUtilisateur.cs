@@ -19,7 +19,6 @@ namespace DuelDeGuerrier.Classes
                     "\t2. Explication du menu \"Créer une fourmi guerrière\"\n" +
                     "\t3. Comment se déroule un duel ?\n" +
                     "\t4. Explication des types de fourmi\n" +
-                    "\t5. Explication du menu \"Supprimer une fourmi guerrière\"\n" +
                     "\n" +
                     "\t0. Revenir au Menu Principal\n" +
                     "\n" +
@@ -27,7 +26,7 @@ namespace DuelDeGuerrier.Classes
 
                 ConsoleKeyInfo input = Console.ReadKey();
                 Console.Clear();
-                if (!"012345".Contains(input.KeyChar))
+                if (!"01234".Contains(input.KeyChar))
                 {
                     Program.AfficherErreur("Veuillez entrer une option valide svp.");
                     continue;

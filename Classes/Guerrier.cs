@@ -78,9 +78,16 @@ namespace DuelDeGuerrier.Classes
             Console.ResetColor();
         }
         /**
-         * Renvoie un entier entre 1 et 6
+         * Renvoie un entier comprenant le nombre de dés d'attaque multiplié par un chiffre aléatoire entre 1 et 6
+         *  Exemple :
+         *      - Si le Guerrier possède 3 nombre de dés d'attaque. Alors, le résultat se situe entre (3*1 et 3*6) { 3 ; 18 }
+         *      ( par exemple 9 )
          */
-        public virtual int Attaquer() => new Random().Next(1, 6 + 1);
+        public virtual int Attaquer()
+        {
+
+            return new Random().Next(1, 6 + 1); // Renvoie un entier entre 1 et 6
+        }
 
         /**
          * Soustrait le nombre de points de vie de l'instance du parametre int degats
