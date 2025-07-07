@@ -27,6 +27,7 @@ namespace DuelDeGuerrier
                 "\t4. Lancer un tournoi\n" +
                 "\t5. Afficher l'historique\n" +
                 "\t6. Sauvegarder la liste des fourmis guerrières\n" +
+                "\t7. Charger la liste des fourmis guerrières\n" +
                 "\t\n" +
                 "\t7. Consulter le Guide Utilisateur\n" +
                 "\t0. Quitter\n\n");
@@ -69,9 +70,13 @@ namespace DuelDeGuerrier
                     AfficherHistorique(); // Si le joueur affiche l'historique
                     break;
                 case '6':
-                    ChargerDecharger.SauvegarderFourmis(fourmisGuerrieres); // Si le joueur souhaite enregistrer la liste de fourmis
+                    ChargerSauvegarder.SauvegarderFourmis(fourmisGuerrieres); // Si le joueur souhaite enregistrer la liste de fourmis
                     break;
                 case '7':
+                    fourmisGuerrieres = ChargerSauvegarder.ChargerFourmis();
+                    MenuPrincipal();
+                    break;
+                case '8':
                     GuideUtilisateur.AfficherGuide(); // Si le joueur affiche l'historique
                     break;
                 case '0':
