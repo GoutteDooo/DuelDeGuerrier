@@ -13,7 +13,7 @@ namespace DuelDeGuerrier.Classes
         public static void AfficherGuide()
         {
             // Musique
-            Musique.LancerMusique("guide_utilisateur");
+            Audio.LancerMusiqueBoucle("guide_utilisateur");
 
             var rule = new Rule("[cyan]Manuel[/]\n");
             AnsiConsole.Write(rule);

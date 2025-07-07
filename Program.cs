@@ -62,7 +62,7 @@ namespace DuelDeGuerrier
         public static void MenuPrincipal()
         {
             //Musique
-            Musique.LancerMusique("menu_principal");
+            Audio.LancerMusiqueBoucle("menu_principal");
             AfficherMenuPrincipal();
             Console.Write("Veuillez entrer un nombre: ");
 
@@ -89,7 +89,7 @@ namespace DuelDeGuerrier
                     AfficherFourmisGuerrieres(); // Si l'utilisateur veut voir la liste des fourmis guerrières
                     break;
                 case '4':
-                    EcranTournoi(); // Si le joueur veut lancer le tournoi
+                    LancerTournoi(); // Si le joueur veut lancer le tournoi
                     break;
                 case '5':
                     AfficherHistorique(); // Si le joueur affiche l'historique
@@ -315,7 +315,7 @@ namespace DuelDeGuerrier
         public static void EcranTournoi()
         {
             // son "fight"
-            Musique.LancerMusique("fight");
+            Audio.LancerMusique("fight");
             // Titre principal
             var font = FigletFont.Load("Fonts/3d.flf");
             Console.WriteLine("\n\n\n\n\n\n");
@@ -325,7 +325,6 @@ namespace DuelDeGuerrier
             .Color(Color.Red));
             Thread.Sleep(1500);
             Console.Clear();
-            LancerTournoi();
         }
 
         /**
@@ -344,20 +343,14 @@ namespace DuelDeGuerrier
 
             // -- Gestion d'erreurs --
             // -----------------------
-            // S'il n'y a aucune fourmi dans la liste
-            if (fourmisGuerrieres.Count == 0)
-            {
-                AfficherErreur("Aucune fourmi n'est présente dans l'arène !");
-                RetourMenuPrincipal();
-                return;
-            }
-            else if (fourmisGuerrieres.Count == 1) // Une seule participante
+            // S'il n'y a aucune ou 1 seule fourmi dans la liste
+            if (fourmisGuerrieres.Count <= 1)
             {
                 AfficherErreur("Il faut au moins deux participants pour lancer un tournoi !");
                 RetourMenuPrincipal();
                 return;
             }
-
+            EcranTournoi();
             // -- Démarrage du Tournoi --
             // --------------------------
             int round = 1; // Affichage sympa pour les rounds pendant le tournoi
@@ -365,7 +358,7 @@ namespace DuelDeGuerrier
             int etape = 0; // Pour savoir exactement à quelle étape (huitième, quarts...) l'on se situe dans le tournoi
             tournoi.Classements.Add(new List<ICombattant>()); // On crée une nouvelle liste pour le classement de l'étape actuelle
                                                               //
-            Musique.LancerMusique("tournoi");
+            Audio.LancerMusiqueBoucle("tournoi");
 
             while (fourmisGuerrieres.Count > 1)
             {
@@ -406,7 +399,7 @@ namespace DuelDeGuerrier
             if (fourmisGuerrieres.Count == 1)
             {
                 // Son de victoire
-                Musique.LancerMusique("victoire");
+                Audio.LancerSon("victoire");
                 // Affichage
                 Console.WriteLine($"------ FIN DU TOURNOI ------\n");
                 Coloriser.ColorerTexte(ConsoleColor.Yellow, $"La fourmi {fourmisGuerrieres[0].GetNom()} a remporté le tournoi!\n");
@@ -593,8 +586,8 @@ namespace DuelDeGuerrier
         public static void EcranTitre()
         {
             // Musique
-            Musique.LancerMusique("menu_principal");
-            Musique.LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
+            Audio.LancerMusiqueBoucle("menu_principal");
+            Audio.LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
             // Titre principal
             var font = FigletFont.Load("Fonts/3d.flf");
             Console.WriteLine("\n\n\n\n\n\n");
