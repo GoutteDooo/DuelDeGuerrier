@@ -13,16 +13,18 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            MenuTitre();
-            //MenuPrincipal();
+            //MenuTitre();
+            MenuPrincipal();
+
         }
         /**
          * Affiche dans la console le menu principal
          */
         public static void AfficherMenuPrincipal()
         {
+            var rule = new Rule("[orange1]Menu principal[/]\n");
+            AnsiConsole.Write(rule);
             Console.WriteLine(
-                "\t   ----- Menu principal -----\n" +
                 "\t1. Créer une fourmi guerrière\n" +
                 "\t2. Supprimer une fourmi guerrière\n" +
                 "\t3. Afficher la liste des fourmis guerrières\n" +
