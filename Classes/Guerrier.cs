@@ -10,8 +10,10 @@ namespace DuelDeGuerrier.Classes
 {
     class Guerrier : ICombattant
     {
+        private object rnd;
+
         // Propriétés
-        public string Nom { get ; set; }//Nom du guerrier
+        public string Nom { get; set; }//Nom du guerrier
         public int PointsDeVieMax { get; }// Nombre de pvs max du guerrier
         public int PointsDeVie { get; set; }// Points de vie du guerrier
         public int NbDesAttaque { get; set; }// Nombre de dés attaque du guerrier
@@ -85,9 +87,23 @@ namespace DuelDeGuerrier.Classes
          */
         public virtual int Attaquer()
         {
+            int total = 0;
+            Random rnd = new Random();
 
-            return new Random().Next(1, 6 + 1); // Renvoie un entier entre 1 et 6
+            Console.WriteLine("Lancers de dès:");
+
+            for (int i = 0; i < NbDesAttaque; i++)
+            {
+                int lancer = rnd.Next(1, 7);
+                Console.WriteLine(lancer + (i < NbDesAttaque - 1 ? "+" : ""));
+                total += lancer;
+            }
+
+            Console.WriteLine(" = " + total);
+            return total;
+
         }
+
 
         /**
          * Soustrait le nombre de points de vie de l'instance du parametre int degats
