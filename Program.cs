@@ -2,6 +2,8 @@
 using DuelDeGuerrier.Interfaces;
 using Spectre.Console;
 using System.ComponentModel.DataAnnotations;
+using System.Media;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DuelDeGuerrier
@@ -10,9 +12,12 @@ namespace DuelDeGuerrier
     {
         static List<ICombattant> fourmisGuerrieres = new List<ICombattant>(); // Liste contenant les fourmis guerrières instanciées
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
+        static string cheminMusique = "Audio/guide_utilisateur.wav";
+        static SoundPlayer LecteurMusique = new SoundPlayer(cheminMusique);
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
+            LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
             MenuTitre();
         }
         /**
@@ -42,7 +47,7 @@ namespace DuelDeGuerrier
             table.AddRow("5", "[gray]Afficher l'historique[/]");
             table.AddRow("6", "[green]Sauvegarder la liste des fourmis guerrières[/]");
             table.AddRow("7", "[blue]Charger la dernière sauvegarde des fourmis guerrières[/]");
-            table.AddRow("","");
+            table.AddRow("", "");
             table.AddRow("8", "Consulter le Guide Utilisateur");
             table.AddRow("0", "Quitter");
             table.ShowRowSeparators();
@@ -59,6 +64,13 @@ namespace DuelDeGuerrier
          */
         public static void MenuPrincipal()
         {
+            // Musique
+            if (cheminMusique != "Audio/guide_utilisateur.wav")
+            {
+                cheminMusique = "Audio/guide_utilisateur.wav";
+                LecteurMusique = new SoundPlayer(cheminMusique);
+                LecteurMusique.PlayLooping();
+            }
             AfficherMenuPrincipal();
             Console.Write("Veuillez entrer un nombre: ");
 
@@ -329,6 +341,11 @@ namespace DuelDeGuerrier
             int duelID = 0; // Permet de savoir précisément à quel duel on se situe dans le tournoi
             int etape = 0; // Pour savoir exactement à quelle étape (huitième, quarts...) l'on se situe dans le tournoi
             tournoi.Classements.Add(new List<ICombattant>()); // On crée une nouvelle liste pour le classement de l'étape actuelle
+                                                              //
+            cheminMusique = "Audio/Tournoi.wav";
+            LecteurMusique = new SoundPlayer(cheminMusique);
+            LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
+
             while (fourmisGuerrieres.Count > 1)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
@@ -568,7 +585,7 @@ namespace DuelDeGuerrier
             // Entrée utilisateur
             AnsiConsole.Write(
                 new Align(
-                    new Markup("[rapidblink]Appuyez sur entrée[/]\n"),
+                    new Markup("[rapidblink]Appuyez sur entrée pour démarrer le jeu[/]\n"),
                     HorizontalAlignment.Center
                 ));
 

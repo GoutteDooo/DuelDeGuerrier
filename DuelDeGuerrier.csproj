@@ -10,9 +10,19 @@
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.50.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="8.0.0" />
+	  <None Include="Audio\**\*.*">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Audio\guide_utilisateur.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Audio\Tournoi.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Fonts\3d.flf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
