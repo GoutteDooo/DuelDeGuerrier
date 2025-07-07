@@ -133,6 +133,11 @@ namespace DuelDeGuerrier.Classes
             Console.WriteLine($"{this.GetNom()}({this.Type}) {{PV={ this.GetPointsDeVie()}}} {{Mana={this.Mana}}}");
             Console.ResetColor();
         }
+
+        public override string ObtenirInfos()
+        {
+            return base.ObtenirInfos() + $" {{Mana={this.Mana}}}";
+        }
         public override void ResetMax()
         {
             base.ResetMax();

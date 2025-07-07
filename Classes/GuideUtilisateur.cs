@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,10 @@ namespace DuelDeGuerrier.Classes
     {
         public static void AfficherGuide()
         {
-            var rule = new Rule("[orange1]Menu principal[/]\n");
+            // Musique
+            Musique.LancerMusique("guide_utilisateur");
+
+            var rule = new Rule("[cyan]Manuel[/]\n");
             AnsiConsole.Write(rule);
             // Créer une table
             var table = new Table();
@@ -107,6 +111,7 @@ namespace DuelDeGuerrier.Classes
             }
             Console.Clear();
             Console.ResetColor();
+            AfficherGuide();
         }
         /**
          * Génère les données du tutoriel bref et lance l'affichage dynamique de ce dernier
@@ -365,6 +370,7 @@ namespace DuelDeGuerrier.Classes
                     break;
                 }
             }
+            AfficherGuide();
         }
 
         /**

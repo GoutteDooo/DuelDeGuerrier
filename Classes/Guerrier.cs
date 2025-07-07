@@ -79,6 +79,11 @@ namespace DuelDeGuerrier.Classes
             Console.WriteLine(Nom + "(" + ObtenirType() + ")" +  " {PV=" + (PointsDeVie < 0 ? 0 : PointsDeVie) + "}");
             Console.ResetColor();
         }
+
+        public virtual string ObtenirInfos()
+        {
+            return $"{{PV={(PointsDeVie < 0 ? 0 : PointsDeVie)}}}";
+        }
         /**
          * Renvoie un entier comprenant le nombre de dés d'attaque multiplié par un chiffre aléatoire entre 1 et 6
          *  Exemple :

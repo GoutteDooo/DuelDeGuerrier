@@ -12,12 +12,9 @@ namespace DuelDeGuerrier
     {
         static List<ICombattant> fourmisGuerrieres = new List<ICombattant>(); // Liste contenant les fourmis guerrières instanciées
         static List<Tournoi> historique = new List<Tournoi>(); // Liste contenant les tournois lancés et terminés
-        static string cheminMusique = "Audio/guide_utilisateur.wav";
-        static SoundPlayer LecteurMusique = new SoundPlayer(cheminMusique);
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
             MenuTitre();
         }
         /**
@@ -64,13 +61,8 @@ namespace DuelDeGuerrier
          */
         public static void MenuPrincipal()
         {
-            // Musique
-            if (cheminMusique != "Audio/guide_utilisateur.wav")
-            {
-                cheminMusique = "Audio/guide_utilisateur.wav";
-                LecteurMusique = new SoundPlayer(cheminMusique);
-                LecteurMusique.PlayLooping();
-            }
+            //Musique
+            Musique.LancerMusique("menu_principal");
             AfficherMenuPrincipal();
             Console.Write("Veuillez entrer un nombre: ");
 
@@ -294,13 +286,21 @@ namespace DuelDeGuerrier
             }
             else
             {
-                Console.WriteLine("Les fourmis guerrières sont :");
+                var table = new Table();
+                table.Title = new TableTitle("Hall Des Combattantes");
+                table.AddColumn(new TableColumn("Nom").Centered());
+                table.AddColumn(new TableColumn("Type").Centered());
+                table.AddColumn(new TableColumn("Stats").Centered());
+                table.ShowRowSeparators();
                 // Pour chaque fourmiGuerriere dans la liste fourmisGuerrieres
                 foreach (Guerrier fourmiGuerriere in fourmisGuerrieres)
                 {
                     // On affiche les infos de la fourmiGuerriere actuelle
-                    fourmiGuerriere.AfficherInfos();
+                    table.AddRow(fourmiGuerriere.Nom, fourmiGuerriere.ObtenirType(), fourmiGuerriere.ObtenirInfos());
                 }
+                table.Centered();
+                AnsiConsole.Write(table);
+                Console.WriteLine("\n\n");
             }
             RetourMenuPrincipal();
         }
@@ -342,9 +342,7 @@ namespace DuelDeGuerrier
             int etape = 0; // Pour savoir exactement à quelle étape (huitième, quarts...) l'on se situe dans le tournoi
             tournoi.Classements.Add(new List<ICombattant>()); // On crée une nouvelle liste pour le classement de l'étape actuelle
                                                               //
-            cheminMusique = "Audio/Tournoi.wav";
-            LecteurMusique = new SoundPlayer(cheminMusique);
-            LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
+            Musique.LancerMusique("tournoi");
 
             while (fourmisGuerrieres.Count > 1)
             {
@@ -444,7 +442,7 @@ namespace DuelDeGuerrier
                 // Enfin, on affiche les informations des deux fourmis
                 fourmiDefenseur.AfficherInfos();
                 fourmiAttaquante.AfficherInfos();
-                Thread.Sleep(2000);
+                Thread.Sleep(100);
                 // Si la fourmi qui défend perd
                 if (fourmiDefenseur.GetPointsDeVie() <= 0)
                 {
@@ -569,16 +567,20 @@ namespace DuelDeGuerrier
          */
         public static void MenuTitre()
         {
+            // Musique
+            Musique.LancerMusique("menu_principal");
+            Musique.LecteurMusique.PlayLooping(); // ou .PlaySync() pour attendre la fin
             // Titre principal
             var font = FigletFont.Load("Fonts/3d.flf");
+            Console.WriteLine("\n\n\n\n\n\n");
             AnsiConsole.Write(
-            new FigletText(font, "\n\n\n\nL'arene des \n fourmis")
+            new FigletText(font, "L'arene des \n fourmis")
             .Centered()
             .Color(Color.Gold3_1));
 
             // Crédits
             AnsiConsole.Write(
-            new FigletText(FigletFont.Load("Fonts/eftipiti.flf"), "\n\n\n\t Donovan & Othman\n\n\n\n")
+            new FigletText(FigletFont.Load("Fonts/eftipiti.flf"), "\n\n\n\t Donovan  Othman\n\n\n\n")
             .Centered()
             .Color(Color.Blue));
 

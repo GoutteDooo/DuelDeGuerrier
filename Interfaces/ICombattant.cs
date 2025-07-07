@@ -17,5 +17,6 @@ namespace DuelDeGuerrier.Interfaces
         public void ResetMax();
         public void IncrementerVictoires();
         public string ObtenirType();
+        public string ObtenirInfos();
     }
 }
