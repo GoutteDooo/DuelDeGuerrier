@@ -14,13 +14,9 @@ namespace DuelDeGuerrier
         {
             Console.Title = "Arene de Fourmis";
 
-            MenuTitre();
-
-
+            //MenuTitre();
+            MenuPrincipal();
         }
-
-
-
         /**
          * Affiche dans la console le menu principal
          */
@@ -516,23 +512,34 @@ namespace DuelDeGuerrier
             Environment.Exit(0);
         }
 
+        /**
+         * Affiche le Menu Titre
+         */
         public static void MenuTitre()
         {
-            //MenuPrincipal();
+            // Titre principal
+            var font = FigletFont.Load("Fonts/3d.flf");
             AnsiConsole.Write(
-            new FigletText("L'arène des fourmis")
+            new FigletText(font, "\n\n\n\nL'arene des \n fourmis")
             .Centered()
-            .Color(Color.Red));
+            .Color(Color.Gold3_1));
 
-
-            var font = FigletFont.Load("starwars.flf");
+            // Crédits
             AnsiConsole.Write(
-                new FigletText("Donovan & Othman")
-                .Centered()
-                .Color(Color.Red)
-                .Color(Color.DarkBlue));
+            new FigletText(FigletFont.Load("Fonts/eftipiti.flf"), "\n\n\n\t Donovan & Othman\n\n\n\n")
+            .Centered()
+            .Color(Color.Blue));
 
+            // Entrée utilisateur
 
+            AnsiConsole.Write(
+            new FigletText(FigletFont.Load("Fonts/eftipiti.flf"), "\n\n\nAppuyez sur entrée\n")
+            .Centered()
+            .Color(Color.Default));
+            //Coloriser.ColorerTexte(ConsoleColor.DarkGray, "\n\n\nAppuyez sur [ X ]\n");
+            ConsoleKeyInfo input = Console.ReadKey();
+            Console.Clear();
+            MenuPrincipal();
         }
 
         /* ------------------------- */
