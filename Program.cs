@@ -13,9 +13,8 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-
-            //MenuTitre();
-            MenuPrincipal();
+            MenuTitre();
+            //MenuPrincipal();
         }
         /**
          * Affiche dans la console le menu principal
@@ -531,12 +530,12 @@ namespace DuelDeGuerrier
             .Color(Color.Blue));
 
             // Entrée utilisateur
-
             AnsiConsole.Write(
-            new FigletText(FigletFont.Load("Fonts/eftipiti.flf"), "\n\n\nAppuyez sur entrée\n")
-            .Centered()
-            .Color(Color.Default));
-            //Coloriser.ColorerTexte(ConsoleColor.DarkGray, "\n\n\nAppuyez sur [ X ]\n");
+                new Align(
+                    new Markup("[rapidblink]Appuyez sur entrée[/]\n"),
+                    HorizontalAlignment.Center
+                ));
+
             ConsoleKeyInfo input = Console.ReadKey();
             Console.Clear();
             MenuPrincipal();
