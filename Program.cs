@@ -1,5 +1,7 @@
 ﻿using DuelDeGuerrier.Classes;
 using DuelDeGuerrier.Interfaces;
+using Spectre.Console;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DuelDeGuerrier
@@ -11,8 +13,13 @@ namespace DuelDeGuerrier
         static void Main(string[] args)
         {
             Console.Title = "Arene de Fourmis";
-            MenuPrincipal();
+
+            MenuTitre();
+
+
         }
+
+
 
         /**
          * Affiche dans la console le menu principal
@@ -369,7 +376,7 @@ namespace DuelDeGuerrier
                 combat + "\n" +
                 new string('-', combat.Length) + "\n");
             // Booléen permettant de définir l'attaquant et le défenseur (en l'occurence, fourmi1 attaque et fourmi2 défend)
-            bool fourmi1Attaque = true; 
+            bool fourmi1Attaque = true;
             while (true)
             {
                 // Défini qui attaque et qui défend ce tour
@@ -507,6 +514,25 @@ namespace DuelDeGuerrier
             Console.WriteLine("Merci d'avoir joué à L'Arène Des Fourmis !\n\n" +
                 "A bientôt!!");
             Environment.Exit(0);
+        }
+
+        public static void MenuTitre()
+        {
+            //MenuPrincipal();
+            AnsiConsole.Write(
+            new FigletText("L'arène des fourmis")
+            .Centered()
+            .Color(Color.Red));
+
+
+            var font = FigletFont.Load("starwars.flf");
+            AnsiConsole.Write(
+                new FigletText("Donovan & Othman")
+                .Centered()
+                .Color(Color.Red)
+                .Color(Color.DarkBlue));
+
+
         }
 
         /* ------------------------- */
