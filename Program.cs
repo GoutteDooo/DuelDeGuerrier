@@ -542,7 +542,6 @@ namespace DuelDeGuerrier
                 // Après l'attaque, la fourmi défenseur prend les dégâts adverses
                 fourmiDefenseur.SubirDegats(degats);
 
-                Thread.Sleep(1000);
                 // Test affichage type bar chart
                 layout["Top-Left"].Update(
                     new Panel(
@@ -562,6 +561,8 @@ namespace DuelDeGuerrier
 
                 AnsiConsole.Write(layout);
 
+                Thread.Sleep(1000);
+                Console.Clear();
                 // Enfin, on affiche les informations des deux fourmis
                 //fourmiDefenseur.AfficherInfos();
                 //fourmiAttaquante.AfficherInfos();
